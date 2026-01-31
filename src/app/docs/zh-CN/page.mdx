@@ -1,0 +1,107 @@
+export const metadata = {
+  title: '快速开始',
+  description: 'OmniMaaS 快速入门指南，帮助您快速接入和使用 API 服务。',
+}
+
+# 快速开始
+
+OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 `base_url` 和 `api_key` 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }}
+
+<Note>
+  可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。
+</Note>
+
+## 1. 平台登录
+
+访问 [OmniMaaS](https://omnimaas.com)，点击右上角"登录"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。
+
+## 2. 选择模型
+
+- 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息
+- 可进入模型详情页查看模型的详细信息及其可用端点。
+
+## 3. 获取 API Key
+
+- 登录 OmniMaaS 控制台，进入 API Keys 页面
+- 新建密钥并妥善保存；
+- 每个请求都需携带 `Authorization: Bearer <API_KEY>` 头
+- 如需区分环境，可生成多个 Key 并设置标签或权限范围
+
+## 4. 发起您的第一个请求
+
+目前平台支持 REST API 进行调用，可通过 cURL、Apifox 等方式进行测试，也支持OpenAI SDK库进行调用，可先安装 OpenAI SDK 后调用：
+
+### 安装 SDK
+
+<CodeGroup>
+
+```bash {{ title: 'Python' }}
+pip install openai
+```
+
+```bash {{ title: 'Node.js' }}
+npm install openai
+```
+
+</CodeGroup>
+
+### 发起请求
+
+<CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "model": "gpt-4o",
+        "messages": [
+          {"role": "user", "content": "解释下量子是什么？"}
+        ]
+      }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="YOUR_API_KEY",
+    base_url="https://api.omnimaas.com/v1"
+)
+
+resp = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "user", "content": "Hello from OmniMaaS!"}
+    ],
+)
+print(resp.choices[0].message.content)
+```
+
+```javascript {{ title: 'Node.js' }}
+const OpenAI = require('openai');
+
+const client = new OpenAI({
+    apiKey: 'YOUR_API_KEY',
+    baseURL: 'https://api.omnimaas.com/v1'
+});
+
+const completion = await client.chat.completions.create({
+    model: 'gpt-4o',
+    messages: [
+        { role: 'user', content: 'Hello from OmniMaaS!' }
+    ]
+});
+
+console.log(completion.choices[0].message.content);
+```
+
+</CodeGroup>
+
+<Note>
+  ### 友情提示
+
+  平台支持所有目前OpenAI、Gemini、Claude平台所支持调用的模型，如果发现有需要用的模型平台还没上架，可扫描以下二维码添加提需上架：
+
+  <img src="/images/wechat-qrcode.jpg" alt="微信二维码" style={{ width: '200px', borderRadius: '8px' }} />
+</Note>

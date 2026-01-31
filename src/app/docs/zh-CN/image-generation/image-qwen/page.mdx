@@ -1,0 +1,277 @@
+export const metadata = {
+  title: 'Qwen & Wan 图像生成',
+  description: 'OmniMaaS 通义千问和万相系列图像生成接口。',
+}
+
+# Qwen & Wan 图像生成
+
+OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="qwen-image-edit-plus" type="model">
+    通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。
+  </Property>
+  <Property name="wan2.5-t2i-preview" type="model">
+    通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。
+  </Property>
+  <Property name="wan2.5-i2i-preview" type="model">
+    通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能力进一步提升，支持高一致性保持的多图参考生成，文字生成表现优异。
+  </Property>
+</Properties>
+
+---
+
+## 创建图片
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        创建图片时选择的模型 ID
+      </Property>
+      <Property name="prompt" type="string" required>
+        期望生成图片的文本描述
+      </Property>
+      <Property name="n" type="integer">
+        要生成的图片数量，`1-10` 之间，默认 `1`
+      </Property>
+      <Property name="quality" type="string">
+        生成图片的质量，默认 `standard`
+      </Property>
+      <Property name="size" type="string">
+        生成图片的尺寸，默认 `1024x1024`
+      </Property>
+      <Property name="response_format" type="string">
+        返回格式，`url` 或 `b64_json`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/images/generations">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "wan2.5-t2i-preview",
+    "prompt": "生成一只可爱的小猫",
+    "n": 1
+  }'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/images/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.5-t2i-preview",
+    "prompt": "生成一只可爱的小猫",
+    "n": 1
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json()['data'][0]['url'])
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 编辑图片
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/edits" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        创建图片时选择的模型 ID
+      </Property>
+      <Property name="prompt" type="string" required>
+        期望生成图片的文本描述
+      </Property>
+      <Property name="images" type="string | array" required>
+        要编辑的图片 URL 或 Base64，支持单张或多张图片
+      </Property>
+      <Property name="size" type="string">
+        生成图片的尺寸，默认 `1280*1280`
+        <Options>
+          <Option value="1280*1280" />
+          <Option value="1024*1024" label="1:1" />
+          <Option value="800*1200" label="2:3" />
+          <Option value="1200*800" label="3:2" />
+          <Option value="960*1280" label="3:4" />
+          <Option value="1280*960" label="4:3" />
+          <Option value="720*1280" label="9:16" />
+          <Option value="1280*720" label="16:9" />
+        </Options>
+      </Property>
+      <Property name="watermark" type="boolean">
+        是否添加水印标识，默认 `false`
+      </Property>
+      <Property name="negative_prompt" type="string">
+        反向提示词，用来描述不希望在画面中看到的内容
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/images/edits">
+
+```bash {{ title: '单图示例' }}
+curl https://api.omnimaas.com/v1/images/edits \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "qwen-image-edit-plus",
+    "prompt": "将背景改为森林",
+    "images": ["https://example.com/image.webp"]
+}'
+```
+
+```bash {{ title: '多图示例' }}
+curl https://api.omnimaas.com/v1/images/edits \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "qwen-image-edit-plus",
+    "prompt": "将这两张图片合成一张",
+    "images": [
+      "https://example.com/image1.webp",
+      "https://example.com/image2.webp"
+    ]
+}'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/images/edits'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "qwen-image-edit-plus",
+    "prompt": "将背景改为森林",
+    "images": ["https://example.com/image.webp"]
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json()['data'][0]['url'])
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应格式
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="created" type="integer">
+        响应创建的 Unix 时间戳（秒）
+      </Property>
+      <Property name="data" type="array">
+        生成的图片对象列表
+      </Property>
+      <Property name="data[].url" type="string">
+        如果 `response_format` 为 `url`（默认），则包含生成图片的 URL
+      </Property>
+      <Property name="data[].b64_json" type="string">
+        如果 `response_format` 为 `b64_json`，则包含生成图片的 Base64 编码
+      </Property>
+      <Property name="data[].revised_prompt" type="string">
+        如果提示有任何修改，则包含用于生成图片的修改后的提示
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.input_tokens" type="integer">
+        输入使用的令牌数
+      </Property>
+      <Property name="usage.output_tokens" type="integer">
+        输出使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+      <Property name="usage.image_count" type="integer">
+        图片生成总张数
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "data": [
+        {
+            "url": "https://dashscope-result-sh.oss-cn-shanghai.aliyuncs.com/...",
+            "b64_json": "",
+            "revised_prompt": ""
+        }
+    ],
+    "created": 1768403299,
+    "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "image_count": 1
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+<Note>
+  目前 `z-image`、`qwen-image`、`wan2.6` 是同步接口，2.5 及以下为异步接口；为了输出一致性，目前系统会将异步输出结果自动转成同步结果，无需再次调用查询接口即可完成数据结果的获取。
+</Note>

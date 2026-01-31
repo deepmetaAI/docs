@@ -1,0 +1,495 @@
+export const metadata = {
+  title: 'Wan 视频生成',
+  description: 'OmniMaaS Wan（万相）视频生成接口，支持文生视频和图生视频。',
+}
+
+# Wan 视频生成
+
+OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="wan2.6-t2v" type="model">
+    文生视频
+  </Property>
+  <Property name="wan2.6-i2v" type="model">
+    图生视频
+  </Property>
+</Properties>
+
+其他模型支持可联系客服。
+
+---
+
+## 文生视频
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`wan2.6-t2v`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述
+      </Property>
+      <Property name="seconds" type="string">
+        视频时长参数，wan2.6-t2v 可选值为 5、10、15，默认 `5`
+      </Property>
+      <Property name="size" type="string">
+        指定生成的视频分辨率，格式为宽*高。wan2.6-t2v 默认值为 `1920*1080`（1080P）
+        <Options>
+          <Option value="1920*1080" label="16:9" />
+          <Option value="1080*1920" label="9:16" />
+          <Option value="1440*1440" label="1:1" />
+          <Option value="1632*1248" label="4:3" />
+          <Option value="1248*1632" label="3:4" />
+        </Options>
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `prompt_extend`、`shot_type` 等
+      </Property>
+    </Properties>
+
+    ### metadata 参数说明
+
+    metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/videos">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/videos \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "wan2.6-t2v",
+    "prompt": "一个穿着宇航服的宇航员在月球上行走, 高品质, 电影级",
+    "seconds": "5",
+    "size": "1920*1080"
+  }'
+```
+
+```python {{ title: '文生视频' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.6-t2v",
+    "prompt": "蓝天白云，一群大雁飞过",
+    "seconds": "5",
+    "size": "1920*1080"
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+    if 'application/json' in response.headers.get('Content-Type', ''):
+        response_data = response.json()
+        print(f"解析后的JSON: {response_data}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+```python {{ title: '图生视频' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.6-i2v",
+    "prompt": "让这张图片动起来，添加自然的运动效果",
+    "metadata": {
+        "img_url": "https://example.com/image.png"
+    }
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 图生视频
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`wan2.6-i2v`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述
+      </Property>
+      <Property name="seconds" type="string">
+        视频时长参数，wan2.6-i2v 可选值为 5、10、15，默认 `5`
+      </Property>
+      <Property name="size" type="string">
+        指定生成的视频分辨率，格式为宽*高。wan2.6-i2v 默认值为 `1920*1080`（1080P）
+        <Options>
+          <Option value="1920*1080" label="16:9" />
+          <Option value="1080*1920" label="9:16" />
+          <Option value="1440*1440" label="1:1" />
+          <Option value="1632*1248" label="4:3" />
+          <Option value="1248*1632" label="3:4" />
+        </Options>
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `prompt_extend`、`shot_type` 等
+      </Property>
+    </Properties>
+
+    ### metadata 参数说明
+
+    metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。图生视频时需要在 metadata 中传入 `img_url` 参数。
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/videos">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/videos \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "wan2.6-i2v",
+    "prompt": "让这张图片动起来，添加自然的运动效果",
+    "metadata": {
+        "img_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250925/wpimhv/rap.png"
+    }
+}'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应
+
+<Row>
+  <Col>
+    ### 响应参数
+
+    <Properties>
+      <Property name="id" type="string">
+        视频任务 ID
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `video`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="created_at" type="integer">
+        创建时间戳
+      </Property>
+      <Property name="status" type="string">
+        任务状态（processing: 处理中）
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "{video_id}",
+  "object": "video",
+  "model": "wan2.6-t2v",
+  "created_at": 1640995200,
+  "status": "processing",
+  "progress": 0
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 查询视频
+
+根据任务 ID 查询视频生成任务的状态和结果
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="video_id" type="string" required>
+        视频任务 ID
+      </Property>
+    </Properties>
+
+    ### 响应参数
+
+    <Properties>
+      <Property name="id" type="string">
+        视频任务 ID
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `video`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="created_at" type="integer">
+        创建时间戳
+      </Property>
+      <Property name="status" type="string">
+        任务状态（processing: 处理中）
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比
+      </Property>
+      <Property name="expires_at" type="integer">
+        资源过期时间戳
+      </Property>
+      <Property name="size" type="string">
+        视频分辨率
+      </Property>
+      <Property name="seconds" type="string">
+        视频时长（秒）
+      </Property>
+      <Property name="quality" type="string">
+        视频质量
+      </Property>
+      <Property name="url" type="string">
+        视频下载链接（完成时）
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/videos/{video_id}">
+
+```bash {{ title: 'cURL' }}
+curl 'https://api.omnimaas.com/v1/videos/{video_id}' \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+    </CodeGroup>
+
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "{video_id}",
+  "object": "video",
+  "model": "wan2.6-t2v",
+  "created_at": 1640995200,
+  "status": "succeeded",
+  "progress": 100,
+  "expires_at": 1641081600,
+  "size": "1920x1080",
+  "seconds": "5",
+  "quality": "standard",
+  "remixed_from_video_id": null,
+  "error": null
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 获取视频内容
+
+下载已完成的视频内容
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}/content" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="video_id" type="string" required>
+        要下载的视频标识符
+      </Property>
+    </Properties>
+
+    ### 查询参数
+
+    <Properties>
+      <Property name="variant" type="string">
+        要返回的可下载资源类型，默认 MP4 视频
+      </Property>
+    </Properties>
+
+    ### 响应说明
+
+    直接返回视频文件流，Content-Type 为 video/mp4
+
+    **说明**：`--output` 参数用于指定保存的文件名，视频内容将直接下载到本地文件。
+
+    ### 响应头
+
+    <Properties>
+      <Property name="Content-Type" type="string">
+        视频文件类型，通常为 video/mp4
+      </Property>
+      <Property name="Content-Length" type="string">
+        视频文件大小（字节）
+      </Property>
+      <Property name="Content-Disposition" type="string">
+        文件下载信息
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/videos/{video_id}/content">
+
+```bash {{ title: 'cURL' }}
+curl 'https://api.omnimaas.com/v1/videos/{video_id}/content' \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  --output video.mp4
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 代码示例
+
+### Python 文生视频示例
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.6-t2v",
+    "prompt": "蓝天白云，一群大雁飞过",
+    "seconds": "5",
+    "size": "1920*1080"
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+    if 'application/json' in response.headers.get('Content-Type', ''):
+        response_data = response.json()
+        print(f"解析后的JSON: {response_data}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+### Python 图生视频示例
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.6-i2v",
+    "prompt": "让这张图片动起来，添加自然的运动效果",
+    "metadata": {
+        "img_url": "https://example.com/image.png"
+    }
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```

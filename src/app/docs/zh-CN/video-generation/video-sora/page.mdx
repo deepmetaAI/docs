@@ -1,0 +1,497 @@
+export const metadata = {
+  title: 'Sora 视频生成',
+  description: 'OmniMaaS Sora 视频生成接口，支持文生视频和图生视频。',
+}
+
+# OpenAI 视频生成（Sora）
+
+OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }}
+
+---
+
+## 文生视频
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `multipart/form-data`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`sora-2`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述
+      </Property>
+      <Property name="seconds" type="integer">
+        视频时长参数（秒），可选值：4、8、12，默认 `4`
+      </Property>
+      <Property name="input_reference" type="file">
+        输入图片文件（图生视频时使用）
+      </Property>
+      <Property name="size" type="string">
+        分辨率参数，输出分辨率，格式为宽度x高度，默认 `720x1280`
+        <Options>
+          <Option value="720x1280" />
+          <Option value="1280x720" />
+          <Option value="1024x1792" />
+          <Option value="1792x1024" />
+        </Options>
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/videos">
+
+```bash {{ title: '文生视频' }}
+curl https://api.omnimaas.com/v1/videos \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "prompt=一个穿着宇航服的宇航员在月球上行走, 高品质, 电影级" \
+  -F "model=sora-2" \
+  -F "seconds=4" \
+  -F "size=720x1280"
+```
+
+```bash {{ title: '图生视频' }}
+curl https://api.omnimaas.com/v1/videos \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "prompt=猫咪慢慢睁开眼睛，伸懒腰" \
+  -F "model=sora-2" \
+  -F "seconds=4" \
+  -F "size=1920x1080" \
+  -F "input_reference=@/path/to/cat.jpg"
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "sora-2",
+    "prompt": "一个宇航员在太空中漂浮"
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+print(f"状态: {result['status']}")
+```
+
+```go {{ title: 'Go' }}
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+type VideoRequest struct {
+    Model  string `json:"model"`
+    Prompt string `json:"prompt"`
+}
+
+func main() {
+    reqBody := VideoRequest{
+        Model:  "sora-2",
+        Prompt: "一个宇航员在太空中漂浮",
+    }
+
+    jsonData, _ := json.Marshal(reqBody)
+    req, _ := http.NewRequest("POST",
+        "https://api.omnimaas.com/v1/videos",
+        bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+```javascript {{ title: 'Node.js' }}
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/videos';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'sora-2',
+    prompt: '一个宇航员在太空中漂浮'
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('任务ID:', response.data.id);
+        console.log('状态:', response.data.status);
+    })
+    .catch(error => {
+        console.error('请求失败:', error.message);
+    });
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应
+
+<Row>
+  <Col>
+    ### 响应参数
+
+    <Properties>
+      <Property name="id" type="string">
+        视频任务 ID
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `video`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="created_at" type="integer">
+        创建时间戳
+      </Property>
+      <Property name="status" type="string">
+        任务状态（processing: 处理中）
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "video_123",
+  "object": "video",
+  "model": "sora-2",
+  "created_at": 1640995200,
+  "status": "processing",
+  "progress": 0
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 查询视频
+
+根据任务 ID 查询视频生成任务的状态和结果
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="video_id" type="string" required>
+        视频任务 ID
+      </Property>
+    </Properties>
+
+    ### 响应参数
+
+    <Properties>
+      <Property name="id" type="string">
+        视频任务 ID
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `video`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="created_at" type="integer">
+        创建时间戳
+      </Property>
+      <Property name="status" type="string">
+        任务状态（processing: 处理中）
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比
+      </Property>
+      <Property name="expires_at" type="integer">
+        资源过期时间戳
+      </Property>
+      <Property name="size" type="string">
+        视频分辨率
+      </Property>
+      <Property name="seconds" type="string">
+        视频时长（秒）
+      </Property>
+      <Property name="quality" type="string">
+        视频质量
+      </Property>
+      <Property name="url" type="string">
+        视频下载链接（完成时）
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/videos/{video_id}">
+
+```bash {{ title: 'cURL' }}
+curl 'https://api.omnimaas.com/v1/videos/video_123' \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+    </CodeGroup>
+
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "video_123",
+  "object": "video",
+  "model": "sora-2",
+  "created_at": 1640995200,
+  "status": "succeeded",
+  "progress": 100,
+  "expires_at": 1641081600,
+  "size": "1920x1080",
+  "seconds": "5",
+  "quality": "standard",
+  "remixed_from_video_id": null,
+  "error": null
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 获取视频内容
+
+下载已完成的视频内容
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}/content" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="video_id" type="string" required>
+        要下载的视频标识符
+      </Property>
+    </Properties>
+
+    ### 查询参数
+
+    <Properties>
+      <Property name="variant" type="string">
+        要返回的可下载资源类型，默认 MP4 视频
+      </Property>
+    </Properties>
+
+    ### 响应说明
+
+    直接返回视频文件流，Content-Type 为 video/mp4
+
+    ### 响应头
+
+    <Properties>
+      <Property name="Content-Type" type="string">
+        视频文件类型，通常为 video/mp4
+      </Property>
+      <Property name="Content-Length" type="string">
+        视频文件大小（字节）
+      </Property>
+      <Property name="Content-Disposition" type="string">
+        文件下载信息
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/videos/{video_id}/content">
+
+```bash {{ title: 'cURL' }}
+curl 'https://api.omnimaas.com/v1/videos/video_123/content' \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -o "video.mp4"
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 错误响应
+
+<Properties>
+  <Property name="400" type="invalid_request_error">
+    请求参数错误
+  </Property>
+  <Property name="401" type="invalid_request_error">
+    未授权
+  </Property>
+  <Property name="403" type="invalid_request_error">
+    无权限
+  </Property>
+  <Property name="404" type="invalid_request_error">
+    任务不存在
+  </Property>
+  <Property name="500" type="server_error">
+    服务器内部错误
+  </Property>
+</Properties>
+
+```json
+{
+  "error": {
+    "message": "string",
+    "type": "invalid_request_error"
+  }
+}
+```
+
+---
+
+## 代码示例
+
+### Python 示例
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "sora-2",
+    "prompt": "一个宇航员在太空中漂浮"
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+print(f"状态: {result['status']}")
+```
+
+### Go 示例
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+type VideoRequest struct {
+    Model  string `json:"model"`
+    Prompt string `json:"prompt"`
+}
+
+func main() {
+    reqBody := VideoRequest{
+        Model:  "sora-2",
+        Prompt: "一个宇航员在太空中漂浮",
+    }
+
+    jsonData, _ := json.Marshal(reqBody)
+    req, _ := http.NewRequest("POST",
+        "https://api.omnimaas.com/v1/videos",
+        bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+### Node.js 示例
+
+```javascript
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/videos';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'sora-2',
+    prompt: '一个宇航员在太空中漂浮'
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('任务ID:', response.data.id);
+        console.log('状态:', response.data.status);
+    })
+    .catch(error => {
+        console.error('请求失败:', error.message);
+    });
+```

@@ -1,0 +1,595 @@
+export const metadata = {
+  title: '对话补全',
+  description: 'OmniMaaS 统一对话补全接口，完全兼容 OpenAI Chat Completions API 协议。',
+}
+
+# 对话补全
+
+OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }}
+
+<Row>
+  <Col>
+    **核心特性：**
+    <FeatureList>
+      <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem>
+      <FeatureItem>支持流式输出（SSE）</FeatureItem>
+      <FeatureItem>支持函数调用（Function Calling）</FeatureItem>
+      <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem>
+      <FeatureItem>统一的错误处理和计费</FeatureItem>
+    </FeatureList>
+  </Col>
+</Row>
+
+---
+
+## 基础请求 {{ anchor: false }}
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/chat/completions" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `gpt-4o`、`claude-3-5-sonnet-20241022`、`gemini-2.0-flash`
+      </Property>
+      <Property name="messages" type="array" required>
+        对话消息列表，按时间顺序排列
+      </Property>
+      <Property name="messages[].role" type="string" required>
+        消息角色：`system`、`user`、`assistant`、`tool`
+      </Property>
+      <Property name="messages[].content" type="string | array" required>
+        消息内容，支持文本或多模态内容
+      </Property>
+      <Property name="stream" type="boolean">
+        是否启用流式输出，默认 `false`
+      </Property>
+      <Property name="temperature" type="number">
+        采样温度，范围 `0-2`。值越高输出越随机，越低越确定
+      </Property>
+      <Property name="max_tokens" type="integer">
+        最大生成 token 数
+      </Property>
+      <Property name="top_p" type="number">
+        核采样参数，范围 `0-1`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {"role": "user", "content": "你好，请介绍一下你自己"}
+    ]
+  }'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/chat/completions'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "gpt-4",
+    "messages": [
+        {"role": "user", "content": "你好，请介绍一下你自己"}
+    ],
+    "temperature": 0.7
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"回复: {result['choices'][0]['message']['content']}")
+```
+
+```javascript {{ title: 'Node.js' }}
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/chat/completions';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'gpt-4',
+    messages: [
+        { role: 'user', content: '你好，请介绍一下你自己' }
+    ],
+    temperature: 0.7
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('回复:', response.data.choices[0].message.content);
+    });
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 流式输出
+
+<Row>
+  <Col>
+    启用流式输出后，响应将以 Server-Sent Events (SSE) 格式返回，适合实时显示生成内容。
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [{"role": "user", "content": "讲个笑话"}],
+    "stream": true
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+stream = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": "讲个笑话"}],
+    stream=True
+)
+
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end='', flush=True)
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 多模态输入（图片）
+
+<Row>
+  <Col>
+    支持在消息中传入图片 URL，实现图文混合输入。
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {"type": "text", "text": "这张图片里有什么？"},
+          {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}}
+        ]
+      }
+    ]
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "这张图片里有什么？"},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}}
+            ]
+        }
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应参数
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="id" type="string">
+        本次对话补全的唯一标识符
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `chat.completion`
+      </Property>
+      <Property name="created" type="integer">
+        创建时间的 Unix 时间戳（秒）
+      </Property>
+      <Property name="model" type="string">
+        实际使用的模型 ID
+      </Property>
+      <Property name="choices" type="array">
+        对话补全结果列表
+      </Property>
+      <Property name="choices[].message" type="object">
+        模型生成的消息
+      </Property>
+      <Property name="choices[].finish_reason" type="string">
+        停止原因：`stop`、`length`、`content_filter`、`tool_calls`
+      </Property>
+      <Property name="usage" type="object">
+        Token 使用统计
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="非流式响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "chatcmpl-abc123",
+  "object": "chat.completion",
+  "created": 1677652288,
+  "model": "gpt-4o",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "你好！我是一个AI助手，很高兴为你服务。"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 20,
+    "completion_tokens": 15,
+    "total_tokens": 35
+  }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 流式响应参数
+
+<Row>
+  <Col>
+    流式响应以 Server-Sent Events (SSE) 格式返回，每个数据块包含增量内容。
+
+    <Properties>
+      <Property name="id" type="string">
+        本次对话补全的唯一标识符
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `chat.completion.chunk`
+      </Property>
+      <Property name="created" type="integer">
+        创建时间的 Unix 时间戳（秒）
+      </Property>
+      <Property name="model" type="string">
+        实际使用的模型 ID
+      </Property>
+      <Property name="choices[].delta" type="object">
+        增量内容
+      </Property>
+      <Property name="choices[].delta.content" type="string">
+        增量文本内容
+      </Property>
+      <Property name="choices[].finish_reason" type="string | null">
+        停止原因，流式传输中为 `null`，结束时为 `stop`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="流式响应示例">
+
+```text {{ title: 'SSE 响应' }}
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1677652288,"model":"gpt-4o","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1677652288,"model":"gpt-4o","choices":[{"index":0,"delta":{"content":"你好"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1677652288,"model":"gpt-4o","choices":[{"index":0,"delta":{"content":"！"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-abc123","object":"chat.completion.chunk","created":1677652288,"model":"gpt-4o","choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}
+
+data: [DONE]
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 代码示例
+
+### Python 非流式调用
+
+使用 requests 库进行非流式调用，适合简单的问答场景。
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/chat/completions'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "gpt-4",
+    "messages": [
+        {"role": "user", "content": "你好，请介绍一下你自己"}
+    ],
+    "temperature": 0.7
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    response.raise_for_status()
+
+    result = response.json()
+    print(f"回复: {result['choices'][0]['message']['content']}")
+    print(f"Token使用: {result['usage']}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+---
+
+### Python 流式调用
+
+使用 requests 库进行流式调用，适合需要实时显示生成内容的场景。
+
+```python
+import requests
+import json
+
+url = 'https://api.omnimaas.com/v1/chat/completions'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "gpt-4",
+    "messages": [
+        {"role": "user", "content": "讲个笑话"}
+    ],
+    "stream": True
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data, stream=True)
+    response.raise_for_status()
+
+    for line in response.iter_lines():
+        if line:
+            line = line.decode('utf-8')
+            if line.startswith('data: '):
+                data_str = line[6:]
+                if data_str != '[DONE]':
+                    chunk = json.loads(data_str)
+                    if chunk['choices'][0]['delta'].get('content'):
+                        print(chunk['choices'][0]['delta']['content'], end='', flush=True)
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+---
+
+### Node.js 非流式调用
+
+使用 axios 库进行非流式调用。
+
+```javascript
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/chat/completions';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'gpt-4',
+    messages: [
+        { role: 'user', content: '你好，请介绍一下你自己' }
+    ],
+    temperature: 0.7
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('回复:', response.data.choices[0].message.content);
+        console.log('Token使用:', response.data.usage);
+    })
+    .catch(error => {
+        console.error('请求失败:', error.message);
+    });
+```
+
+---
+
+### Node.js 流式调用
+
+使用原生 https 模块进行流式调用。
+
+```javascript
+const https = require('https');
+
+const options = {
+    hostname: 'api.omnimaas.com',
+    path: '/v1/chat/completions',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_API_KEY'
+    }
+};
+
+const data = JSON.stringify({
+    model: 'gpt-4',
+    messages: [
+        { role: 'user', content: '讲个笑话' }
+    ],
+    stream: true
+});
+
+const req = https.request(options, (res) => {
+    res.on('data', (chunk) => {
+        const lines = chunk.toString().split('\n');
+        lines.forEach(line => {
+            if (line.startsWith('data: ')) {
+                const dataStr = line.slice(6);
+                if (dataStr !== '[DONE]') {
+                    try {
+                        const json = JSON.parse(dataStr);
+                        const content = json.choices[0].delta.content;
+                        if (content) {
+                            process.stdout.write(content);
+                        }
+                    } catch (e) {}
+                }
+            }
+        });
+    });
+});
+
+req.on('error', (error) => {
+    console.error('请求失败:', error);
+});
+
+req.write(data);
+req.end();
+```
+
+---
+
+### Go 非流式调用
+
+使用 Go 标准库进行非流式调用。
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+type Message struct {
+    Role    string `json:"role"`
+    Content string `json:"content"`
+}
+
+type ChatRequest struct {
+    Model       string    `json:"model"`
+    Messages    []Message `json:"messages"`
+    Temperature float64   `json:"temperature,omitempty"`
+}
+
+type ChatResponse struct {
+    ID      string `json:"id"`
+    Choices []struct {
+        Message struct {
+            Content string `json:"content"`
+        } `json:"message"`
+    } `json:"choices"`
+    Usage struct {
+        TotalTokens int `json:"total_tokens"`
+    } `json:"usage"`
+}
+
+func main() {
+    url := "https://api.omnimaas.com/v1/chat/completions"
+
+    reqBody := ChatRequest{
+        Model: "gpt-4",
+        Messages: []Message{
+            {Role: "user", Content: "你好，请介绍一下你自己"},
+        },
+        Temperature: 0.7,
+    }
+
+    jsonData, _ := json.Marshal(reqBody)
+    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    if err != nil {
+        fmt.Printf("请求失败: %v\n", err)
+        return
+    }
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    var result ChatResponse
+    json.Unmarshal(body, &result)
+
+    fmt.Printf("回复: %s\n", result.Choices[0].Message.Content)
+    fmt.Printf("Token使用: %d\n", result.Usage.TotalTokens)
+}
+```

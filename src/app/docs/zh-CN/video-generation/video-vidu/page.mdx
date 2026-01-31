@@ -1,0 +1,666 @@
+export const metadata = {
+  title: 'Vidu 视频生成',
+  description: 'OmniMaaS Vidu 视频生成接口，支持文生视频、图生视频、首尾帧生视频、参考生视频等。',
+}
+
+# Vidu 视频生成
+
+OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }}
+
+<Note>
+  调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。
+</Note>
+
+---
+
+## 文生视频
+
+### 支持模型
+
+<Properties>
+  <Property name="viduq2" type="model">
+    Vidu Q2 模型
+  </Property>
+  <Property name="viduq1" type="model">
+    Vidu Q1 模型
+  </Property>
+  <Property name="vidu1.5" type="model">
+    Vidu 1.5 模型
+  </Property>
+</Properties>
+
+其他模型正在上架测试，持续更新中～
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`viduq2`、`viduq1`、`vidu1.5`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述。字符串长度不能超过 2000 字符
+      </Property>
+      <Property name="stype" type="string">
+        风格，默认 `general`。注意：仅在 Vidu 系列模型下生效
+        <Options>
+          <Option value="general" />
+          <Option value="anime" />
+        </Options>
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长参数。viduq2 默认 5 秒，可选 1-10；viduq1 默认 5 秒，可选 5；vidu1.5 默认 4 秒，可选 4、8
+      </Property>
+      <Property name="seed" type="integer">
+        随机种子，当默认不传或者传 0 时，会使用随机数替代，手动设置则使用手动设置的种子值
+      </Property>
+      <Property name="size" type="string">
+        分辨率参数。viduq2(1-10秒) 默认 720p，可选 540p、720p、1080p；viduq1(5秒) 默认 1080p；vidu1.5(4秒) 默认 360p，可选 360p、720p、1080p；vidu1.5(8秒) 默认 720p
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `negative_prompt`、`style`、`quality_level` 等
+      </Property>
+    </Properties>
+
+    ### metadata 参数说明
+
+    metadata 参数的作用是传递非 Sora 特有的参数，例如 Vidu 的 Label、ContentProducer，通义万相的图片 URL、水印、智能改写等。
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.omnimaas.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "viduq2",
+    "stype": "general",
+    "prompt": "史诗级的鲤鱼跳龙门场景，一条金色巨鲤奋力跃出湍急的瀑布，飞向空中隐约可见的古代巨型石雕龙门。画面聚焦于鲤鱼在空中化作神龙的瞬间，水花四溅，祥云缭绕。",
+    "duration": 5,
+    "metadata": {
+        "seed": 0,
+        "resolution": "1080p",
+        "movement_amplitude": "auto",
+        "bgm": false,
+        "payload": "",
+        "callback_url": "https://your-callback-url.com/webhook"
+    }
+}'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/video/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "vidu1.5",
+    "prompt": "一只可爱的小猫在草地上玩耍"
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+print(f"状态: {result['status']}")
+```
+
+```go {{ title: 'Go' }}
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+type VideoRequest struct {
+    Model  string `json:"model"`
+    Prompt string `json:"prompt"`
+}
+
+func main() {
+    reqBody := VideoRequest{
+        Model:  "vidu1.5",
+        Prompt: "一只可爱的小猫在草地上玩耍",
+    }
+
+    jsonData, _ := json.Marshal(reqBody)
+    req, _ := http.NewRequest("POST",
+        "https://api.omnimaas.com/v1/video/generations",
+        bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+```javascript {{ title: 'Node.js' }}
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/video/generations';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'vidu1.5',
+    prompt: '一只可爱的小猫在草地上玩耍'
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('任务ID:', response.data.id);
+        console.log('状态:', response.data.status);
+    })
+    .catch(error => {
+        console.error('请求失败:', error.message);
+    });
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 图生视频
+
+### 支持模型
+
+<Properties>
+  <Property name="viduq2-pro-fast" type="model">
+    Vidu Q2 Pro Fast 模型
+  </Property>
+  <Property name="viduq2-pro" type="model">
+    Vidu Q2 Pro 模型
+  </Property>
+  <Property name="viduq2-turbo" type="model">
+    Vidu Q2 Turbo 模型
+  </Property>
+  <Property name="viduq1" type="model">
+    Vidu Q1 模型
+  </Property>
+  <Property name="vidu2.0" type="model">
+    Vidu 2.0 模型
+  </Property>
+  <Property name="vidu1.5" type="model">
+    Vidu 1.5 模型
+  </Property>
+</Properties>
+
+其他模型正在上架测试，持续更新中～
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`viduq2`、`viduq1`、`vidu1.5`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述。字符串长度不能超过 2000 字符
+      </Property>
+      <Property name="images" type="array" required>
+        图片输入（URL/Base64），仅支持输入一张图片。模型将以此参数中传入的图片为首帧画面来生成视频，支持传入图片 Base64 编码或图片 URL（确保可访问）；图片大小不超过 50MB
+      </Property>
+      <Property name="stype" type="string">
+        风格，默认 `general`。注意：仅在 Vidu 系列模型下生效
+        <Options>
+          <Option value="general" />
+          <Option value="anime" />
+        </Options>
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长参数。viduq2 默认 5 秒，可选 1-10；viduq1 默认 5 秒，可选 5；vidu1.5 默认 4 秒，可选 4、8
+      </Property>
+      <Property name="seed" type="integer">
+        随机种子，当默认不传或者传 0 时，会使用随机数替代，手动设置则使用手动设置的种子值
+      </Property>
+      <Property name="size" type="string">
+        分辨率参数。viduq2-pro-fast(1-10秒) 默认 720p，可选 720p、1080p；viduq2-pro(1-10秒) 默认 720p，可选 540p、720p、1080p；viduq2-turbo(1-10秒) 默认 720p，可选 540p、720p、1080p；viduq1(5秒) 默认 1080p；viduq1-classic(5秒) 默认 1080p；vidu2.0(4秒) 默认 360p，可选 360p、720p、1080p；vidu2.0(8秒) 默认 720p；vidu1.5(4秒) 默认 360p，可选 360p、720p、1080p；vidu1.5(8秒) 默认 720p
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `negative_prompt`、`style`、`quality_level` 等
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.omnimaas.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "viduq2-pro-fast",
+    "prompt": "史诗级的鲤鱼跳龙门场景，一条金色巨鲤奋力跃出湍急的瀑布，飞向空中隐约可见的古代巨型石雕龙门。画面聚焦于鲤鱼在空中化作神龙的瞬间，水花四溅，祥云缭绕。",
+    "images": ["data:image/png;base64,{base64_encode}"]
+}'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 首尾帧生视频
+
+### 支持模型
+
+<Properties>
+  <Property name="viduq2-pro-fast" type="model">
+    Vidu Q2 Pro Fast 模型
+  </Property>
+  <Property name="viduq2-pro" type="model">
+    Vidu Q2 Pro 模型
+  </Property>
+  <Property name="viduq2-turbo" type="model">
+    Vidu Q2 Turbo 模型
+  </Property>
+  <Property name="viduq1" type="model">
+    Vidu Q1 模型
+  </Property>
+  <Property name="vidu2.0" type="model">
+    Vidu 2.0 模型
+  </Property>
+  <Property name="vidu1.5" type="model">
+    Vidu 1.5 模型
+  </Property>
+</Properties>
+
+其他模型正在上架测试，持续更新中～
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`viduq2`、`viduq1`、`vidu1.5`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述。字符串长度不能超过 2000 字符
+      </Property>
+      <Property name="images" type="array" required>
+        图片输入（URL/Base64），支持输入两张图，上传的第一张图片视作首帧图，第二张图片视作尾帧图，模型将以此参数中传入的图片来生成视频。支持传入图片 Base64 编码或图片 URL（确保可访问）；图片大小不超过 50MB
+      </Property>
+      <Property name="stype" type="string">
+        风格，默认 `general`。注意：仅在 Vidu 系列模型下生效
+        <Options>
+          <Option value="general" />
+          <Option value="anime" />
+        </Options>
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长参数。viduq2 默认 5 秒，可选 1-10；viduq1 默认 5 秒，可选 5；vidu1.5 默认 4 秒，可选 4、8
+      </Property>
+      <Property name="seed" type="integer">
+        随机种子，当默认不传或者传 0 时，会使用随机数替代，手动设置则使用手动设置的种子值
+      </Property>
+      <Property name="size" type="string">
+        分辨率参数。viduq2-pro-fast(1-8秒) 默认 720p，可选 720p、1080p；viduq2-pro(1-8秒) 默认 720p，可选 540p、720p、1080p；viduq2-turbo(1-8秒) 默认 720p，可选 540p、720p、1080p；viduq1 和 viduq1-classic(5秒) 默认 1080p；vidu2.0(4秒) 默认 360p，可选 360p、720p、1080p；vidu2.0(8秒) 默认 720p；vidu1.5(4秒) 默认 360p，可选 360p、720p、1080p；vidu1.5(8秒) 默认 720p
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `negative_prompt`、`style`、`quality_level` 等
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.omnimaas.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "viduq2-pro-fast",
+    "prompt": "史诗级的鲤鱼跳龙门场景，一条金色巨鲤奋力跃出湍急的瀑布，飞向空中隐约可见的古代巨型石雕龙门。画面聚焦于鲤鱼在空中化作神龙的瞬间，水花四溅，祥云缭绕。",
+    "images": ["data:image/png;base64,{base64_encode}", "data:image/png;base64,{base64_encode}"]
+}'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 参考生视频
+
+### 支持模型
+
+<Properties>
+  <Property name="viduq2" type="model">
+    Vidu Q2 模型
+  </Property>
+  <Property name="viduq1" type="model">
+    Vidu Q1 模型
+  </Property>
+  <Property name="vidu2.0" type="model">
+    Vidu 2.0 模型
+  </Property>
+  <Property name="vidu1.5" type="model">
+    Vidu 1.5 模型
+  </Property>
+</Properties>
+
+其他模型正在上架测试，持续更新中～
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        用于生成视频的模型 ID，可选值：`viduq2`、`viduq1`、`vidu1.5`
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述。字符串长度不能超过 2000 字符
+      </Property>
+      <Property name="stype" type="string">
+        风格，默认 `general`。注意：仅在 Vidu 系列模型下生效
+        <Options>
+          <Option value="general" />
+          <Option value="anime" />
+        </Options>
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长参数。viduq2 默认 5 秒，可选 1-10；viduq1 默认 5 秒，可选 5；vidu1.5 默认 4 秒，可选 4、8
+      </Property>
+      <Property name="seed" type="integer">
+        随机种子，当默认不传或者传 0 时，会使用随机数替代，手动设置则使用手动设置的种子值
+      </Property>
+      <Property name="size" type="string">
+        分辨率参数。viduq2(1-10秒) 默认 720p，可选 540p、720p、1080p；viduq1(5秒) 默认 1080p；vidu2.0(4秒) 默认 360p，可选 360p、720p；vidu1.5(4秒) 默认 360p，可选 360p、720p、1080p；vidu1.5(8秒) 默认 720p
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式），如 `negative_prompt`、`style`、`quality_level`、`subjects` 等。⚠️注意：参考生图场景必须传 `subjects` 参数，包含 `id`（主体 id）、`images`（图片 url 数组，最多 3 张）、`voice_id`（音色 ID，可选）
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.omnimaas.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "viduq1",
+    "prompt": "参考@1生成视频，@2和@3也需要参考",
+    "metadata": {
+        "subjects": [
+            {
+                "id": "1",
+                "images": ["https://h2.inkwai.com/bs2/upload-ylab-stunt/se/ai_portal_queue_mmu_image_upscale_aiweb/3214b798-e1b4-4b00-b7af-72b5b0417420_raw_image_0.jpg"]
+            },
+            {
+                "id": "2",
+                "images": ["https://h2.inkwai.com/bs2/upload-ylab-stunt/se/ai_portal_queue_mmu_image_upscale_aiweb/3214b798-e1b4-4b00-b7af-72b5b0417420_raw_image_0.jpg"]
+            },
+            {
+                "id": "3",
+                "images": ["https://h2.inkwai.com/bs2/upload-ylab-stunt/se/ai_portal_queue_mmu_image_upscale_aiweb/3214b798-e1b4-4b00-b7af-72b5b0417420_raw_image_0.jpg"]
+            }
+        ]
+    }
+}'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 查询视频
+
+根据任务 ID 查询视频生成任务的状态和进度。
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.omnimaas.com/v1/video/generations/{task_id}" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="task_id" type="string" required>
+        任务 id
+      </Property>
+    </Properties>
+
+    ### 响应参数（200 响应成功）
+
+    <Properties>
+      <Property name="code" type="string">
+        响应代码，成功为 `success`
+      </Property>
+      <Property name="message" type="string">
+        响应消息，默认为空字符串
+      </Property>
+      <Property name="data" type="object">
+        响应结果对象内容
+      </Property>
+      <Property name="data.error" type="string">
+        错误信息，默认为 null
+      </Property>
+      <Property name="data.format" type="string">
+        视频格式，默认为 mp4
+      </Property>
+      <Property name="data.metadata" type="object">
+        元数据，默认为 null
+      </Property>
+      <Property name="data.status" type="string">
+        任务状态，成功为 `succeeded`
+      </Property>
+      <Property name="data.task_id" type="string">
+        任务 id
+      </Property>
+      <Property name="data.url" type="string">
+        视频地址 url
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/video/generations/{task_id}">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/video/generations/{task_id} \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+    </CodeGroup>
+
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "code": "success",
+    "message": "",
+    "data": {
+        "error": null,
+        "format": "mp4",
+        "metadata": null,
+        "status": "succeeded",
+        "task_id": "897408604372475904",
+        "url": "string"
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 代码示例
+
+### Python 示例
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/video/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "vidu1.5",
+    "prompt": "一只可爱的小猫在草地上玩耍"
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+print(f"状态: {result['status']}")
+```
+
+### Go 示例
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io"
+    "net/http"
+)
+
+type VideoRequest struct {
+    Model  string `json:"model"`
+    Prompt string `json:"prompt"`
+}
+
+func main() {
+    reqBody := VideoRequest{
+        Model:  "vidu1.5",
+        Prompt: "一只可爱的小猫在草地上玩耍",
+    }
+
+    jsonData, _ := json.Marshal(reqBody)
+    req, _ := http.NewRequest("POST",
+        "https://api.omnimaas.com/v1/video/generations",
+        bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+### Node.js 示例
+
+```javascript
+const axios = require('axios');
+
+const url = 'https://api.omnimaas.com/v1/video/generations';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+};
+
+const data = {
+    model: 'vidu1.5',
+    prompt: '一只可爱的小猫在草地上玩耍'
+};
+
+axios.post(url, data, { headers })
+    .then(response => {
+        console.log('任务ID:', response.data.id);
+        console.log('状态:', response.data.status);
+    })
+    .catch(error => {
+        console.error('请求失败:', error.message);
+    });
+```

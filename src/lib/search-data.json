@@ -1,0 +1,535 @@
+[
+  {
+    "url": "/docs/zh-CN/client-tools/cherry-studio",
+    "title": "Cherry Studio 配置",
+    "pageTitle": "Cherry Studio 配置",
+    "content": "Cherry Studio 客户端配置 本指南将帮助您在 Cherry Studio 客户端中配置 OmniMaaS API 接入。{{ className: 'lead' }} --- Cherry Studio 下载 官方地址：https://www.cherry-ai.com/ !Cherry Studio 官网 --- 获取 API 地址和密钥 步骤 1：获取 API 地址 打开 OmniMaaS 平台获取 API 地址，可以通过点击\"模型广场\"中的任意一个模型进入到\"模型详情\"，可通过模型详情来查 API 地址。 !获取 API 地址 步骤 2：获取 API Key 打开 OmniMaaS，点击左侧\"账户\"-\"API Keys\"菜单，在该页面完成 Key 创建并复制 key。 !API Keys 菜单 !复制 API Key --- 配置步骤 进入设置 打开 Cherry Studio 首页，点击右上角设置。 !进入设置 配置模型 方案一：直接使用官方提供商模式 在\"模型服务\"页面找到\"阿里云百炼\"提供商，将这里的\"API密钥\"更换为从 OmniMaaS 平台获取的 APIKey，以及将 API 地址改为：https://api.omnimaas.com 即可。 !阿里云百炼配置 方案二：自定义 OmniMaaS 集成方式 1. 点击添加按钮 点击下列的添加按钮，输入\"OmniMaaS\"提供商名称，并选择对应的提供商类型，这里以\"OpenAI\"为例： !添加提供商 2. 输入 OmniMaaS 的 API 地址和密钥 将这里的\"API密钥\"更换为从 OmniMaaS 平台获取的 APIKey，以及将 API 地址改为：https://api.omnimaas.com 即可。 !配置 API 3. 添加模型 !添加模型 4. 模型名称填写 !模型名称填写 这里的模型 ID 对应的是 OmniMaaS 平台中\"模型广场\"-\"模型详情\"里的\"模型名称\"： !模型详情 需要注意的是，这里的\"分组名称\"默认为：default 5. 使用模型 在使用时，只需要选择已经配置好的模型名称即可： !使用模型"
+  },
+  {
+    "url": "/docs/zh-CN/client-tools/cherry-studio#cherry-studio-",
+    "title": "Cherry Studio 下载",
+    "pageTitle": "Cherry Studio 配置",
+    "content": "Cherry Studio 客户端配置 本指南将帮助您在 Cherry Studio 客户端中配置 OmniMaaS API 接入。{{ className: 'lead' }} --- Cherry Studio 下载 官方地址：https://www.cherry-ai.com/ !Cherry Studio 官网 --- 获取 API 地址和密钥 步骤 1：获取 API 地址 打开 OmniMaaS 平台获取 API 地址，可以通过点击\"模型广场\"中的任意一个模型进入到\"模型详情\"，可通过模型详情来查 API 地址。 !获取 API 地址 步骤 2：获取 API Key 打开 OmniMaaS，点击左侧\"账户\"-\"API Keys\"菜单，在该页面完成 Key 创建并复制 key。 !API Keys 菜单 !复制 API Key --- 配置步骤 进入设置 打开 Cherry Studio 首页，点击右上角设置。 !进入设置 配置模型 方案一：直接使用官方提供商模式 在\"模型服务\"页面找到\"阿里云百炼\"提供商，将这里的\"API密钥\"更换为从 OmniMaaS 平台获取的 APIK",
+    "section": "Cherry Studio 下载"
+  },
+  {
+    "url": "/docs/zh-CN/client-tools/cherry-studio#-api-",
+    "title": "获取 API 地址和密钥",
+    "pageTitle": "Cherry Studio 配置",
+    "content": "Cherry Studio 客户端配置 本指南将帮助您在 Cherry Studio 客户端中配置 OmniMaaS API 接入。{{ className: 'lead' }} --- Cherry Studio 下载 官方地址：https://www.cherry-ai.com/ !Cherry Studio 官网 --- 获取 API 地址和密钥 步骤 1：获取 API 地址 打开 OmniMaaS 平台获取 API 地址，可以通过点击\"模型广场\"中的任意一个模型进入到\"模型详情\"，可通过模型详情来查 API 地址。 !获取 API 地址 步骤 2：获取 API Key 打开 OmniMaaS，点击左侧\"账户\"-\"API Keys\"菜单，在该页面完成 Key 创建并复制 key。 !API Keys 菜单 !复制 API Key --- 配置步骤 进入设置 打开 Cherry Studio 首页，点击右上角设置。 !进入设置 配置模型 方案一：直接使用官方提供商模式 在\"模型服务\"页面找到\"阿里云百炼\"提供商，将这里的\"API密钥\"更换为从 OmniMaaS 平台获取的 APIK",
+    "section": "获取 API 地址和密钥"
+  },
+  {
+    "url": "/docs/zh-CN/client-tools/cherry-studio#",
+    "title": "配置步骤",
+    "pageTitle": "Cherry Studio 配置",
+    "content": "Cherry Studio 客户端配置 本指南将帮助您在 Cherry Studio 客户端中配置 OmniMaaS API 接入。{{ className: 'lead' }} --- Cherry Studio 下载 官方地址：https://www.cherry-ai.com/ !Cherry Studio 官网 --- 获取 API 地址和密钥 步骤 1：获取 API 地址 打开 OmniMaaS 平台获取 API 地址，可以通过点击\"模型广场\"中的任意一个模型进入到\"模型详情\"，可通过模型详情来查 API 地址。 !获取 API 地址 步骤 2：获取 API Key 打开 OmniMaaS，点击左侧\"账户\"-\"API Keys\"菜单，在该页面完成 Key 创建并复制 key。 !API Keys 菜单 !复制 API Key --- 配置步骤 进入设置 打开 Cherry Studio 首页，点击右上角设置。 !进入设置 配置模型 方案一：直接使用官方提供商模式 在\"模型服务\"页面找到\"阿里云百炼\"提供商，将这里的\"API密钥\"更换为从 OmniMaaS 平台获取的 APIK",
+    "section": "配置步骤"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-openai",
+    "title": "OpenAI 图像生成",
+    "pageTitle": "OpenAI 图像生成",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID，如 gpt-image-1 </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，必须在 1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，可选 standard 或 hd </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"image\" type=\"string | array\" required> 文件或文件数组，要编辑的图片 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/edits\"> </CodeGroup> </Col> --- 响应格式 <Col> <Properties> <Property name=\"created\" type=\"integer\"> 响应创建的 Unix 时间戳（秒） </Property> <Property name=\"data\" type=\"array\"> 生成的图片对象列表 </Property> <Property name=\"data[].url\" type="
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-openai#",
+    "title": "支持模型",
+    "pageTitle": "OpenAI 图像生成",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-openai#",
+    "title": "创建图片",
+    "pageTitle": "OpenAI 图像生成",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "section": "创建图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-openai#",
+    "title": "编辑图片",
+    "pageTitle": "OpenAI 图像生成",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "section": "编辑图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-openai#",
+    "title": "响应格式",
+    "pageTitle": "OpenAI 图像生成",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "section": "响应格式"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-qwen",
+    "title": "Qwen & Wan 图像生成",
+    "pageTitle": "Qwen & Wan 图像生成",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能力进一步提升，支持高一致性保持的多图参考生成，文字生成表现优异。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"images\" type=\"string | array\" required> 要编辑的图片 URL 或 Base64，支持单张或多张图片 </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 12801280 <Options> </Options> </Property> <Property name=\"watermark\" type=\"boolean\"> 是否添加水印标识，默认 false </Property> <Pr"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-qwen#",
+    "title": "支持模型",
+    "pageTitle": "Qwen & Wan 图像生成",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-qwen#",
+    "title": "创建图片",
+    "pageTitle": "Qwen & Wan 图像生成",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "section": "创建图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-qwen#",
+    "title": "编辑图片",
+    "pageTitle": "Qwen & Wan 图像生成",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "section": "编辑图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-qwen#",
+    "title": "响应格式",
+    "pageTitle": "Qwen & Wan 图像生成",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "section": "响应格式"
+  },
+  {
+    "url": "/docs/zh-CN",
+    "title": "快速开始",
+    "pageTitle": "快速开始",
+    "content": "快速开始 OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 baseurl 和 apikey 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }} 可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。 1. 平台登录 访问 OmniMaaS，点击右上角\"登录\"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。 2. 选择模型 - 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息 - 可进入模型详情页查看模型的详细信息及其可用端点。 3. 获取 API Key - 登录 OmniMaaS 控制台，进入 API Keys 页面 - 新建密钥并妥善保存； - 每个请求都需携带 Authorization: Bearer <APIKEY> 头 - 如需区分环境，可生成多个 Key 并设置标签或权限范围 4. 发起您的第一个请求 目前平台支持 REST API 进行调用，可通过 cURL、Apifox 等方式进行测试，也支持OpenAI SDK库进行调用，可先安装 OpenAI SDK 后调用： 安装 SDK 发起请求 友情提示 平台支持所有目前OpenAI、Gemini、Claude平台所支持调用的模型，如果发现有需要用的模型平台还没上架，可扫描以下二维码添加提需上架："
+  },
+  {
+    "url": "/docs/zh-CN#1-",
+    "title": "1. 平台登录",
+    "pageTitle": "快速开始",
+    "content": "快速开始 OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 baseurl 和 apikey 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }} 可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。 1. 平台登录 访问 OmniMaaS，点击右上角\"登录\"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。 2. 选择模型 - 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息 - 可进入模型详情页查看模型的详细信息及其可用端点。 3. 获取 API Key - 登录 OmniMaaS 控制台，进入 API Keys 页面 - 新建密钥并妥善保存； - 每个请求都需携带 Authorization: Bearer <APIKEY> 头 - 如需",
+    "section": "1. 平台登录"
+  },
+  {
+    "url": "/docs/zh-CN#2-",
+    "title": "2. 选择模型",
+    "pageTitle": "快速开始",
+    "content": "快速开始 OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 baseurl 和 apikey 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }} 可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。 1. 平台登录 访问 OmniMaaS，点击右上角\"登录\"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。 2. 选择模型 - 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息 - 可进入模型详情页查看模型的详细信息及其可用端点。 3. 获取 API Key - 登录 OmniMaaS 控制台，进入 API Keys 页面 - 新建密钥并妥善保存； - 每个请求都需携带 Authorization: Bearer <APIKEY> 头 - 如需",
+    "section": "2. 选择模型"
+  },
+  {
+    "url": "/docs/zh-CN#3--api-key",
+    "title": "3. 获取 API Key",
+    "pageTitle": "快速开始",
+    "content": "快速开始 OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 baseurl 和 apikey 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }} 可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。 1. 平台登录 访问 OmniMaaS，点击右上角\"登录\"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。 2. 选择模型 - 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息 - 可进入模型详情页查看模型的详细信息及其可用端点。 3. 获取 API Key - 登录 OmniMaaS 控制台，进入 API Keys 页面 - 新建密钥并妥善保存； - 每个请求都需携带 Authorization: Bearer <APIKEY> 头 - 如需",
+    "section": "3. 获取 API Key"
+  },
+  {
+    "url": "/docs/zh-CN#4-",
+    "title": "4. 发起您的第一个请求",
+    "pageTitle": "快速开始",
+    "content": "快速开始 OmniMaaS 目前完全兼容原生 OpenAI SDK、Claude SDK、Gemini SDK 以及 HTTPS 协议，已经完成相关 SDK 接入的用户可直接通过更改 baseurl 和 apikey 来完成服务切换，只需几行代码，即可使用您偏好的 SDK 或框架快速上手。{{ className: 'lead' }} 可参考以下示例中的几个步骤完成服务对接，接口传参与响应可参照官方文档。 1. 平台登录 访问 OmniMaaS，点击右上角\"登录\"按钮进行登录。还没账号的用户需要先进行注册后登录，目前仅支持手机号验证注册，注册完成后支持短信验证码、账户密码两种登录方式。 2. 选择模型 - 登录 OmniMaaS 控制台，在模型广场页面可查看平台当前已上架的模型名称、模型价格、模型详情、上下文长度等信息 - 可进入模型详情页查看模型的详细信息及其可用端点。 3. 获取 API Key - 登录 OmniMaaS 控制台，进入 API Keys 页面 - 新建密钥并妥善保存； - 每个请求都需携带 Authorization: Bearer <APIKEY> 头 - 如需",
+    "section": "4. 发起您的第一个请求"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic",
+    "title": "使用 Anthropic SDK",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" type=\"string\"> API 版本号，例如：2023-06-01 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"请求示例\"> </CodeGroup> <Note> Python 版本的用户如果本地没有安装过 Anthropic 库，可使用 pip install anthropic 安装。安装 Anthropic 库需将本地 Python 环境升级到 Python 3.8 以上！ </Note> </Col> --- Request Body <Property name=\"maxtokens\" type=\"int\" required> 在模型停止前最多生成的 token 数（最小值 ≥ 1）。模型可能会在达到上限前自然结束；不同模型支持的最大值不同，请参考模型文档。 </Property> <Property name=\"messages\" type=\"Iterable[MessageParam]\" required> 输入对话消息列表（最多 100,000 条）。Claude 以「用户 / 助手」交替轮次进行对话： - 每条消息必须包含 role 与 content 字段； - 可只传一条 user 消息，也可传多轮 user / assistant 消息； - 如果最后一条消息是 assistant 角色，则模型输出会直接从该消息内容后继续（可用于强制前缀）； - role Literal[\"user\", \"assistant\"] (必填)：消息角色仅支持：\"user\"、\"assistant\"（系统提示需用顶层 system 字段，而不是这里的 system 角色）。 - content string | object：content 可以是字符串，等价于单个 {\"type\": \"text\", \"text\": \"...\"} 的内容块数组；具体可参考官方文档。 </Property> <Property name=\"model\" type=\"ModelParam\" required> 本次调用使用的模型 ID，例如：claude-3-7-sonnet-latest 等；也支持传入字符串形式的自定义/未来模型名。 </Property> <Property name=\"metadata\" type=\"MetadataParam\"> 描述本次请求的元数据对象，便于你在业务侧做审计、统计、追踪等。 </Property> <Property name=\"userid\" type=\"string\"> 终端用户的标识（例如经哈希后的用户 ID），用于安全审计和用量分析。 </Property> <Property name=\"servicetier\" type=\"string\"> 控制本次请求使用的服务层级： - \"auto\"：根据项目配置自动选择（默认）； - \"standardonly\"：始终使用标准容量，不使用优先容量。 </Property> <Property name=\"stopsequences\" type=\"Sequence[str]\"> 自定义停止序列列表。模型生成内容遇到任一序列会立即停止，此时响应的 stopreason 为 \"stopsequence\"，同时 stopsequence 字段会返回命中的具体序列。 </Property> <Property name=\"stream\" type=\"boolean\"> 是否以 Server-Se"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic#",
+    "title": "请求",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" t",
+    "section": "请求"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic#request-body",
+    "title": "Request Body",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" t",
+    "section": "Request Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic#response-body",
+    "title": "Response Body",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" t",
+    "section": "Response Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic#",
+    "title": "响应示例",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" t",
+    "section": "响应示例"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-anthropic#",
+    "title": "代码示例",
+    "pageTitle": "使用 Anthropic SDK",
+    "content": "创建对话请求（Anthropic） OmniMaaS 的 Claude 原生 Chat Completions 接口面向已接入 Claude 生态或计划统一接入多家模型的团队，提供一条与官方接口规格高度一致的接入路径。平台在协议层兼容 POST /v1/messages 等 Claude 官方规范：请求体沿用 model、messages（含多段内容块）、工具调用等字段设计，并支持流式响应与多模态扩展。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> <Property name=\"anthropic-version\" t",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google",
+    "title": "使用 Google AI SDK",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 路径参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成补全的 Model 的名称，格式：models/{model}。 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"请求示例\"> </CodeGroup> </Col> --- Request Body <Property name=\"contents\" type=\"object array\" required> 与模型当前对话的内容，对于单轮查询，这是单个实例。对于多轮查询（例如聊天），这是包含对话历史记录和最新请求的重复字段。 - role string (可选)：内容的制作方，必须是 \"user\" 或 \"model\"。 - parts object array (必须)：part 由具有关联数据类型的数据组成。 - thought bool (可选)：表示相应部分是否由模型生成。 - thoughtSignature string (可选)：一种不透明的思路签名，以便在后续请求中重复使用；使用 base64 编码的字符串。 - partMetadata object (可选)：与部件关联的自定义元数据。 - data Union type (必须)： - text string：内嵌文本。 - inlineData object： - mimeType string：来源数据的 IANA 标准 MIME 类型。示例：image/png、image/jpeg - data string (bytes format)：媒体格式的原始字节，使用 base64 编码的字符串。 - functionCall object： - name string (必填)：要调用的函数名称，必须是 a-z、A-Z、0-9 或包含下划线和短划线，长度上限为 64。 - args object (Struct format) (可选)：以 JSON 对象格式表示的函数参数和值。 - functionResponse object：FunctionCall 的结果输出 - name string (必须)：要调用的函数名称。 - response object (Struct format) (必须)：以 JSON 对象格式表示的函数响应。 - fileData object：基于 URI 的数据 - mimeType string (可选)：来源数据的 IANA 标准 MIME 类型。 - fileUri string (必须)：URI - executableCode object：模型生成的旨在执行的代码。 - language enum (必须)：code 的编程语言。 - code string (必须)：code 代码 - codeExecutionResult object：执行 ExecutableCode 的结果。 - outcome enum (必须)：代码执行结果 - output string (可选)：如果代码执行成功，则包含 stdout；否则包含 stderr 或其他说明。 </Property> <Property name=\"tools\" ty"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google#",
+    "title": "请求",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"",
+    "section": "请求"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google#request-body",
+    "title": "Request Body",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"",
+    "section": "Request Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google#response-body",
+    "title": "Response Body",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"",
+    "section": "Response Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google#",
+    "title": "响应示例",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"",
+    "section": "响应示例"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-google#",
+    "title": "代码示例",
+    "pageTitle": "使用 Google AI SDK",
+    "content": "创建对话请求（Gemini） OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 models/{model}:streamGenerateContent / generateContent 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }} Gemini 官方 SDK 不支持 baseurl 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。 --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai",
+    "title": "使用 OpenAI SDK",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"请求示例\"> </CodeGroup> </Col> --- Request Body <Property name=\"messages\" type=\"array\" required> 当前对话的消息列表，按时间顺序排列。根据所选模型，messages 支持不同的消息类型（模态），例如文本、图片、音频等。 - role string (必填)：当前消息的角色，仅支持：developer、user、system、assistant、tool - content string (必填)：消息内容 </Property> <Property name=\"model\" type=\"string\" required> 用于生成回复的模型 ID，例如 gpt-5.1 或 gpt-5-pro。不同模型在能力、性能和价格上有所差异，可参考模型指南选择合适的模型。 </Property> <Property name=\"audio\" type=\"object | null\"> 配置音频输出参数。当你在 modalities 中请求 [\"audio\"] 时，该字段必填。 - format：指定输出音频格式。必须是以下之一 wav, mp3, flac, opus 或 pcm16 - voice：模型用于回复时所采用的声音。当前支持的音色包括：alloy、ash、ballad、coral、echo、fable、nova、onyx、sage 和 shimmer。 </Property> <Property name=\"frequencypenalty\" type=\"number | null\"> 取值范围 [-2.0, 2.0]，默认 0。正值会根据某个 token 在当前文本中出现的频率对其进行惩罚，降低模型重复同一行文本的概率。 </Property> <Property name=\"logitbias\" type=\"map\"> 修改指定 token 出现在输出中的概率。是一个 \"token ID → 偏置值\" 的映射，偏置值范围为 [-100, 100]，默认 null。 </Property> <Property name=\"logprobs\" type=\"boolean | null\"> 是否返回输出 token 的对数概率信息，默认 false。 </Property> <Property name=\"maxcompletiontokens\" type=\"integer | null\"> 限制本次补全中最多能生成的 token 数（包括可见输出和推理 token）。 </Property> <Property name=\"maxtokens\" type=\"integer | null\"> 老的最大生成 token 数字段，已被 maxcompletiontokens 替代，不再适用于 o 系列模型。（已废弃） </Property> <Property name=\"metadata\" type=\"map\"> 附加到请求对象上的最多 16 组 key-value，用于结构化地存储自定义信息。key 最长 64 字符，value 最长 512 字符。 </Property> <Property name=\"modalities\" type=\"array\"> 希望模型生成的输出类型。大多数模型默认只生成文本：[\"text\"]。支持多模态的模型可以返回文本 + 音频等，例如 [\"text\", \"au"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai#",
+    "title": "请求",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Co",
+    "section": "请求"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai#request-body",
+    "title": "Request Body",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Co",
+    "section": "Request Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai#response-body",
+    "title": "Response Body",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Co",
+    "section": "Response Body"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai#",
+    "title": "响应示例",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Co",
+    "section": "响应示例"
+  },
+  {
+    "url": "/docs/zh-CN/sdk-integration/sdk-openai#",
+    "title": "代码示例",
+    "pageTitle": "使用 OpenAI SDK",
+    "content": "创建对话请求（OpenAI） OmniMaaS 的 OpenAI 原生 Chat Completions 接口为已经接入 OpenAI 生态的团队提供了一条几乎「零改动」的迁移路径。平台在协议层完全兼容官方 POST /v1/chat/completions 规范，包括请求体结构（model、messages 等字段）、流式 stream 能力、工具调用等扩展能力，因此现有代码通常只需切换 baseurl 与 apikey 即可直接复用。{{ className: 'lead' }} --- 请求 <Col> Endpoint Headers <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> </Co",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions",
+    "title": "对话补全",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID，如 gpt-4o、claude-3-5-sonnet-20241022、gemini-2.0-flash </Property> <Property name=\"messages\" type=\"array\" required> 对话消息列表，按时间顺序排列 </Property> <Property name=\"messages[].role\" type=\"string\" required> 消息角色：system、user、assistant、tool </Property> <Property name=\"messages[].content\" type=\"string | array\" required> 消息内容，支持文本或多模态内容 </Property> <Property name=\"stream\" type=\"boolean\"> 是否启用流式输出，默认 false </Property> <Property name=\"temperature\" type=\"number\"> 采样温度，范围 0-2。值越高输出越随机，越低越确定 </Property> <Property name=\"maxtokens\" type=\"integer\"> 最大生成 token 数 </Property> <Property name=\"topp\" type=\"number\"> 核采样参数，范围 0-1 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/chat/completions\"> </CodeGroup> </Col> --- 流式输出 <Col> 启用流式输出后，响应将以 Server-Sent Events (SSE) 格式返回，适合实时显示生成内容。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/chat/completions\"> </CodeGroup> </Col> --- 多模态输入（图片） <Col> 支持在消息中传入图片 URL，实现图文混合输入。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/chat/completions\"> </CodeGroup> </Col> --- 响应参数 <Col> <Properties> <Property name=\"id\" type=\"string\"> 本次对话补全的唯一标识符 </Property> <Property name=\"object\" type=\"string\"> 对象类型，固定为 chat.completion </Property> <Property name=\"created\" type=\"integer\"> 创建时间的 Unix 时间戳（秒） </Property> <"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#--anchor-false-",
+    "title": "基础请求 {{ anchor: false }}",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "基础请求 {{ anchor: false }}"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#",
+    "title": "流式输出",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "流式输出"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#",
+    "title": "多模态输入（图片）",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "多模态输入（图片）"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#",
+    "title": "响应参数",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "响应参数"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#",
+    "title": "流式响应参数",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "流式响应参数"
+  },
+  {
+    "url": "/docs/zh-CN/text-chat/chat-completions#",
+    "title": "代码示例",
+    "pageTitle": "对话补全",
+    "content": "对话补全 OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }} <Col> 核心特性： <FeatureList> <FeatureItem>完全兼容 OpenAI API 协议</FeatureItem> <FeatureItem>支持流式输出（SSE）</FeatureItem> <FeatureItem>支持函数调用（Function Calling）</FeatureItem> <FeatureItem>支持多模态输入（文本、图片、音频）</FeatureItem> <FeatureItem>统一的错误处理和计费</FeatureItem> </FeatureList> </Col> --- 基础请求 {{ anchor: false }} <Col> 请求头 <Properties> <Property name=\"Authorization\" type",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng",
+    "title": "Jimeng 视频生成",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-251015 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数（秒），可选值：doubao-seedance-1-5-pro：412 秒、10，doubao-seedance-1-0-pro、doubao-seedance-1-0-pro-fast、doubao-seedance-1-0-lite-t2v、doubao-seedance-1-0-lite-i2v：212 秒，默认 5 </Property> <Property name=\"resolution\" type=\"string\"> 分辨率参数，输出分辨率，默认 720p <Options> </Options> </Property> <Property name=\"size\" type=\"string\"> 各画面比例的宽高像素值，默认 16:9（doubao-seedance-1-0-pro、doubao-seedance-1-0-pro-fast 文生视频场景不支持 adaptive） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式） </Property> </Properties> metadata 参数说明 metadata 支持 seed（种子整数）、camerafixed（是否固定摄像头）、watermark（是否包含水印）。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-251015、doubao-seedance-1-0-lite-i2v-250428、doubao-seedance-1-0-lite-t2v-250428 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"images\" type=\"array\" required> 图片输入（URL/Base64），支持输入一张或多张图片 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数（"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng#",
+    "title": "文生视频",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng#",
+    "title": "图生视频",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-",
+    "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng#",
+    "title": "响应",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-",
+    "section": "响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng#",
+    "title": "查询视频",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-",
+    "section": "查询视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-jimeng#",
+    "title": "代码示例",
+    "pageTitle": "Jimeng 视频生成",
+    "content": "Jimeng（即梦）视频生成 OmniMaaS 目前已支持对 Jimeng（即梦）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Jimeng 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> doubao-seedance-1-0-pro-250528、doubao-seedance-1-0-pro-fast-",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling",
+    "title": "Kling 视频生成",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数（秒），可选值：5、10，默认 5 </Property> <Property name=\"size\" type=\"string\"> 分辨率参数，输出分辨率，格式为宽度x高度，默认 16:9 <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式） </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"images\" type=\"array\" required> 图片输入（URL/Base64），支持输入一张或多张图片 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数（秒），可选值：5、10，默认 5 </Property> <Property name=\"size\" type=\"string\"> 分辨率参数，输出分辨率，格式为宽度x高度，默认 16:9 <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式） </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 响应 <Col> 响应参数 <Properties> <Property name=\"id\" type=\"string\"> 视频任务 ID </Property> <Property name=\"object\" type=\"string\"> 对象类型，固定为 video </Property> <Property name=\"model\" type="
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling#",
+    "title": "文生视频",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling#",
+    "title": "图生视频",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
+    "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling#",
+    "title": "响应",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
+    "section": "响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling#",
+    "title": "查询视频",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
+    "section": "查询视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-kling#",
+    "title": "代码示例",
+    "pageTitle": "Kling 视频生成",
+    "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora",
+    "title": "Sora 视频生成",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"integer\"> 视频时长参数（秒），可选值：4、8、12，默认 4 </Property> <Property name=\"inputreference\" type=\"file\"> 输入图片文件（图生视频时使用） </Property> <Property name=\"size\" type=\"string\"> 分辨率参数，输出分辨率，格式为宽度x高度，默认 720x1280 <Options> </Options> </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/videos\"> </CodeGroup> </Col> --- 响应 <Col> 响应参数 <Properties> <Property name=\"id\" type=\"string\"> 视频任务 ID </Property> <Property name=\"object\" type=\"string\"> 对象类型，固定为 video </Property> <Property name=\"model\" type=\"string\"> 使用的模型名称 </Property> <Property name=\"createdat\" type=\"integer\"> 创建时间戳 </Property> <Property name=\"status\" type=\"string\"> 任务状态（processing: 处理中） </Property> <Property name=\"progress\" type=\"integer\"> 生成进度百分比 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"响应示例\"> </CodeGroup> </Col> --- 查询视频 根据任务 ID 查询视频生成任务的状态和结果 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> </Properties> 路径参数 <Properties> <Property name=\"videoid\" type=\"string\" required> 视频任务 ID </Property> </Properties> 响应参数 <Properties> <Property name=\"id\" type=\"string\"> 视频任务 ID </Property> <Property name=\"object\" type=\"string\"> 对象类型，固定为 video </Property> <Property name=\"model\" type=\"string\"> 使用的模型名称 </Property> <Property name=\"createdat\" type=\"integer\"> 创建时间戳 </Property> <Property name=\"status\" type=\"string\"> 任务状态（processing: 处理中） </Pro"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "文生视频",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "响应",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "查询视频",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "查询视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "获取视频内容",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "获取视频内容"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "错误响应",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "错误响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-sora#",
+    "title": "代码示例",
+    "pageTitle": "Sora 视频生成",
+    "content": "OpenAI 视频生成（Sora） OmniMaaS 目前已支持对 Sora、Veo 视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 OpenAI 视频生成接口生成视频，支持 Sora 等模型。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 multipart/form-data </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：sora-2 </Property> <Proper",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu",
+    "title": "Vidu 视频生成",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：viduq2、viduq1、vidu1.5 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述。字符串长度不能超过 2000 字符 </Property> <Property name=\"stype\" type=\"string\"> 风格，默认 general。注意：仅在 Vidu 系列模型下生效 <Options> </Options> </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数。viduq2 默认 5 秒，可选 1-10；viduq1 默认 5 秒，可选 5；vidu1.5 默认 4 秒，可选 4、8 </Property> <Property name=\"seed\" type=\"integer\"> 随机种子，当默认不传或者传 0 时，会使用随机数替代，手动设置则使用手动设置的种子值 </Property> <Property name=\"size\" type=\"string\"> 分辨率参数。viduq2(1-10秒) 默认 720p，可选 540p、720p、1080p；viduq1(5秒) 默认 1080p；vidu1.5(4秒) 默认 360p，可选 360p、720p、1080p；vidu1.5(8秒) 默认 720p </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 negativeprompt、style、qualitylevel 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递非 Sora 特有的参数，例如 Vidu 的 Label、ContentProducer，通义万相的图片 URL、水印、智能改写等。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 支持模型 <Property name=\"viduq2-pro-fast\" type=\"model\"> Vidu Q2 Pro Fast 模型 </Property> <Property name=\"viduq2-pro\" type=\"model\"> Vidu Q2 Pro 模型 </Property> <Property name=\"viduq2-turbo\" type=\"model\"> Vidu Q2 Turbo 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\""
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "文生视频",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "图生视频",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "首尾帧生视频",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "首尾帧生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "参考生视频",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "参考生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "查询视频",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "查询视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-vidu#",
+    "title": "代码示例",
+    "pageTitle": "Vidu 视频生成",
+    "content": "Vidu 视频生成 OmniMaaS 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成视频的场景接入。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态页面来获取具体视频链接。 --- 文生视频 支持模型 <Property name=\"viduq2\" type=\"model\"> Vidu Q2 模型 </Property> <Property name=\"viduq1\" type=\"model\"> Vidu Q1 模型 </Property> <Property name=\"vidu1.5\" type=\"model\"> Vidu 1.5 模型 </Property> 其他模型正在上架测试，持续更新中～ <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"st",
+    "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan",
+    "title": "Wan 视频生成",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-t2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-t2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-t2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/videos\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-i2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-i2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-i2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。图生视频时需要在 metadata 中传入 imgurl 参数。 </Col> <Col sticky> <"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "支持模型",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "文生视频",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "图生视频",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "响应",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "查询视频",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "查询视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "获取视频内容",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "获取视频内容"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "代码示例",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "section": "代码示例"
+  }
+]

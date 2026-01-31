@@ -1,0 +1,259 @@
+export const metadata = {
+  title: 'OpenAI 图像生成',
+  description: 'OmniMaaS OpenAI 标准协议图像生成接口，支持 GPT Image 等模型。',
+}
+
+# OpenAI 图像生成
+
+OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="gpt-image-1" type="model">
+    GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。
+  </Property>
+</Properties>
+
+---
+
+## 创建图片
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        创建图片时选择的模型 ID，如 `gpt-image-1`
+      </Property>
+      <Property name="prompt" type="string" required>
+        期望生成图片的文本描述
+      </Property>
+      <Property name="n" type="integer">
+        要生成的图片数量，必须在 `1-10` 之间，默认 `1`
+      </Property>
+      <Property name="quality" type="string">
+        生成图片的质量，可选 `standard` 或 `hd`
+      </Property>
+      <Property name="size" type="string">
+        生成图片的尺寸，默认 `1024x1024`
+      </Property>
+      <Property name="response_format" type="string">
+        返回格式，`url` 或 `b64_json`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/images/generations">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gpt-image-1",
+    "prompt": "生成一只可爱的小猫",
+    "n": 1
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.images.generate(
+    model="gpt-image-1",
+    prompt="生成一只可爱的小猫",
+    n=1,
+    size="1024x1024"
+)
+
+print(response.data[0].url)
+```
+
+```javascript {{ title: 'Node.js' }}
+const OpenAI = require('openai');
+
+const client = new OpenAI({
+    baseURL: 'https://api.omnimaas.com/v1',
+    apiKey: 'YOUR_API_KEY'
+});
+
+const response = await client.images.generate({
+    model: 'gpt-image-1',
+    prompt: '生成一只可爱的小猫',
+    n: 1,
+    size: '1024x1024'
+});
+
+console.log(response.data[0].url);
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 编辑图片
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/edits" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        创建图片时选择的模型 ID
+      </Property>
+      <Property name="prompt" type="string" required>
+        期望生成图片的文本描述
+      </Property>
+      <Property name="image" type="string | array" required>
+        文件或文件数组，要编辑的图片
+      </Property>
+      <Property name="quality" type="string">
+        生成图片的质量，默认 `standard`
+      </Property>
+      <Property name="size" type="string">
+        生成图片的尺寸，默认 `1024x1024`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/images/edits">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/images/edits \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "model=gpt-image-1" \
+  -F "image[]=@body-lotion.png" \
+  -F "image[]=@bath-bomb.png" \
+  -F "prompt=创建一个包含这些物品的精美礼品篮" \
+  -F "quality=high"
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.images.edit(
+    model="gpt-image-1",
+    image=open("image.png", "rb"),
+    prompt="将背景改为海滩",
+)
+
+print(response.data[0].url)
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应格式
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="created" type="integer">
+        响应创建的 Unix 时间戳（秒）
+      </Property>
+      <Property name="data" type="array">
+        生成的图片对象列表
+      </Property>
+      <Property name="data[].url" type="string">
+        如果 `response_format` 为 `url`（默认），则包含生成图片的 URL
+      </Property>
+      <Property name="data[].b64_json" type="string">
+        如果 `response_format` 为 `b64_json`，则包含生成图片的 Base64 编码
+      </Property>
+      <Property name="data[].revised_prompt" type="string">
+        如果提示有任何修改，则包含用于生成图片的修改后的提示
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.input_tokens" type="integer">
+        输入使用的令牌数
+      </Property>
+      <Property name="usage.output_tokens" type="integer">
+        输出使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+      <Property name="usage.input_tokens_details" type="object">
+        输入令牌的详细信息（文本令牌和图像令牌）
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "created": 1766308943,
+    "background": "opaque",
+    "data": [
+        {
+            "url": "https://...",
+            "b64_json": "",
+            "revised_prompt": ""
+        }
+    ],
+    "output_format": "png",
+    "quality": "high",
+    "size": "1024x1024",
+    "usage": {
+        "input_tokens": 52,
+        "input_tokens_details": {
+            "image_tokens": 0,
+            "text_tokens": 52
+        },
+        "output_tokens": 4160,
+        "total_tokens": 4212
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>

@@ -1,0 +1,40 @@
+import { Guides } from '@/components/Guides'
+import { Resources } from '@/components/Resources'
+
+export const metadata = {
+  title: 'API 文档',
+  description:
+    '了解关于 Protocol API 的一切，并将 Protocol 集成到您的产品中。',
+}
+
+export const sections = [
+  { title: '指南', id: 'guides' },
+  { title: '资源', id: 'resources' },
+]
+
+# API 文档
+
+使用 Protocol API 访问联系人、对话、群组消息等功能，将您的产品无缝集成到众多 Protocol 忠实用户的工作流程中。 {{ className: 'lead' }}
+
+<div className="not-prose mt-6 mb-16 flex gap-3">
+  <Button href="/quickstart" arrow="right">
+    <>快速开始</>
+  </Button>
+  <Button href="/sdks" variant="outline">
+    <>探索 SDK</>
+  </Button>
+</div>
+
+## 入门指南 {{ anchor: false }}
+
+首先，在您的[开发者设置](#)中创建一个新应用，然后阅读如何使用我们的 HTTP API 或专用客户端 SDK 请求所需资源。当您的集成准备上线时，将其发布到我们的[集成目录](#)，以触达 Protocol 社区。 {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button href="/sdks" variant="text" arrow="right">
+    <>获取 API 密钥</>
+  </Button>
+</div>
+
+<Guides />
+
+<Resources />

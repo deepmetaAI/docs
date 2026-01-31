@@ -1,0 +1,88 @@
+export const metadata = {
+  title: 'Cherry Studio 配置',
+  description: '在 Cherry Studio 客户端中配置 OmniMaaS API 接入。',
+}
+
+# Cherry Studio 客户端配置
+
+本指南将帮助您在 Cherry Studio 客户端中配置 OmniMaaS API 接入。{{ className: 'lead' }}
+
+---
+
+## Cherry Studio 下载
+
+官方地址：[https://www.cherry-ai.com/](https://www.cherry-ai.com/)
+
+![Cherry Studio 官网](/images/cherry-studio/image.png)
+
+---
+
+## 获取 API 地址和密钥
+
+### 步骤 1：获取 API 地址
+
+打开 OmniMaaS 平台获取 API 地址，可以通过点击"模型广场"中的任意一个模型进入到"模型详情"，可通过模型详情来查 API 地址。
+
+![获取 API 地址](/images/cherry-studio/cherry_studio_5.png)
+
+### 步骤 2：获取 API Key
+
+打开 OmniMaaS，点击左侧"账户"-"API Keys"菜单，在该页面完成 Key 创建并复制 key。
+
+![API Keys 菜单](/images/cherry-studio/cherry_studio_6.png)
+
+![复制 API Key](/images/cherry-studio/cherry_studio_7.png)
+
+---
+
+## 配置步骤
+
+### 进入设置
+
+打开 Cherry Studio 首页，点击右上角设置。
+
+![进入设置](/images/cherry-studio/cherry_studio_1.png)
+
+### 配置模型
+
+#### 方案一：直接使用官方提供商模式
+
+在"模型服务"页面找到"阿里云百炼"提供商，将这里的"API密钥"更换为从 OmniMaaS 平台获取的 `API_Key`，以及将 API 地址改为：`https://api.omnimaas.com` 即可。
+
+![阿里云百炼配置](/images/cherry-studio/cherry_studio_2.png)
+
+#### 方案二：自定义 OmniMaaS 集成方式
+
+**1. 点击添加按钮**
+
+点击下列的添加按钮，输入"OmniMaaS"提供商名称，并选择对应的提供商类型，这里以"OpenAI"为例：
+
+![添加提供商](/images/cherry-studio/cherry_studio_3.png)
+
+**2. 输入 OmniMaaS 的 API 地址和密钥**
+
+将这里的"API密钥"更换为从 OmniMaaS 平台获取的 `API_Key`，以及将 API 地址改为：`https://api.omnimaas.com` 即可。
+
+![配置 API](/images/cherry-studio/cherry_studio_4.png)
+
+**3. 添加模型**
+
+![添加模型](/images/cherry-studio/cherry_studio_8.png)
+
+**4. 模型名称填写**
+
+![模型名称填写](/images/cherry-studio/cherry_studio_9.png)
+
+这里的模型 ID 对应的是 OmniMaaS 平台中"模型广场"-"模型详情"里的"模型名称"：
+
+![模型详情](/images/cherry-studio/cherry_studio_10.png)
+
+<Note>
+  需要注意的是，这里的"分组名称"默认为：`default`
+</Note>
+
+**5. 使用模型**
+
+在使用时，只需要选择已经配置好的模型名称即可：
+
+![使用模型](/images/cherry-studio/cherry_studio_11.png)
