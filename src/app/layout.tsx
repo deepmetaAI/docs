@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     description: 'OmniMaaS 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK。',
   },
   icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: '/images/favicon.png',
+    apple: '/images/favicon.png',
   },
   robots: {
     index: true,
