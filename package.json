@@ -12,6 +12,7 @@
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
+    "lightningcss": "^1.29.0",
     "@algolia/autocomplete-core": "^1.7.3",
     "@headlessui/react": "^2.1.0",
     "@mdx-js/loader": "^3.0.0",
