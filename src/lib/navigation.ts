@@ -44,6 +44,7 @@ export const spaces: Space[] = [
         links: [
           { title: 'OpenAI 图像生成', href: '/docs/zh-CN/image-generation/image-openai' },
           { title: 'Qwen & Wan 图像生成', href: '/docs/zh-CN/image-generation/image-qwen' },
+          { title: '豆包 Seedream 图像生成', href: '/docs/zh-CN/image-generation/image-doubao' },
         ],
       },
       {

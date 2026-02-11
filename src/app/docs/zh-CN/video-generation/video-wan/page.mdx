@@ -1,11 +1,11 @@
 export const metadata = {
   title: 'Wan 视频生成',
-  description: 'OmniMaaS Wan（万相）视频生成接口，支持文生视频和图生视频。',
+  description: 'OmniMaaS Wan（万相）视频生成接口，支持文生视频、图生视频和图生动作。',
 }
 
 # Wan 视频生成
 
-OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }}
+OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }}
 
 ---
 
@@ -17,6 +17,9 @@ OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过
   </Property>
   <Property name="wan2.6-i2v" type="model">
     图生视频
+  </Property>
+  <Property name="wan2.2-animate-move" type="model">
+    图生动作（将参考视频中的动作/表情迁移到图片角色）
   </Property>
 </Properties>
 
@@ -212,6 +215,89 @@ curl https://api.omnimaas.com/v1/videos \
         "img_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250925/wpimhv/rap.png"
     }
 }'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 图生动作
+
+基于人物图片和参考视频，将视频中的动作和表情迁移到图片角色中，生成动作视频。适用于复刻舞蹈、高难度肢体动作、影视剧表演等场景，可作为低成本动捕替代方案。
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，固定为 `wan2.2-animate-move`
+      </Property>
+      <Property name="image_url" type="string" required>
+        人物图片的公网可访问 URL
+      </Property>
+      <Property name="video_url" type="string" required>
+        参考视频的公网可访问 URL
+      </Property>
+      <Property name="mode" type="string" required>
+        服务模式。`wan-std`：标准模式；`wan-pro`：专业模式
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/videos">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/videos \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "wan2.2-animate-move",
+    "image_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/adsyrp/move_input_image.jpeg",
+    "video_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/kaakcn/move_input_video.mp4",
+    "mode": "wan-pro"
+  }'
+```
+
+```python {{ title: '图生动作' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.2-animate-move",
+    "image_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/adsyrp/move_input_image.jpeg",
+    "video_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/kaakcn/move_input_video.mp4",
+    "mode": "wan-pro"
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
 ```
 
     </CodeGroup>
@@ -483,6 +569,34 @@ data = {
     "metadata": {
         "img_url": "https://example.com/image.png"
     }
+}
+
+try:
+    response = requests.post(url, headers=headers, json=data)
+    print(f"状态码: {response.status_code}")
+    print(f"响应内容: {response.text}")
+
+except requests.exceptions.RequestException as e:
+    print(f"请求失败: {e}")
+```
+
+### Python 图生动作示例
+
+```python
+import requests
+
+url = 'https://api.omnimaas.com/v1/videos'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "wan2.2-animate-move",
+    "image_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/adsyrp/move_input_image.jpeg",
+    "video_url": "https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20250919/kaakcn/move_input_video.mp4",
+    "mode": "wan-pro"
 }
 
 try:

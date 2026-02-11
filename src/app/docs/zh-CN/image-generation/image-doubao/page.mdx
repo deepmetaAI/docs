@@ -1,0 +1,157 @@
+export const metadata = {
+  title: '豆包 Seedream 图像生成',
+  description: 'OmniMaaS 豆包 Seedream 系列图像生成接口。',
+}
+
+# 豆包 Seedream 图像生成
+
+OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="doubao-seedream-4-0-250828" type="model">
+    豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。
+  </Property>
+</Properties>
+
+其他模型支持可联系客服。
+
+---
+
+## 创建图片
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `doubao-seedream-4-0-250828`
+      </Property>
+      <Property name="prompt" type="string" required>
+        期望生成图片的文本描述，支持中英文。建议不超过 300 个汉字或 600 个英文单词。
+      </Property>
+      <Property name="duration" type="integer">
+        生成时长参数，默认 `5`
+      </Property>
+      <Property name="resolution" type="string">
+        生成图片的分辨率，如 `720p`、`1080p` 等
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/images/generations">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "doubao-seedream-4-0-250828",
+    "prompt": "一只可爱的小猫在草地上玩耍",
+    "duration": 5,
+    "resolution": "720p"
+  }'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/images/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "doubao-seedream-4-0-250828",
+    "prompt": "一只可爱的小猫在草地上玩耍",
+    "duration": 5,
+    "resolution": "720p"
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应格式
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="model" type="string">
+        本次请求使用的模型 ID
+      </Property>
+      <Property name="created" type="integer">
+        响应创建的 Unix 时间戳（秒）
+      </Property>
+      <Property name="data" type="array">
+        生成的图片对象列表
+      </Property>
+      <Property name="data[].url" type="string">
+        生成图片的 URL，链接在生成后 24 小时内有效
+      </Property>
+      <Property name="data[].size" type="string">
+        图像的宽高像素值，格式为 `宽x高`，如 `2048x2048`
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.generated_images" type="integer">
+        模型成功生成的图片张数
+      </Property>
+      <Property name="usage.output_tokens" type="integer">
+        输出使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "model": "doubao-seedream-4-0-250828",
+    "created": 1770791542,
+    "data": [
+        {
+            "url": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/...",
+            "size": "2048x2048"
+        }
+    ],
+    "usage": {
+        "generated_images": 1,
+        "output_tokens": 16384,
+        "total_tokens": 16384
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
