@@ -1,0 +1,284 @@
+export const metadata = {
+  title: 'Gemini 图像生成',
+  description: 'OmniMaaS Gemini 系列图像生成接口，支持 Nano Banana 等模型。',
+}
+
+# Gemini 图像生成
+
+OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="gemini-3-pro-image-preview" type="model">
+    Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。
+  </Property>
+  <Property name="gemini-2.5-flash-image" type="model">
+    Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。
+  </Property>
+  <Property name="gemini-2.5-flash-image-preview" type="model">
+    Nano Banana Preview，Nano Banana 的预览版本，支持图像生成、编辑和多轮对话。
+  </Property>
+</Properties>
+
+其他模型支持可联系客服。
+
+---
+
+## 创建图片
+
+Gemini 图像生成通过对话补全接口调用，在 `messages` 中描述期望生成的图像内容即可。
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/chat/completions" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `gemini-3-pro-image-preview`、`gemini-2.5-flash-image`
+      </Property>
+      <Property name="messages" type="array" required>
+        对话消息列表，在 `content` 中描述期望生成的图像
+      </Property>
+      <Property name="stream" type="boolean">
+        是否使用流式输出，默认 `false`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gemini-2.5-flash-image",
+    "messages": [
+      {
+        "role": "user",
+        "content": "生成一只可爱的小猫在草地上玩耍的图片"
+      }
+    ]
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.chat.completions.create(
+    model="gemini-2.5-flash-image",
+    messages=[
+        {
+            "role": "user",
+            "content": "生成一只可爱的小猫在草地上玩耍的图片"
+        }
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+```javascript {{ title: 'Node.js' }}
+const OpenAI = require('openai');
+
+const client = new OpenAI({
+    baseURL: 'https://api.omnimaas.com/v1',
+    apiKey: 'YOUR_API_KEY'
+});
+
+const response = await client.chat.completions.create({
+    model: 'gemini-2.5-flash-image',
+    messages: [
+        {
+            role: 'user',
+            content: '生成一只可爱的小猫在草地上玩耍的图片'
+        }
+    ]
+});
+
+console.log(response.choices[0].message.content);
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 编辑图片
+
+通过在 `messages` 中传入图片 URL 和编辑指令，即可实现图像编辑。
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/chat/completions" />
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `gemini-3-pro-image-preview`
+      </Property>
+      <Property name="messages" type="array" required>
+        对话消息列表，`content` 为数组时可同时传入图片和文本指令
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/chat/completions">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "gemini-3-pro-image-preview",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image_url",
+            "image_url": {
+              "url": "https://example.com/image.jpg"
+            }
+          },
+          {
+            "type": "text",
+            "text": "将这张图片的背景改为海滩"
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.chat.completions.create(
+    model="gemini-3-pro-image-preview",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "https://example.com/image.jpg"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "将这张图片的背景改为海滩"
+                }
+            ]
+        }
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 响应格式
+
+<Row>
+  <Col>
+    Gemini 图像生成的响应遵循标准 Chat Completions 格式，生成的图片以 Base64 或 URL 形式包含在 `choices[0].message.content` 中。
+
+    <Properties>
+      <Property name="id" type="string">
+        请求 ID
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `chat.completion`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="created" type="integer">
+        响应创建的 Unix 时间戳（秒）
+      </Property>
+      <Property name="choices" type="array">
+        生成结果列表
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.prompt_tokens" type="integer">
+        输入使用的令牌数
+      </Property>
+      <Property name="usage.completion_tokens" type="integer">
+        输出使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "id": "chatcmpl-xxx",
+    "object": "chat.completion",
+    "model": "gemini-2.5-flash-image",
+    "created": 1770791542,
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "..."
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 10,
+        "completion_tokens": 4160,
+        "total_tokens": 4170
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+<Note>
+  Gemini 图像生成模型按 token 计费（输入 + 输出），与文本对话模型计费方式一致，不按图片张数计费。
+</Note>

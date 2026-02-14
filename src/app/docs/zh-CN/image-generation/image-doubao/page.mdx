@@ -12,6 +12,9 @@ OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入�
 ## 支持模型
 
 <Properties>
+  <Property name="doubao-seedream-4-5-251128" type="model">
+    豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。
+  </Property>
   <Property name="doubao-seedream-4-0-250828" type="model">
     豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。
   </Property>
@@ -42,7 +45,7 @@ OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入�
 
     <Properties>
       <Property name="model" type="string" required>
-        模型 ID，如 `doubao-seedream-4-0-250828`
+        模型 ID，如 `doubao-seedream-4-5-251128`、`doubao-seedream-4-0-250828`
       </Property>
       <Property name="prompt" type="string" required>
         期望生成图片的文本描述，支持中英文。建议不超过 300 个汉字或 600 个英文单词。

@@ -4,10 +4,8 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
 
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
-import { remToPx } from '@/lib/remToPx'
 import { getNavigationForPathname, type NavGroup } from '@/lib/navigation'
 
 function useInitialValue<T>(value: T, condition = true) {
@@ -48,38 +46,14 @@ function NavLink({
       href={href}
       aria-current={active ? 'page' : undefined}
       className={clsx(
-        'flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4',
+        'flex items-center rounded-lg py-1.5 px-2.5 text-sm transition',
         active
-          ? 'text-zinc-900 dark:text-white'
+          ? 'bg-indigo-50 font-medium text-indigo-600 dark:bg-indigo-400/10 dark:text-indigo-400'
           : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
       )}
     >
       <span className="truncate">{children}</span>
     </Link>
-  )
-}
-
-function ActivePageMarker({
-  group,
-  pathname,
-}: {
-  group: NavGroup
-  pathname: string
-}) {
-  let itemHeight = remToPx(2)
-  let offset = remToPx(0.25)
-  let activePageIndex = group.links.findIndex((link) => link.href === pathname)
-  let top = offset + activePageIndex * itemHeight
-
-  return (
-    <motion.div
-      layout
-      className="absolute left-2 h-6 w-px bg-indigo-500"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0 }}
-      style={{ top }}
-    />
   )
 }
 
@@ -93,37 +67,20 @@ function NavigationGroup({
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
   let pathname = useInitialValue(usePathname(), isInsideMobileNavigation)
 
-  let isActiveGroup =
-    group.links.findIndex((link) => link.href === pathname) !== -1
-
   return (
-    <li className={clsx('relative mt-6', className)}>
-      <motion.h2
-        layout="position"
-        className="text-xs font-semibold text-zinc-900 dark:text-white"
-      >
+    <li className={clsx('mt-6', className)}>
+      <h2 className="text-sm font-semibold text-zinc-900 dark:text-white">
         {group.title}
-      </motion.h2>
-      <div className="relative mt-3 pl-2">
-        <motion.div
-          layout
-          className="absolute inset-y-0 left-2 w-px bg-zinc-900/10 dark:bg-white/5"
-        />
-        <AnimatePresence initial={false}>
-          {isActiveGroup && (
-            <ActivePageMarker group={group} pathname={pathname} />
-          )}
-        </AnimatePresence>
-        <ul role="list" className="border-l border-transparent">
-          {group.links.map((link) => (
-            <motion.li key={link.href} layout="position" className="relative">
-              <NavLink href={link.href} active={link.href === pathname}>
-                {link.title}
-              </NavLink>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
+      </h2>
+      <ul role="list" className="mt-1.5 -mx-2 space-y-0.5">
+        {group.links.map((link) => (
+          <li key={link.href}>
+            <NavLink href={link.href} active={link.href === pathname}>
+              {link.title}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     </li>
   )
 }

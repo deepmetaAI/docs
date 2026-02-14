@@ -43,6 +43,7 @@ export const spaces: Space[] = [
         title: '图像生成',
         links: [
           { title: 'OpenAI 图像生成', href: '/docs/zh-CN/image-generation/image-openai' },
+          { title: 'Gemini 图像生成', href: '/docs/zh-CN/image-generation/image-gemini' },
           { title: 'Qwen & Wan 图像生成', href: '/docs/zh-CN/image-generation/image-qwen' },
           { title: '豆包 Seedream 图像生成', href: '/docs/zh-CN/image-generation/image-doubao' },
         ],
@@ -53,8 +54,15 @@ export const spaces: Space[] = [
           { title: 'Sora 视频生成', href: '/docs/zh-CN/video-generation/video-sora' },
           { title: 'Vidu 视频生成', href: '/docs/zh-CN/video-generation/video-vidu' },
           { title: 'Kling 视频生成', href: '/docs/zh-CN/video-generation/video-kling' },
+          { title: 'MiniMax 海螺视频生成', href: '/docs/zh-CN/video-generation/video-minimax' },
           { title: 'Jimeng 视频生成', href: '/docs/zh-CN/video-generation/video-jimeng' },
           { title: 'Wan 视频生成', href: '/docs/zh-CN/video-generation/video-wan' },
+        ],
+      },
+      {
+        title: 'Embedding & Rerank',
+        links: [
+          { title: 'Embedding & Rerank', href: '/docs/zh-CN/embedding-rerank/embedding-rerank' },
         ],
       },
       {

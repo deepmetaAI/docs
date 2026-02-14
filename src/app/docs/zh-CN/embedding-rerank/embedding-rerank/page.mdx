@@ -1,0 +1,329 @@
+export const metadata = {
+  title: 'Embedding & Rerank',
+  description: 'OmniMaaS 文本向量（Embedding）和重排序（Rerank）接口。',
+}
+
+# Embedding & Rerank
+
+OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }}
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="text-embedding-v4" type="model">
+    基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 64~2048 维用户自定义向量维度。
+  </Property>
+  <Property name="qwen3-rerank" type="model">
+    基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。
+  </Property>
+</Properties>
+
+---
+
+## 创建向量
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/embeddings" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `text-embedding-v4`
+      </Property>
+      <Property name="input" type="string | array" required>
+        要生成向量的文本，支持单条字符串或字符串数组
+      </Property>
+      <Property name="dimensions" type="integer">
+        输出向量维度，支持 64~2048，默认 `1024`
+      </Property>
+      <Property name="encoding_format" type="string">
+        向量编码格式，可选 `float` 或 `base64`，默认 `float`
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/embeddings">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/embeddings \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "text-embedding-v4",
+    "input": "OmniMaaS 是一个统一的模型即服务平台",
+    "dimensions": 1024
+  }'
+```
+
+```python {{ title: 'Python' }}
+from openai import OpenAI
+
+client = OpenAI(
+    base_url='https://api.omnimaas.com/v1',
+    api_key='YOUR_API_KEY'
+)
+
+response = client.embeddings.create(
+    model="text-embedding-v4",
+    input="OmniMaaS 是一个统一的模型即服务平台",
+    dimensions=1024
+)
+
+print(response.data[0].embedding[:5])
+```
+
+```javascript {{ title: 'Node.js' }}
+const OpenAI = require('openai');
+
+const client = new OpenAI({
+    baseURL: 'https://api.omnimaas.com/v1',
+    apiKey: 'YOUR_API_KEY'
+});
+
+const response = await client.embeddings.create({
+    model: 'text-embedding-v4',
+    input: 'OmniMaaS 是一个统一的模型即服务平台',
+    dimensions: 1024
+});
+
+console.log(response.data[0].embedding.slice(0, 5));
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 向量响应格式
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="object" type="string">
+        固定为 `list`
+      </Property>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="data" type="array">
+        向量对象列表
+      </Property>
+      <Property name="data[].object" type="string">
+        固定为 `embedding`
+      </Property>
+      <Property name="data[].index" type="integer">
+        输入文本的索引
+      </Property>
+      <Property name="data[].embedding" type="array">
+        向量数组
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.prompt_tokens" type="integer">
+        输入使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "object": "list",
+    "model": "text-embedding-v4",
+    "data": [
+        {
+            "object": "embedding",
+            "index": 0,
+            "embedding": [0.0123, -0.0456, 0.0789, ...]
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 12,
+        "total_tokens": 12
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 文本重排序
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.com/v1/rerank" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，如 `qwen3-rerank`
+      </Property>
+      <Property name="query" type="string" required>
+        查询文本
+      </Property>
+      <Property name="documents" type="array" required>
+        候选文档列表，字符串数组
+      </Property>
+      <Property name="top_n" type="integer">
+        返回排序结果的数量，默认返回全部
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/rerank">
+
+```bash {{ title: 'cURL' }}
+curl https://api.omnimaas.com/v1/rerank \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "qwen3-rerank",
+    "query": "什么是人工智能？",
+    "documents": [
+      "人工智能是计算机科学的一个分支，致力于创建能够模拟人类智能的系统。",
+      "今天天气很好，适合出去散步。",
+      "机器学习是人工智能的一个子领域，通过数据训练模型来做出预测。",
+      "Python 是一种广泛使用的编程语言。"
+    ],
+    "top_n": 3
+  }'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.omnimaas.com/v1/rerank'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+data = {
+    "model": "qwen3-rerank",
+    "query": "什么是人工智能？",
+    "documents": [
+        "人工智能是计算机科学的一个分支，致力于创建能够模拟人类智能的系统。",
+        "今天天气很好，适合出去散步。",
+        "机器学习是人工智能的一个子领域，通过数据训练模型来做出预测。",
+        "Python 是一种广泛使用的编程语言。"
+    ],
+    "top_n": 3
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 重排序响应格式
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="model" type="string">
+        使用的模型名称
+      </Property>
+      <Property name="results" type="array">
+        排序结果列表，按相关性从高到低排列
+      </Property>
+      <Property name="results[].index" type="integer">
+        原始文档列表中的索引
+      </Property>
+      <Property name="results[].relevance_score" type="number">
+        相关性分数
+      </Property>
+      <Property name="results[].document" type="object">
+        文档内容
+      </Property>
+      <Property name="usage" type="object">
+        使用统计信息
+      </Property>
+      <Property name="usage.prompt_tokens" type="integer">
+        输入使用的令牌数
+      </Property>
+      <Property name="usage.total_tokens" type="integer">
+        使用的总令牌数
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+    "model": "qwen3-rerank",
+    "results": [
+        {
+            "index": 0,
+            "relevance_score": 0.95,
+            "document": {
+                "text": "人工智能是计算机科学的一个分支，致力于创建能够模拟人类智能的系统。"
+            }
+        },
+        {
+            "index": 2,
+            "relevance_score": 0.82,
+            "document": {
+                "text": "机器学习是人工智能的一个子领域，通过数据训练模型来做出预测。"
+            }
+        },
+        {
+            "index": 3,
+            "relevance_score": 0.15,
+            "document": {
+                "text": "Python 是一种广泛使用的编程语言。"
+            }
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 120,
+        "total_tokens": 120
+    }
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
