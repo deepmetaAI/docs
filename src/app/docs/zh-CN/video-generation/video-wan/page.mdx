@@ -1,11 +1,11 @@
 export const metadata = {
   title: 'Wan 视频生成',
-  description: 'OmniMaaS Wan（万相）视频生成接口，支持文生视频、图生视频和图生动作。',
+  description: 'Cloubic Wan（万相）视频生成接口，支持文生视频、图生视频和图生动作。',
 }
 
 # Wan 视频生成
 
-OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }}
+Cloubic 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }}
 
 ---
 
@@ -31,7 +31,7 @@ OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/videos" />
 
     ### 请求头
 
@@ -79,7 +79,7 @@ OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过
     <CodeGroup tag="POST" label="/v1/videos">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/videos \
+curl https://api.cloubic.com/v1/videos \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -93,7 +93,7 @@ curl https://api.omnimaas.com/v1/videos \
 ```python {{ title: '文生视频' }}
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ except requests.exceptions.RequestException as e:
 ```python {{ title: '图生视频' }}
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ except requests.exceptions.RequestException as e:
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/videos" />
 
     ### 请求头
 
@@ -205,7 +205,7 @@ except requests.exceptions.RequestException as e:
     <CodeGroup tag="POST" label="/v1/videos">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/videos \
+curl https://api.cloubic.com/v1/videos \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -229,7 +229,7 @@ curl https://api.omnimaas.com/v1/videos \
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/videos" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/videos" />
 
     ### 请求头
 
@@ -263,7 +263,7 @@ curl https://api.omnimaas.com/v1/videos \
     <CodeGroup tag="POST" label="/v1/videos">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/videos \
+curl https://api.cloubic.com/v1/videos \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -277,7 +277,7 @@ curl https://api.omnimaas.com/v1/videos \
 ```python {{ title: '图生动作' }}
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',
@@ -359,7 +359,7 @@ except requests.exceptions.RequestException as e:
 
 <Row>
   <Col>
-    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}" />
+    <Endpoint method="GET" path="https://api.cloubic.com/v1/videos/{video_id}" />
 
     ### 请求头
 
@@ -419,7 +419,7 @@ except requests.exceptions.RequestException as e:
     <CodeGroup tag="GET" label="/v1/videos/{video_id}">
 
 ```bash {{ title: 'cURL' }}
-curl 'https://api.omnimaas.com/v1/videos/{video_id}' \
+curl 'https://api.cloubic.com/v1/videos/{video_id}' \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -456,7 +456,7 @@ curl 'https://api.omnimaas.com/v1/videos/{video_id}' \
 
 <Row>
   <Col>
-    <Endpoint method="GET" path="https://api.omnimaas.com/v1/videos/{video_id}/content" />
+    <Endpoint method="GET" path="https://api.cloubic.com/v1/videos/{video_id}/content" />
 
     ### 请求头
 
@@ -506,7 +506,7 @@ curl 'https://api.omnimaas.com/v1/videos/{video_id}' \
     <CodeGroup tag="GET" label="/v1/videos/{video_id}/content">
 
 ```bash {{ title: 'cURL' }}
-curl 'https://api.omnimaas.com/v1/videos/{video_id}/content' \
+curl 'https://api.cloubic.com/v1/videos/{video_id}/content' \
   -H "Authorization: Bearer YOUR_API_KEY" \
   --output video.mp4
 ```
@@ -524,7 +524,7 @@ curl 'https://api.omnimaas.com/v1/videos/{video_id}/content' \
 ```python
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',
@@ -556,7 +556,7 @@ except requests.exceptions.RequestException as e:
 ```python
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',
@@ -585,7 +585,7 @@ except requests.exceptions.RequestException as e:
 ```python
 import requests
 
-url = 'https://api.omnimaas.com/v1/videos'
+url = 'https://api.cloubic.com/v1/videos'
 
 headers = {
     'Content-Type': 'application/json',

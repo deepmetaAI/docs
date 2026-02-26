@@ -1,14 +1,14 @@
 export const metadata = {
   title: '使用 Google AI SDK',
-  description: '通过 Google AI SDK 接入 OmniMaaS 平台，使用 Gemini 模型。',
+  description: '通过 Google AI SDK 接入 Cloubic 平台，使用 Gemini 模型。',
 }
 
 # 创建对话请求（Gemini）
 
-OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 `models/{model}:streamGenerateContent / generateContent` 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }}
+Cloubic 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemini 生态的团队，提供一条与官方接口格式高度一致的迁移路径。平台在协议层兼容 Gemini 官方 `models/{model}:streamGenerateContent / generateContent` 规范：请求体沿用 model、contents（多模态内容块）、tools、toolConfig 等字段设计，并支持流式响应与函数调用。{{ className: 'lead' }}
 
 <Note>
-  Gemini 官方 SDK 不支持 base_url 切换，只能使用 REST API 的方式调用 OmniMaaS 的 Gemini 接口。
+  Gemini 官方 SDK 不支持 base_url 切换，只能使用 REST API 的方式调用 Cloubic 的 Gemini 接口。
 </Note>
 
 ---
@@ -19,7 +19,7 @@ OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemi
   <Col>
     ### Endpoint
 
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1beta/{model=models/*}:generateContent" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1beta/{model=models/*}:generateContent" />
 
     ### Headers
 
@@ -43,7 +43,7 @@ OmniMaaS 的 Gemini 原生 Chat Completions 接口面向已经接入 Google Gemi
   <Col sticky>
     <CodeGroup title="请求示例">
 ```bash
-curl "https://api.omnimaas.com/v1beta/models/gemini-2.0-flash:generateContent?key=$GEMINI_API_KEY" \
+curl "https://api.cloubic.com/v1beta/models/gemini-2.0-flash:generateContent?key=$GEMINI_API_KEY" \
     -H 'Content-Type: application/json' \
     -X POST \
     -d '{
@@ -265,7 +265,7 @@ import google.generativeai as genai
 genai.configure(
     api_key='YOUR_API_KEY',
     transport='rest',
-    client_options={'api_endpoint': 'https://api.omnimaas.com'}
+    client_options={'api_endpoint': 'https://api.cloubic.com'}
 )
 
 model = genai.GenerativeModel('gemini-2.0-flash-exp')
@@ -283,7 +283,7 @@ import google.generativeai as genai
 genai.configure(
     api_key='YOUR_API_KEY',
     transport='rest',
-    client_options={'api_endpoint': 'https://api.omnimaas.com'}
+    client_options={'api_endpoint': 'https://api.cloubic.com'}
 )
 
 model = genai.GenerativeModel('gemini-2.0-flash-exp')
@@ -334,7 +334,7 @@ func main() {
     }
 
     jsonData, _ := json.Marshal(reqBody)
-    url := "https://api.omnimaas.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
+    url := "https://api.cloubic.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
     req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("x-goog-api-key", "YOUR_API_KEY")
@@ -364,7 +364,7 @@ const genAI = new GoogleGenerativeAI('YOUR_API_KEY');
 async function main() {
     const model = genAI.getGenerativeModel({ 
         model: 'gemini-2.0-flash-exp',
-        baseUrl: 'https://api.omnimaas.com'
+        baseUrl: 'https://api.cloubic.com'
     });
 
     const result = await model.generateContent('你好，请介绍一下你自己');
@@ -384,7 +384,7 @@ const genAI = new GoogleGenerativeAI('YOUR_API_KEY');
 async function main() {
     const model = genAI.getGenerativeModel({ 
         model: 'gemini-2.0-flash-exp',
-        baseUrl: 'https://api.omnimaas.com'
+        baseUrl: 'https://api.cloubic.com'
     });
 
     const result = await model.generateContentStream('讲个笑话');

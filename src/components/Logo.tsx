@@ -4,8 +4,8 @@ export function Logo(props: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div {...props} className={`flex items-center ${props.className || ''}`}>
       <Image
-        src="/images/logo.png"
-        alt="OmniMaaS"
+        src="/logo.svg"
+        alt="Cloubic"
         width={120}
         height={28}
         priority

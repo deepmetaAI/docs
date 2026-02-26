@@ -1,11 +1,11 @@
 export const metadata = {
   title: 'OpenAI 图像生成',
-  description: 'OmniMaaS OpenAI 标准协议图像生成接口，支持 GPT Image 等模型。',
+  description: 'Cloubic OpenAI 标准协议图像生成接口，支持 GPT Image 等模型。',
 }
 
 # OpenAI 图像生成
 
-OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }}
+Cloubic 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }}
 
 ---
 
@@ -26,7 +26,7 @@ OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/generations" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/images/generations" />
 
     ### 请求头
 
@@ -66,7 +66,7 @@ OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的
     <CodeGroup tag="POST" label="/v1/images/generations">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/images/generations \
+curl https://api.cloubic.com/v1/images/generations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -80,7 +80,7 @@ curl https://api.omnimaas.com/v1/images/generations \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url='https://api.omnimaas.com/v1',
+    base_url='https://api.cloubic.com/v1',
     api_key='YOUR_API_KEY'
 )
 
@@ -98,7 +98,7 @@ print(response.data[0].url)
 const OpenAI = require('openai');
 
 const client = new OpenAI({
-    baseURL: 'https://api.omnimaas.com/v1',
+    baseURL: 'https://api.cloubic.com/v1',
     apiKey: 'YOUR_API_KEY'
 });
 
@@ -122,7 +122,7 @@ console.log(response.data[0].url);
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/images/edits" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/images/edits" />
 
     ### 请求头
 
@@ -159,7 +159,7 @@ console.log(response.data[0].url);
     <CodeGroup tag="POST" label="/v1/images/edits">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/images/edits \
+curl https://api.cloubic.com/v1/images/edits \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -F "model=gpt-image-1" \
   -F "image[]=@body-lotion.png" \
@@ -172,7 +172,7 @@ curl https://api.omnimaas.com/v1/images/edits \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url='https://api.omnimaas.com/v1',
+    base_url='https://api.cloubic.com/v1',
     api_key='YOUR_API_KEY'
 )
 

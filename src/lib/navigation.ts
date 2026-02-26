@@ -20,7 +20,7 @@ export const spaces: Space[] = [
     slug: 'docs',
     navigation: [
       {
-        title: 'OmniMaaS',
+        title: 'Cloubic',
         links: [
           { title: '快速开始', href: '/docs/zh-CN' },
         ],

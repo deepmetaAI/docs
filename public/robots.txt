@@ -4,4 +4,4 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /docs/.backup/
 
-Sitemap: https://docs.omnimaas.com/sitemap.xml
+Sitemap: https://docs.cloubic.com/sitemap.xml

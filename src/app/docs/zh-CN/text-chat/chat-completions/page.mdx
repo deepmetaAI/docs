@@ -1,11 +1,11 @@
 export const metadata = {
   title: '对话补全',
-  description: 'OmniMaaS 统一对话补全接口，完全兼容 OpenAI Chat Completions API 协议。',
+  description: 'Cloubic 统一对话补全接口，完全兼容 OpenAI Chat Completions API 协议。',
 }
 
 # 对话补全
 
-OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }}
+Cloubic 提供统一的对话补全接口，完全兼容 OpenAI Chat Completions API 协议。您只需切换 API 地址和密钥，即可无缝接入，支持 OpenAI、Anthropic、Google 等多家厂商的模型。{{ className: 'lead' }}
 
 <Row>
   <Col>
@@ -26,7 +26,7 @@ OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completion
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.omnimaas.com/v1/chat/completions" />
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/chat/completions" />
 
     ### 请求头
 
@@ -72,7 +72,7 @@ OmniMaaS 提供统一的对话补全接口，完全兼容 OpenAI Chat Completion
     <CodeGroup tag="POST" label="/v1/chat/completions">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/chat/completions \
+curl https://api.cloubic.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -86,7 +86,7 @@ curl https://api.omnimaas.com/v1/chat/completions \
 ```python {{ title: 'Python' }}
 import requests
 
-url = 'https://api.omnimaas.com/v1/chat/completions'
+url = 'https://api.cloubic.com/v1/chat/completions'
 
 headers = {
     'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ print(f"回复: {result['choices'][0]['message']['content']}")
 ```javascript {{ title: 'Node.js' }}
 const axios = require('axios');
 
-const url = 'https://api.omnimaas.com/v1/chat/completions';
+const url = 'https://api.cloubic.com/v1/chat/completions';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ axios.post(url, data, { headers })
     <CodeGroup tag="POST" label="/v1/chat/completions">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/chat/completions \
+curl https://api.cloubic.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -160,7 +160,7 @@ curl https://api.omnimaas.com/v1/chat/completions \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url='https://api.omnimaas.com/v1',
+    base_url='https://api.cloubic.com/v1',
     api_key='YOUR_API_KEY'
 )
 
@@ -191,7 +191,7 @@ for chunk in stream:
     <CodeGroup tag="POST" label="/v1/chat/completions">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.omnimaas.com/v1/chat/completions \
+curl https://api.cloubic.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -212,7 +212,7 @@ curl https://api.omnimaas.com/v1/chat/completions \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url='https://api.omnimaas.com/v1',
+    base_url='https://api.cloubic.com/v1',
     api_key='YOUR_API_KEY'
 )
 
@@ -362,7 +362,7 @@ data: [DONE]
 ```python
 import requests
 
-url = 'https://api.omnimaas.com/v1/chat/completions'
+url = 'https://api.cloubic.com/v1/chat/completions'
 
 headers = {
     'Content-Type': 'application/json',
@@ -399,7 +399,7 @@ except requests.exceptions.RequestException as e:
 import requests
 import json
 
-url = 'https://api.omnimaas.com/v1/chat/completions'
+url = 'https://api.cloubic.com/v1/chat/completions'
 
 headers = {
     'Content-Type': 'application/json',
@@ -441,7 +441,7 @@ except requests.exceptions.RequestException as e:
 ```javascript
 const axios = require('axios');
 
-const url = 'https://api.omnimaas.com/v1/chat/completions';
+const url = 'https://api.cloubic.com/v1/chat/completions';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -476,7 +476,7 @@ axios.post(url, data, { headers })
 const https = require('https');
 
 const options = {
-    hostname: 'api.omnimaas.com',
+    hostname: 'api.cloubic.com',
     path: '/v1/chat/completions',
     method: 'POST',
     headers: {
@@ -562,7 +562,7 @@ type ChatResponse struct {
 }
 
 func main() {
-    url := "https://api.omnimaas.com/v1/chat/completions"
+    url := "https://api.cloubic.com/v1/chat/completions"
 
     reqBody := ChatRequest{
         Model: "gpt-4",

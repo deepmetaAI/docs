@@ -8,29 +8,29 @@ import glob from 'fast-glob'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - OmniMaaS',
-    default: 'OmniMaaS - 统一 AI 模型接入平台',
+    template: '%s - Cloubic',
+    default: 'Cloubic - 统一 AI 模型接入平台',
   },
-  description: 'OmniMaaS 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK，支持文本对话、图像生成、视频生成等多种 AI 能力。',
-  keywords: ['OmniMaaS', 'AI API', 'OpenAI', 'Claude', 'Gemini', 'GPT', '大模型', 'API接入', '视频生成', '图像生成'],
-  authors: [{ name: 'OmniMaaS' }],
-  creator: 'OmniMaaS',
-  metadataBase: new URL('https://docs.omnimaas.com'),
+  description: 'Cloubic 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK，支持文本对话、图像生成、视频生成等多种 AI 能力。',
+  keywords: ['Cloubic', 'AI API', 'OpenAI', 'Claude', 'Gemini', 'GPT', '大模型', 'API接入', '视频生成', '图像生成'],
+  authors: [{ name: 'Cloubic' }],
+  creator: 'Cloubic',
+  metadataBase: new URL('https://docs.cloubic.com'),
   openGraph: {
     type: 'website',
     locale: 'zh_CN',
-    siteName: 'OmniMaaS',
-    title: 'OmniMaaS - 统一 AI 模型接入平台',
-    description: 'OmniMaaS 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK。',
+    siteName: 'Cloubic',
+    title: 'Cloubic - 统一 AI 模型接入平台',
+    description: 'Cloubic 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK。',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OmniMaaS - 统一 AI 模型接入平台',
-    description: 'OmniMaaS 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK。',
+    title: 'Cloubic - 统一 AI 模型接入平台',
+    description: 'Cloubic 提供统一的 AI 模型 API 接入服务，完全兼容 OpenAI、Claude、Gemini SDK。',
   },
   icons: {
-    icon: '/images/favicon.png',
-    apple: '/images/favicon.png',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   robots: {
     index: true,
