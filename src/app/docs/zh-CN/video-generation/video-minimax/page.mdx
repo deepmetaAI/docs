@@ -70,6 +70,20 @@ Cloubic 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接
       </Property>
       <Property name="metadata" type="object">
         扩展参数（JSON 字符串格式）
+        <Properties>
+          <Property name="prompt_optimizer" type="boolean">
+            是否自动优化 prompt，默认为 `true`。设为 `false` 可进行更精确的控制
+          </Property>
+          <Property name="fast_pretreatment" type="boolean">
+            是否缩短 prompt_optimizer 的优化耗时，默认为 `false`。仅对 MiniMax-Hailuo-2.3 和 MiniMax-Hailuo-02 模型生效
+          </Property>
+          <Property name="callback_url" type="string">
+            接收任务状态更新通知的回调 URL
+          </Property>
+          <Property name="aigc_watermark" type="boolean">
+            是否在生成的视频中添加水印，默认为 `false`
+          </Property>
+        </Properties>
       </Property>
     </Properties>
   </Col>
@@ -84,7 +98,13 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
     "model": "MiniMax-Hailuo-02",
     "prompt": "一只可爱的小猫在草地上玩耍",
     "duration": 6,
-    "size": "16:9"
+    "size": "16:9",
+    "metadata": {
+      "prompt_optimizer": true,
+      "fast_pretreatment": false,
+      "callback_url": "https://your-domain.com/callback",
+      "aigc_watermark": false
+    }
   }'
 ```
 
@@ -182,6 +202,23 @@ axios.post(url, data, { headers })
       </Property>
       <Property name="metadata" type="object">
         扩展参数（JSON 字符串格式）
+        <Properties>
+          <Property name="first_frame_image" type="string">
+            首帧图片 URL 或 Base64 编码（当 images 参数存在时，此字段会被自动填充）
+          </Property>
+          <Property name="prompt_optimizer" type="boolean">
+            是否自动优化 prompt，默认为 `true`。设为 `false` 可进行更精确的控制
+          </Property>
+          <Property name="fast_pretreatment" type="boolean">
+            是否缩短 prompt_optimizer 的优化耗时，默认为 `false`。仅对 MiniMax-Hailuo-2.3、MiniMax-Hailuo-2.3-Fast 和 MiniMax-Hailuo-02 模型生效
+          </Property>
+          <Property name="callback_url" type="string">
+            接收任务状态更新通知的回调 URL
+          </Property>
+          <Property name="aigc_watermark" type="boolean">
+            是否在生成的视频中添加水印，默认为 `false`
+          </Property>
+        </Properties>
       </Property>
     </Properties>
   </Col>
@@ -196,7 +233,13 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
     "model": "MiniMax-Hailuo-2.3",
     "prompt": "让这张图片动起来，添加自然的运动效果",
     "images": ["https://example.com/image.jpg"],
-    "duration": 6
+    "duration": 6,
+    "metadata": {
+      "prompt_optimizer": true,
+      "fast_pretreatment": false,
+      "callback_url": "https://your-domain.com/callback",
+      "aigc_watermark": false
+    }
   }'
 ```
 
@@ -245,6 +288,100 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
   "status": "processing",
   "progress": 0
 }
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 首尾帧生成视频
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        `MiniMax-Hailuo-02`（首尾帧生成功能仅支持此模型）
+      </Property>
+      <Property name="prompt" type="string" required>
+        文本提示词，生成视频的文本描述
+      </Property>
+      <Property name="images" type="array" required>
+        图片输入（URL/Base64），支持输入两张图片（首帧和尾帧）
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长参数（秒），默认 `6`
+      </Property>
+      <Property name="size" type="string">
+        画面比例，默认 `16:9`
+        <Options>
+          <Option value="16:9" />
+          <Option value="1:1" />
+          <Option value="9:16" />
+        </Options>
+      </Property>
+      <Property name="metadata" type="object">
+        扩展参数（JSON 字符串格式）
+        <Properties>
+          <Property name="first_frame_image" type="string">
+            首帧图片 URL 或 Base64 编码（当 images 参数存在时，此字段会被自动填充为第一张图片）
+          </Property>
+          <Property name="last_frame_image" type="string">
+            尾帧图片 URL 或 Base64 编码（当 images 参数包含两张图片时，此字段会被自动填充为第二张图片）
+          </Property>
+          <Property name="prompt_optimizer" type="boolean">
+            是否自动优化 prompt，默认为 `true`。设为 `false` 可进行更精确的控制
+          </Property>
+          <Property name="fast_pretreatment" type="boolean">
+            是否缩短 prompt_optimizer 的优化耗时，默认为 `false`。仅对 MiniMax-Hailuo-02 模型生效
+          </Property>
+          <Property name="callback_url" type="string">
+            接收任务状态更新通知的回调 URL
+          </Property>
+          <Property name="aigc_watermark" type="boolean">
+            是否在生成的视频中添加水印，默认为 `false`
+          </Property>
+        </Properties>
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "MiniMax-Hailuo-02",
+    "prompt": "一个小女孩慢慢长大",
+    "images": [
+      "https://example.com/first-frame.jpg",
+      "https://example.com/last-frame.jpg"
+    ],
+    "duration": 6,
+    "metadata": {
+      "prompt_optimizer": true,
+      "callback_url": "https://your-domain.com/callback",
+      "aigc_watermark": false
+    }
+  }'
 ```
 
     </CodeGroup>
