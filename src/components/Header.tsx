@@ -101,7 +101,7 @@ export const Header = forwardRef<
             <MobileSearch />
           </div>
           <div className="hidden min-[416px]:contents">
-            <Button href="https://omnimaas.com/login">注册</Button>
+            <Button href="https://app.cloubic.com/login">注册</Button>
           </div>
         </div>
       </div>
