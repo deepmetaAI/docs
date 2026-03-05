@@ -52,6 +52,7 @@ export const spaces: Space[] = [
         title: '视频生成',
         links: [
           { title: 'Sora 视频生成', href: '/docs/zh-CN/video-generation/video-sora' },
+          { title: 'Veo 视频生成', href: '/docs/zh-CN/video-generation/video-veo' },
           { title: 'Vidu 视频生成', href: '/docs/zh-CN/video-generation/video-vidu' },
           { title: 'Kling 视频生成', href: '/docs/zh-CN/video-generation/video-kling' },
           { title: 'MiniMax 海螺视频生成', href: '/docs/zh-CN/video-generation/video-minimax' },
