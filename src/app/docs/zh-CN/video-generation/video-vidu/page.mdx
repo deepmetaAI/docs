@@ -79,6 +79,23 @@ Cloubic 目前已支持对 Sora、Veo、Vidu、Wan、Seedance 等文生视频大
     ### metadata 参数说明
 
     metadata 参数的作用是传递非 Sora 特有的参数，例如 Vidu 的 Label、ContentProducer，通义万相的图片 URL、水印、智能改写等。
+
+    <Properties>
+      <Property name="imageUrls" type="array">
+        图片 URL 数组，用于图生视频。对于首尾帧生视频模式，传入 1-2 张图片（起始帧/结束帧）；对于参考生视频模式，传入 1-3 张参考图片
+      </Property>
+      <Property name="aspectRatio" type="string">
+        视频宽高比（Auto 将自动确定）
+        <Options>
+          <Option value="16:9" />
+          <Option value="9:16" />
+          <Option value="Auto" />
+        </Options>
+      </Property>
+      <Property name="watermark" type="string">
+        自定义水印文字（可选）
+      </Property>
+    </Properties>
   </Col>
   <Col sticky>
     <CodeGroup tag="POST" label="/v1/video/generations">
