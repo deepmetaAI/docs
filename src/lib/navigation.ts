@@ -70,6 +70,7 @@ export const spaces: Space[] = [
         title: '客户端工具',
         links: [
           { title: 'Cherry Studio 配置', href: '/docs/zh-CN/client-tools/cherry-studio' },
+          { title: 'OpenClaw 配置', href: '/docs/zh-CN/client-tools/openclaw' },
         ],
       },
     ],

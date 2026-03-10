@@ -185,7 +185,7 @@ export default {
             fontSize: theme('fontSize.lg')[0],
             ...theme('fontSize.lg')[1],
             marginTop: theme('spacing.16'),
-            marginBottom: theme('spacing.2'),
+            marginBottom: theme('spacing.6'),
           },
           h3: {
             color: 'var(--tw-prose-headings)',
@@ -194,6 +194,9 @@ export default {
             fontWeight: '600',
             marginTop: theme('spacing.10'),
             marginBottom: theme('spacing.2'),
+          },
+          'h2 + h3': {
+            marginTop: theme('spacing.6'),
           },
 
           // Media
