@@ -25,6 +25,8 @@ const hideTocPages = [
   '/docs/zh-CN/sdk-integration/sdk-openai',
   '/docs/zh-CN/sdk-integration/sdk-anthropic',
   '/docs/zh-CN/sdk-integration/sdk-google',
+  '/docs/zh-CN/client-tools/openclaw',
+  '/docs/zh-CN/client-tools/cherry-studio',
 ]
 
 export function Layout({

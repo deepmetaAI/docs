@@ -67,14 +67,18 @@ function rehypeShiki() {
 function shikiTokensToHtml(lines) {
   let html = ''
 
-  for (let line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i]
     for (let token of line) {
       let style = token.color ? `color: ${token.color}` : ''
       html += style
         ? `<span style="${style}">${escapeHtml(token.content)}</span>`
         : escapeHtml(token.content)
     }
-    html += '\n'
+    // Only add newline if it's not the last line
+    if (i < lines.length - 1) {
+      html += '\n'
+    }
   }
 
   return html

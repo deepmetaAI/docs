@@ -1,123 +1,135 @@
-export const metadata = {
-  title: 'OpenClaw 配置',
-  description: '在 OpenClaw 中配置 Cloubic API 接入，实现多平台智能助理。',
-}
+# OpenClaw 新手保姆级安装配置指南
 
-# OpenClaw 部署与 Cloubic 接入教程
 
-OpenClaw 是一款开源的个人 AI 助理，支持本地或远程部署，并且是适用于任何操作系统的 AI 智能体网关。它支持 WhatsApp、Telegram、Discord、iMessage、飞书、QQ、钉钉等，直接运行在你常用的聊天软件里，发送消息，随时随地获取智能体响应。{{ className: 'lead' }}
+欢迎来到 OpenClaw！本文将手把手带你完成从环境准备、软件安装到连接飞书的全过程，让你快速上手这个强大的自动化工具。
 
-<Note>
-  [OpenClaw 官方帮助文档](https://openclaw.ai)
-</Note>
+**官方文档**：[https://docs.openclaw.ai](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fdocs.openclaw.ai&objectId=2635123&objectType=1&contentType=undefined)
 
----
+## 📋 一、准备工作（前置条件）
 
-## 一、安装 OpenClaw
+在开始之前，请确保你的电脑满足以下条件：
 
-请根据您的操作系统选择对应的安装方式。
+*   **Node.js 环境**：版本必须 **>= 22**。
+*   **包管理器**：推荐安装 `pnpm`，如果你计划从源代码构建。
+*   **AP密钥（可选但推荐）**：如果你想使用联网搜索功能，可以准备一个 [Brave Search API](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fbrave.com%2Fsearch%2Fapi%2F&objectId=2635123&objectType=1&contentType=undefined) 密钥。配置方法很简单：`openclaw configure --section web`。
+*   **操作系统提示**：
+    *   **macOS**：如果仅使用命令行和网关功能，Node.js 足够。若要构建桌面应用，需安装 Xcode 或 Command Line Tools。
+    *   **Windows**：**强烈推荐使用 WSL2（建议****Ubuntu****）**。原生 Windows 环境未经充分测试，可能会遇到更多兼容性问题。请先安装 WSL2，然后在 WSL 内部进行以下所有操作。
 
-### 🍎 MacOS / 🐧 Linux 用户
+## 🛠️ 二、安装 OpenClaw CLI
 
-**运行安装脚本**
+本次教程我们将使用 **VS Code** 进行演示。首先，打开 VS Code 的终端
 
-在终端中运行以下指令将自动安装 OpenClaw：
+### 1. 检查 Node.js 版本
 
+在终端输入以下命令，确认 Node 版本在 22 或以上：
+
+```txt
+node -v
 ```
-curl -fsSL https://openclaw.ai/install.sh | bash
+
+如果版本过低，请先更新或切换 Node 版本。
+
+![Image 45: 检查Node版本](/images/772411ae6e045803bc972b5260f7987d.png)
+
+### 2. 安装 CLI 工具
+
+这里我们使用 `npm` 进行全局安装（这是最直接的方式）：
+
+```bash
+npm install -g openclaw@latest
 ```
 
-**验证安装**
+![Image 46: npm安装过程](/images/02388548b768c7c4339fc2c67ace19a4.png)
 
-验证 OpenClaw 是否安装成功：
+看到安装成功的提示后，说明 CLI 已经安装好了。
 
-```
+**其他安装方式**（供参考）：
+
+*   **一键脚本 (macOS/Linux)**：`curl -fsSL https://openclaw.ai/install.sh | bash`
+*   **PowerShell (Windows)**：`iwr -useb https://openclaw.ai/install.ps1 | iex`
+*   **pnpm**：`pnpm add -g openclaw@latest`
+
+### 3. 验证安装
+
+运行以下命令，如果能正常显示版本号或帮助信息，则表示安装成功。
+
+```bash
 openclaw --version
+# 或
+openclaw -h
 ```
 
-### 🪟 Windows (PowerShell) 用户
+![Image 47: 验证安装](/images/6578e363527490e8c81e0d61173594dc.png)
 
-**运行安装脚本**
+## 🛠️ 二、安装 OpenClaw CLI
 
-在终端中运行以下指令将自动安装 OpenClaw：
+这是最关键的一步，OpenClaw 提供了一个交互式向导来帮你完成初始设置。
 
-```powershell
-iwr -useb https://openclaw.ai/install.ps1 | iex
-```
+在终端中执行以下命令开始配置：
 
-**验证安装**
-
-验证 OpenClaw 是否安装成功：
-
-```powershell
-openclaw --version
-```
-
----
-
-## 二、初始化配置 OpenClaw
-
-首先，启动交互式配置向导：
-
-```powershell
+```bash
 openclaw onboard
 ```
 
-![OpenClaw 初始化](/images/a829210caf1eeef9c6a974965f7ee701.png)
+接下来，跟着向导一步步操作：
 
-请按以下步骤操作：
+1.   **风险确认**：你会看到一句提示 `I understand this is powerful and inherently risky. Continue?`，直接输入 `Yes` 并回车。这是因为 OpenClaw 可以操作你的电脑，需要你明确授权。
 
-### 步骤 1：选择快速开始
+![Image 48: 风险确认](/images/da44a47aee153b32f2b84962746a1bc8.png)
 
-直接选择 "快速开始"（QuickStart）
+2.   **选择模式**：选择 `QuickStart`，它将自动帮你配置好大部分默认设置，对新手最友好。
 
-### 步骤 2：跳过默认配置
+![Image 49: 选择快速启动](/images/b32ded086a961ff73542c90886c39f7e.png)
 
-直接选择 "跳过"（Skip for now）
+3.   **配置 AI 模型**：OpenClaw 需要一个“聪明的大脑”（大语言模型）来理解你的指令。这里你可以：
+    *   **Model/auth provider**：选择你希望使用的模型供应商。如果你还没有 API Key，可以先选择 **“Skip for now”** 跳过，后续在网页界面配置也一样方便。
+    *   **Filter models by provider**：同样，可以先选择 “All providers” 或直接跳过。
 
-### 步骤 3：选择所有提供商
+> **小贴士**：即使没有 API Key，也可以先完成向导，我们后续会介绍如何配置。
 
-选择 "All providers"
+跳过模型配置：
+![Image 50: 跳过模型配置](/images/bc3215eb99eece21d1ff989f475e8ff6.png)
 
-### 步骤 4：保持当前配置
 
-选择 "Keep current"
+选择所有供应商：
+![Image 51: 选择所有供应商](/images/3f1c17552a038e3a6fa70bcfc6b93f43.png)
 
-### 步骤 5：跳过聊天工具配置
 
-聊天工具也可以先选择 "跳过"（Skip for now）
+跳过具体模型选择：
+![Image 52: 跳过具体模型选择](/images/f4fe2191ac7d111d44e69097fcf99794.png)
 
-### 步骤 6：跳过 Skills 配置
+4.   **配置通信渠道**：问你想通过什么软件和它聊天，比如 Telegram、飞书。第一次尝试，建议选择 **“Skip for now”** 跳过，我们先使用它自带的网页版界面。
 
-配置 Skills，也可以先选择 "跳过"（Skip for now），用空格键勾选，回车键确认
+![Image 53: 跳过渠道配置](/images/d5efa82ca9e3a31eae2d77a19076f695.png)
 
-<Note>
-  🎉 恭喜您已经完成了 OpenClaw 的配置向导！
 
-  OpenClaw 会自动使用默认浏览器打开 OpenClaw 的网关界面。如网关未启动，可使用以下命令启动：
+5.   **配置技能（Skills）**：是否现在添加特定技能？同样，先选 **“No”** 跳过。
 
-  ```
-  openclaw gateway
-  ```
-</Note>
+![Image 54: 跳过技能配置](/images/9d284d983b891b2d419ce59177bc2982.png)
 
----
+6.   **配置钩子（Hooks）**：这是高级功能，用于在启动时加载文档、记录日志等。直接选择 **“Skip for now”** 并回车。
 
-## 三、OpenClaw 接入 Cloubic API
+![Image 55: 选择跳过钩子](/images/6f6e9b4e4c8049a6ddc58144cf4e7f73.png)
+
+稍等片刻，看到完成界面，向导就成功结束了！
+
+![Image 56: 向导完成](/images/46283d9dffcf505c0d2eff0c5022147c.png)
+
+## 🌐 四、OpenClaw 接入 Cloubic API
+
+现在让我们配置 OpenClaw 使用 Cloubic API，这样你就可以使用强大的 AI 模型了。
 
 ### 1. 获取 Cloubic API Key
 
-访问 [Cloubic 平台](https://cloubic.com) 进行注册并充值。
+首先，你需要获取 Cloubic 的 API Key：
 
-### 步骤 2：创建 API Key
-
-在"API Keys"页面，点击"新建密钥"按钮创建并复制您的 API Key。
+1. 访问 [Cloubic 平台](https://cloubic.com) 进行注册并充值
+2. 在"API Keys"页面，点击"新建密钥"按钮创建并复制您的 API Key
 
 ![获取 API Key](/images/01.44.31.png)
 
-<Note>
-  建议创建专门用于 OpenClaw 的 API Key，便于管理和追踪使用情况。
-</Note>
+> **提示**：建议创建专门用于 OpenClaw 的 API Key，便于管理和追踪使用情况。
 
 ### 2. 配置 API Key
 
@@ -127,17 +139,17 @@ openclaw onboard
 
 可在终端输入以下命令直接打开 OpenClaw 目录文件夹：
 
-<CodeGroup>
+**MacOS / Linux:**
 
-```bash {{ title: 'MacOS / Linux' }}
+```bash
 open ~/.openclaw
 ```
 
-```powershell {{ title: 'Windows (WSL)' }}
+**Windows (WSL):**
+
+```bash
 explorer.exe ~/.openclaw
 ```
-
-</CodeGroup>
 
 ### 步骤 2：修改配置代码
 
@@ -189,26 +201,18 @@ explorer.exe ~/.openclaw
 }
 ```
 
-<Properties>
-  <Property name="baseUrl" type="string">
-    Cloubic API 地址：`https://api.cloubic.com/v1`
-  </Property>
-  <Property name="apiKey" type="string">
-    您从 Cloubic 平台获取的 API Key，格式：`sk-xxx`
-  </Property>
-  <Property name="api" type="string">
-    API 类型，使用 `openai-completions` 兼容 OpenAI 格式
-  </Property>
-  <Property name="models" type="array">
-    可用模型列表，可根据需求添加多个模型配置
-  </Property>
-</Properties>
+**配置参数说明：**
+
+- **baseUrl**: Cloubic API 地址：`https://api.cloubic.com/v1`
+- **apiKey**: 您从 Cloubic 平台获取的 API Key，格式：`sk-xxx`
+- **api**: API 类型，使用 `openai-completions` 兼容 OpenAI 格式
+- **models**: 可用模型列表，可根据需求添加多个模型配置
 
 ### 步骤 3：重启服务
 
 保存 `openclaw.json` 配置文件后，在终端输入以下命令重新启动 OpenClaw：
 
-```
+```bash
 openclaw gateway
 ```
 
@@ -216,11 +220,7 @@ openclaw gateway
 
 ![网关界面](/images/18cccea7f32c8d2799620b6aecc9aad8.png)
 
-<Note>
-  🎉 至此，您已经完成了 OpenClaw 的安装及 Cloubic API 的配置！
-</Note>
-
----
+> 🎉 至此，您已经完成了 OpenClaw 的安装及 Cloubic API 的配置！
 
 ### 多模型配置示例
 
@@ -267,41 +267,159 @@ openclaw gateway
 }
 ```
 
----
+### 4. 常见问题
 
-## 五、常见问题
-
-### 如何查看可用模型？
+**如何查看可用模型？**
 
 访问 [Cloubic 模型广场](https://cloubic.com/models) 查看所有可用模型及其详细信息。
 
-### 如何切换模型？
+**如何切换模型？**
 
 在 OpenClaw 网关界面中，可以直接选择已配置的模型进行切换。
 
-### 配置文件在哪里？
+**配置文件在哪里？**
 
 - **MacOS / Linux**: `~/.openclaw/openclaw.json`
 - **Windows**: `%USERPROFILE%\.openclaw\openclaw.json`
 
-### 如何更新 OpenClaw？
+**如何更新 OpenClaw？**
 
 运行以下命令更新到最新版本：
 
-```
+```bash
 openclaw update
 ```
 
-### API Key 安全吗？
+**API Key 安全吗？**
 
 API Key 存储在本地配置文件中，请妥善保管，不要分享给他人。如果 Key 泄露，请立即在 Cloubic 平台删除并重新创建。
 
----
+## 💬 五、进阶配置：连接飞书机器人
 
-## 六、相关资源
+想让你的 OpenClaw 接入飞书，成为团队里的智能助手吗？跟着下面的步骤来配置吧。
 
-- [OpenClaw 官方文档](https://openclaw.ai)
-- [Cloubic 平台](https://cloubic.com)
-- [Cloubic API 文档](/docs/zh-CN)
-- [OpenAI SDK 集成](/docs/zh-CN/sdk-integration/sdk-openai)
-- [Anthropic SDK 集成](/docs/zh-CN/sdk-integration/sdk-anthropic)
+### 第一部分：飞书开发者后台配置
+
+1.   **登录并进入开发者后台**
+    *   访问 [飞书开放平台](https://cloud.tencent.com/developer/tools/blog-entry?target=https%3A%2F%2Fopen.feishu.cn%2F&objectId=2635123&objectType=1&contentType=undefined) 并登录你的账号。
+    *   点击右上角的头像，选择「开发者后台」。
+
+![Image 60: 进入开发者后台](/images/45d35c7d2c0813892c31bb07ce6b4e5a.jpg)
+
+1.   **创建企业自建应用**
+    *   点击「创建应用」->「企业自建应用」。
+
+![Image 61: 创建企业自建应用](/images/ff8ca547922b3a0537adaaaa6db5fdb9.png)
+
+*   填写应用名称和描述，然后点击「创建」。
+
+![Image 62: 填写应用信息](/images/0a428c8a7d7c19915a461d3aef8a2088.png)
+
+1.   **添加机器人能力**
+    *   创建成功后，在应用详情页找到「添加能力」卡片，点击「机器人」。
+
+![Image 63: 添加机器人](/images/f37cf760fa951ce3fa4d45e6368eb2ee.png)
+
+1.   **配置权限**
+    *   点击左侧菜单的「权限管理」。
+    *   在搜索框中输入 `im:`，然后将出现的所有权限全部勾选，点击「批量开通」。
+
+![Image 64: 搜索并勾选IM权限](/images/030bfa1070c15087708e328885ff9d79.png)
+
+![Image 65: 勾选所有IM权限](/images/e5dee4a993005ab789854160f811596c.png)
+
+![Image 66: 确认开通](/images/e0ef7662c006d93717547c43fbe61761.png)
+
+*   **（重要）** 再次搜索「通讯录」，找到「通过手机号或邮箱获取用户ID信息」这个权限，也点击开通。这能让机器人知道是谁在和它说话。
+
+1.   **发布第一个版本**
+2.   点击左侧菜单的「版本管理与发布」。
+3.   点击「创建版本」，填写版本号（如 `1.0.0`）和更新说明，然后点击「保存」。 - 保存后，点击「确认发布」。
+
+![Image 67: 创建版本](/images/60a90722aa0f69c20efded1758e76980.png)
+
+![Image 68: 填写版本信息](/images/301b1e14d20bec6d14e0f789fbafe89e.png)
+
+![Image 69: 确认发布](/images/0e4eaf4a0d71181c2887b50dfebcb448.png)
+
+_发布需要管理员审核，通常很快，也可以自己审核自己。_
+
+### 第二部分：在 OpenClaw CLI 中连接飞书
+
+1.   **进入配置面板**
+2.   回到 VS Code 终端，输入以下命令：openclaw config
+3.   选择 `local`（本地配置）。
+
+![Image 70: 进入配置面板](/images/fe12d3fe9f69e25391d75ad781346806.png)
+
+1.   **配置通信渠道**
+2.   选择 `Channels` ->`Link` 添加新渠道。
+3.   选择 `feishu`。
+
+![Image 71: 选择飞书渠道](/images/7832938f0bf802f32689dad9869ce7ef.png)
+
+![Image 72: 添加飞书](/images/9b054cc6a57f32db194c45bfef3e6e1f.png)
+
+1.   **安装渠道插件**
+2.   系统检测到缺少飞书插件，选择 `Install` 进行安装。安装完成后，按 `Enter` 键继续。
+
+![Image 73: 安装飞书插件](/images/0f7f41c2612d2d8f8708ec23b52093e1.png)
+
+1.   **填写飞书应用凭证**
+2.   **不要关闭终端！** 现在回到飞书开发者后台，找到你的应用。
+3.   点击左侧菜单的「凭证与基础信息」。
+4.   分别复制 `App ID` 和 `App Secret` 到终端中粘贴。
+
+![Image 74: 复制App Secret和ID](/images/f47541783334663b31b98f6bca61ef05.png)
+
+![Image 75: 粘贴App Secret](/images/4642f99c4ff47ba19dee0ff0d792b987.png)
+
+![Image 76: 粘贴App ID](/images/e7e6d4b4e6aeac18f5ff4dc8826e287d.png)
+
+1.   **完成后续配置**
+2.   **Endpoint type**：选择 `im`（实时通讯）。
+3.   **Environment**：根据你的飞书版本选择 `国内` 或 `国际`。
+4.   **Allow group chat**：是否允许群聊使用，选择 `open`。
+5.   看到 `finished` 选项，选择它完成渠道配置。
+6.   之后会询问是否配置私聊访问策略，新手可以先选择 `No` 跳过。
+
+![Image 77: 选择Endpoint和Environment](/images/ef2b534e101f6426080af59fd0082ae7.png)
+
+![Image 78: 完成配置](/images/dd370426ee902efa670a3b9bab59ccca.png)
+
+![Image 79: 跳过私聊策略](/images/fb948ccc3f0b211534608a9661aed9a2.png)
+
+1.   **保存并退出**
+2.   一直按 `Esc` 或选择 `Finish` 退出配置面板。
+
+![Image 80: 退出配置](/images/29de712850e885e554941442c06b9f4c.png)
+
+#### 第三部分：飞书后台最终配置与测试
+
+1.   **确保网关已启动** openclaw gateway start
+2.   在终端中，确保 OpenClaw 的网关服务正在运行。如果没有，请启动它：
+3.   **设置飞书事件订阅方式**
+    *   回到飞书开发者后台，点击左侧菜单的「事件与回调」。
+    *   在「订阅方式」卡片中，点击「修改」，将方式改为 **「长连接」**，点击「确认」。OpenClaw 会通过长连接与飞书通信，无需公网地址。
+
+![Image 81: 修改订阅方式](/images/6d9a0e068e2f7d24e9a5f11875ae853d.png)
+
+![Image 82: 选择长连接](/images/ac54fcf88be64144975a6b7a028e68a7.png)
+
+1.   **添加消息接收事件**
+    *   在「事件与回调」页面下方，点击「添加事件」。
+    *   搜索并选择 `接收消息` 事件（`im.message.receive_v1`），然后点击「确认添加」。
+
+![Image 83: 添加接收消息事件](/images/1351fe1861ab9b091f0ad6ea9ecae84c.png)
+
+2.   **再次发布版本**
+    *   权限和事件都配置好了，需要再次发布一个新版本才能生效。回到「版本管理与发布」，创建一个新版本（如 `1.0.1`）并发布。
+
+![Image 84: 再次发布版本](/images/c2d59105a9d5054bed28e14af2b40fff.png)
+
+3.   **测试连接**
+    *   现在，去飞书客户端，找到你刚刚创建的这个机器人，给它发送一条消息，比如“hello”。如果一切顺利，你应该能收到 OpenClaw 的回复！
+
+![Image 85: 在这里插入图片描述](/images/b4a6868eddbf3d5df9226152f7fffcf9.jpg)
+
+恭喜！你已经成功地将 OpenClaw 接入飞书，可以开始探索它的更多强大功能了。祝你使用愉快！

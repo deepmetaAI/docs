@@ -172,7 +172,7 @@ function CodePanel({
     <div className="group dark:bg-white/2.5">
       <CodePanelHeader tag={tag} label={label} />
       <div className="relative">
-        <pre className="overflow-x-auto p-4 text-xs text-white">{children}</pre>
+        <pre className="overflow-x-auto p-4 text-xs text-white leading-6 [&>code]:block">{children}</pre>
         {code && <CopyButton code={code} />}
       </div>
     </div>
