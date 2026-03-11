@@ -1,0 +1,307 @@
+export const metadata = {
+  title: 'OpenClaw 配置',
+  description: '在 OpenClaw 中配置 Cloubic API 接入，实现多平台智能助理。',
+}
+
+# OpenClaw 部署与 Cloubic 接入教程
+
+OpenClaw 是一款开源的个人 AI 助理，支持本地或远程部署，并且是适用于任何操作系统的 AI 智能体网关。它支持 WhatsApp、Telegram、Discord、iMessage、飞书、QQ、钉钉等，直接运行在你常用的聊天软件里，发送消息，随时随地获取智能体响应。{{ className: 'lead' }}
+
+<Note>
+  [OpenClaw 官方帮助文档](https://openclaw.ai)
+</Note>
+
+---
+
+## 一、安装 OpenClaw
+
+请根据您的操作系统选择对应的安装方式。
+
+### 🍎 MacOS / 🐧 Linux 用户
+
+**运行安装脚本**
+
+在终端中运行以下指令将自动安装 OpenClaw：
+
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
+**验证安装**
+
+验证 OpenClaw 是否安装成功：
+
+```bash
+openclaw --version
+```
+
+### 🪟 Windows (PowerShell) 用户
+
+**运行安装脚本**
+
+在终端中运行以下指令将自动安装 OpenClaw：
+
+```powershell
+iwr -useb https://openclaw.ai/install.ps1 | iex
+```
+
+**验证安装**
+
+验证 OpenClaw 是否安装成功：
+
+```powershell
+openclaw --version
+```
+
+---
+
+## 二、初始化配置 OpenClaw
+
+首先，启动交互式配置向导：
+
+```powershell
+openclaw onboard
+```
+
+![OpenClaw 初始化](/images/a829210caf1eeef9c6a974965f7ee701.png)
+
+请按以下步骤操作：
+
+### 步骤 1：选择快速开始
+
+直接选择 "快速开始"（QuickStart）
+
+### 步骤 2：跳过默认配置
+
+直接选择 "跳过"（Skip for now）
+
+### 步骤 3：选择所有提供商
+
+选择 "All providers"
+
+### 步骤 4：保持当前配置
+
+选择 "Keep current"
+
+### 步骤 5：跳过聊天工具配置
+
+聊天工具也可以先选择 "跳过"（Skip for now）
+
+### 步骤 6：跳过 Skills 配置
+
+配置 Skills，也可以先选择 "跳过"（Skip for now），用空格键勾选，回车键确认
+
+<Note>
+  🎉 恭喜您已经完成了 OpenClaw 的配置向导！
+
+  OpenClaw 会自动使用默认浏览器打开 OpenClaw 的网关界面。如网关未启动，可使用以下命令启动：
+
+  ```
+  openclaw gateway
+  ```
+</Note>
+
+---
+
+## 三、OpenClaw 接入 Cloubic API
+
+### 1. 获取 Cloubic API Key
+
+访问 [Cloubic 平台](https://cloubic.com) 进行注册并充值。
+
+### 步骤 2：创建 API Key
+
+在"API Keys"页面，点击"新建密钥"按钮创建并复制您的 API Key。
+
+![获取 API Key](/images/01.44.31.png)
+
+<Note>
+  建议创建专门用于 OpenClaw 的 API Key，便于管理和追踪使用情况。
+</Note>
+
+### 2. 配置 API Key
+
+完成以上安装后，在 OpenClaw 目录文件夹下，会有一个名为 `openclaw.json` 的配置文件。
+
+### 步骤 1：打开配置文件
+
+可在终端输入以下命令直接打开 OpenClaw 目录文件夹：
+
+<CodeGroup>
+
+```bash {{ title: 'MacOS / Linux' }}
+open ~/.openclaw
+```
+
+```powershell {{ title: 'Windows (WSL)' }}
+explorer.exe ~/.openclaw
+```
+
+</CodeGroup>
+
+### 步骤 2：修改配置代码
+
+打开 `openclaw.json` 文件，配置 OpenClaw 的 Cloubic API 与模型名称。
+
+请在配置文件替换覆盖 `agents`、`models` 原有内容，**注意修改 `apiKey` 为您自己的密钥**。以下代码使用了 `claude-sonnet-4-6` 模型，您可以根据需求修改模型名称。
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "cloubic/claude-sonnet-4-6"
+      },
+      "models": {
+        "cloubic/claude-sonnet-4-6": {}
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "cloubic": {
+        "baseUrl": "https://api.cloubic.com/v1",
+        "apiKey": "sk-xxx",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "claude-sonnet-4-6",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 32000
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+<Properties>
+  <Property name="baseUrl" type="string">
+    Cloubic API 地址：`https://api.cloubic.com/v1`
+  </Property>
+  <Property name="apiKey" type="string">
+    您从 Cloubic 平台获取的 API Key，格式：`sk-xxx`
+  </Property>
+  <Property name="api" type="string">
+    API 类型，使用 `openai-completions` 兼容 OpenAI 格式
+  </Property>
+  <Property name="models" type="array">
+    可用模型列表，可根据需求添加多个模型配置
+  </Property>
+</Properties>
+
+### 步骤 3：重启服务
+
+保存 `openclaw.json` 配置文件后，在终端输入以下命令重新启动 OpenClaw：
+
+```
+openclaw gateway
+```
+
+然后您将看到已配置好的 OpenClaw 网关界面：
+
+![网关界面](/images/18cccea7f32c8d2799620b6aecc9aad8.png)
+
+<Note>
+  🎉 至此，您已经完成了 OpenClaw 的安装及 Cloubic API 的配置！
+</Note>
+
+---
+
+### 多模型配置示例
+
+如果您需要同时配置多个模型，可以在 `models` 数组中添加多个模型配置：
+
+```json
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "cloubic": {
+        "baseUrl": "https://api.cloubic.com/v1",
+        "apiKey": "sk-xxx",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "gpt-4o",
+            "name": "GPT-4o",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "contextWindow": 128000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 32000
+          },
+          {
+            "id": "gpt-5.1",
+            "name": "GPT-5.1",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 32000
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+---
+
+## 五、常见问题
+
+### 如何查看可用模型？
+
+访问 [Cloubic 模型广场](https://cloubic.com/models) 查看所有可用模型及其详细信息。
+
+### 如何切换模型？
+
+在 OpenClaw 网关界面中，可以直接选择已配置的模型进行切换。
+
+### 配置文件在哪里？
+
+- **MacOS / Linux**: `~/.openclaw/openclaw.json`
+- **Windows**: `%USERPROFILE%\.openclaw\openclaw.json`
+
+### 如何更新 OpenClaw？
+
+运行以下命令更新到最新版本：
+
+```
+openclaw update
+```
+
+### API Key 安全吗？
+
+API Key 存储在本地配置文件中，请妥善保管，不要分享给他人。如果 Key 泄露，请立即在 Cloubic 平台删除并重新创建。
+
+---
+
+## 六、相关资源
+
+- [OpenClaw 官方文档](https://openclaw.ai)
+- [Cloubic 平台](https://cloubic.com)
+- [Cloubic API 文档](/docs/zh-CN)
+- [OpenAI SDK 集成](/docs/zh-CN/sdk-integration/sdk-openai)
+- [Anthropic SDK 集成](/docs/zh-CN/sdk-integration/sdk-anthropic)
