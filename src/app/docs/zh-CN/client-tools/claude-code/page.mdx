@@ -1,0 +1,121 @@
+export const metadata = {
+  title: 'Claude Code 配置',
+  description: '在 Claude Code 中配置 Cloubic API 接入，使用更强大的 AI 编程助手。',
+}
+
+# Claude Code 配置
+
+本指南将帮助您在 Claude Code 中配置 Cloubic API 接入，享受更强大的 AI 编程体验。{{ className: 'lead' }}
+
+---
+
+## 一、获取 Cloubic API Key
+
+访问 [Cloubic 平台](https://cloubic.com) 进行注册并充值。
+
+在"API Keys"页面，点击"新建密钥"按钮创建并复制您的 API Key。
+
+![获取 API Key](/images/01.44.31.png)
+
+<Note>
+  建议创建专门用于 Claude Code 的 API Key，便于管理和追踪使用情况。
+</Note>
+
+---
+
+## 二、配置 Claude Code
+
+### 1. 打开配置文件
+
+根据您的操作系统，找到并打开 Claude Code 的配置文件：
+
+**MacOS / Linux:**
+
+```bash
+~/.claude/settings.json
+```
+
+**Windows:**
+
+```bash
+%USERPROFILE%\.claude\settings.json
+```
+
+您可以使用任何文本编辑器打开此文件。
+
+### 2. 修改配置
+
+在 `settings.json` 文件中，找到 `env` 部分，将其内容替换为以下配置：
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-xxx",
+    "ANTHROPIC_BASE_URL": "https://api.cloubic.com",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "API_TIMEOUT_MS": "600000",
+    "ANTHROPIC_MODEL": "cc/claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "cc/claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "cc/claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "cc/claude-haiku-4-5-20251001"
+  }
+}
+```
+
+**重要提示：** 请将 `sk-xxx` 替换为您从 Cloubic 平台获取的实际 API Key。
+
+### 3. 配置说明
+
+<Properties>
+  <Property name="ANTHROPIC_AUTH_TOKEN" type="string">
+    您的 Cloubic API Key，格式：`sk-xxx`
+  </Property>
+  <Property name="ANTHROPIC_BASE_URL" type="string">
+    Cloubic API 地址：`https://api.cloubic.com`
+  </Property>
+  <Property name="CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC" type="string">
+    禁用非必要流量，设置为 `1`
+  </Property>
+  <Property name="API_TIMEOUT_MS" type="string">
+    API 超时时间（毫秒），建议设置为 `600000`（10分钟）
+  </Property>
+  <Property name="ANTHROPIC_MODEL" type="string">
+    默认使用的模型，这里设置为 `cc/claude-opus-4-6`
+  </Property>
+  <Property name="ANTHROPIC_DEFAULT_OPUS_MODEL" type="string">
+    Opus 系列默认模型：`cc/claude-opus-4-6`
+  </Property>
+  <Property name="ANTHROPIC_DEFAULT_SONNET_MODEL" type="string">
+    Sonnet 系列默认模型：`cc/claude-sonnet-4-6`
+  </Property>
+  <Property name="ANTHROPIC_DEFAULT_HAIKU_MODEL" type="string">
+    Haiku 系列默认模型：`cc/claude-haiku-4-5-20251001`
+  </Property>
+</Properties>
+
+### 4. 重启 Claude Code
+
+保存配置文件后，重启 Claude Code 应用程序，配置即可生效。
+
+---
+
+## 三、验证配置
+
+重启 Claude Code 后，尝试发送一条消息，如果能正常收到回复，说明配置成功。
+
+您现在可以使用 Cloubic 提供的强大 AI 模型进行编程了！
+
+---
+
+## 四、常见问题
+
+### 配置文件在哪里？
+
+- **MacOS / Linux**: `~/.claude/settings.json`
+- **Windows**: `%USERPROFILE%\.claude\settings.json`
+
+### 超时怎么办？
+
+如果遇到超时问题，可以适当增加 `API_TIMEOUT_MS` 的值，例如设置为 `900000`（15分钟）。
+
+---

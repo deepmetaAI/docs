@@ -71,6 +71,7 @@ export const spaces: Space[] = [
         links: [
           { title: 'Cherry Studio 配置', href: '/docs/zh-CN/client-tools/cherry-studio' },
           { title: 'OpenClaw 配置', href: '/docs/zh-CN/client-tools/openclaw' },
+          { title: 'Claude Code 配置', href: '/docs/zh-CN/client-tools/claude-code' },
         ],
       },
     ],
