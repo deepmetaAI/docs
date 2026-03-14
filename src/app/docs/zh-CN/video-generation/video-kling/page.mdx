@@ -1,11 +1,11 @@
 export const metadata = {
   title: 'Kling 视频生成',
-  description: 'Cloubic Kling（可灵）视频生成接口，支持文生视频和图生视频。',
+  description: 'Cloubic Kling（可灵）视频生成接口，支持文生视频、图生视频和多镜头视频生成。',
 }
 
 # Kling（可灵）视频生成
 
-Cloubic 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }}
+Cloubic 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。支持 V2 和 V3 版本，V3 版本新增多镜头视频生成、主体库和视频续写等高级功能。{{ className: 'lead' }}
 
 ---
 
@@ -30,13 +30,19 @@ Cloubic 目前已支持对 Kling（可灵）视频大模型的统一接入与调
 
     <Properties>
       <Property name="model" type="string" required>
-        `kling-v2-5-turbo-std`、`kling-v2-5-turbo-pro`、`kling-v2-6`
+        V2 版本：`kling-v2-5-turbo-std`、`kling-v2-5-turbo-pro`、`kling-v2-6`
+        
+        V3 版本：`kling-v3-std`、`kling-v3-pro`
       </Property>
       <Property name="prompt" type="string" required>
-        文本提示词，生成视频的文本描述
+        文本提示词，生成视频的文本描述（与 `metadata.multi_prompt` 互斥）
       </Property>
       <Property name="duration" type="integer">
-        视频时长参数（秒），可选值：5、10，默认 `5`
+        视频时长参数（秒）
+        
+        V2：可选值 5、10，默认 `5`
+        
+        V3：可选值 3-15，使用 `multi_prompt` 时需与各镜头时长之和相等
       </Property>
       <Property name="size" type="string">
         分辨率参数，输出分辨率，格式为宽度x高度，默认 `16:9`
@@ -47,14 +53,14 @@ Cloubic 目前已支持对 Kling（可灵）视频大模型的统一接入与调
         </Options>
       </Property>
       <Property name="metadata" type="object">
-        扩展参数（JSON 字符串格式）
+        扩展参数（JSON 对象格式），V3 版本支持多镜头等高级功能
       </Property>
     </Properties>
   </Col>
   <Col sticky>
     <CodeGroup tag="POST" label="/v1/video/generations">
 
-```bash {{ title: 'cURL' }}
+```bash {{ title: 'cURL (V2)' }}
 curl -X POST https://api.cloubic.com/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
@@ -66,7 +72,49 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
   }'
 ```
 
-```python {{ title: 'Python' }}
+```bash {{ title: 'cURL (V3 单镜头)' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kling-v3-std",
+    "prompt": "给猫戴上眼镜",
+    "duration": 5,
+    "size": "9:16",
+    "metadata": {
+      "multi_shot": false
+    }
+  }'
+```
+
+```bash {{ title: 'cURL (V3 多镜头)' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kling-v3-std",
+    "duration": 5,
+    "size": "9:16",
+    "metadata": {
+      "multi_shot": true,
+      "shot_type": "customize",
+      "multi_prompt": [
+        {
+          "index": 1,
+          "prompt": "长翅膀的猫",
+          "duration": 2
+        },
+        {
+          "index": 2,
+          "prompt": "长翅膀的猫原地转圈",
+          "duration": 3
+        }
+      ]
+    }
+  }'
+```
+
+```python {{ title: 'Python (V3 多镜头)' }}
 import requests
 
 url = 'https://api.cloubic.com/v1/video/generations'
@@ -77,8 +125,25 @@ headers = {
 }
 
 data = {
-    "model": "kling-v2-6",
-    "prompt": "一只可爱的小狗在公园里奔跑"
+    "model": "kling-v3-std",
+    "duration": 5,
+    "size": "9:16",
+    "metadata": {
+        "multi_shot": True,
+        "shot_type": "customize",
+        "multi_prompt": [
+            {
+                "index": 1,
+                "prompt": "长翅膀的猫",
+                "duration": 2
+            },
+            {
+                "index": 2,
+                "prompt": "长翅膀的猫原地转圈",
+                "duration": 3
+            }
+        ]
+    }
 }
 
 response = requests.post(url, headers=headers, json=data)
@@ -87,67 +152,144 @@ print(f"任务ID: {result['id']}")
 print(f"状态: {result['status']}")
 ```
 
-```go {{ title: 'Go' }}
-package main
+    </CodeGroup>
+  </Col>
+</Row>
 
-import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    "io"
-    "net/http"
-)
+---
 
-type VideoRequest struct {
-    Model  string `json:"model"`
-    Prompt string `json:"prompt"`
-}
+## V3 多镜头视频生成
 
-func main() {
-    reqBody := VideoRequest{
-        Model:  "kling-v2-6",
-        Prompt: "一只可爱的小狗在公园里奔跑",
-    }
+Kling V3 版本支持多镜头视频生成功能，可以通过 `metadata` 参数配置多个镜头的提示词和时长。
 
-    jsonData, _ := json.Marshal(reqBody)
-    req, _ := http.NewRequest("POST",
-        "https://api.cloubic.com/v1/video/generations",
-        bytes.NewBuffer(jsonData))
-    req.Header.Set("Content-Type", "application/json")
-    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+<Row>
+  <Col>
+    ### metadata 参数说明（V3 专用）
 
-    client := &http.Client{}
-    resp, _ := client.Do(req)
-    defer resp.Body.Close()
+    <Properties>
+      <Property name="multi_shot" type="boolean" required>
+        是否生成多镜头视频
+        
+        - `true`：启用多镜头模式，`shot_type` 和 `multi_prompt` 生效，`prompt` 参数无效
+        - `false`：单镜头模式，使用 `prompt` 参数
+        
+        注意：多镜头模式不支持设定首尾帧生视频
+      </Property>
+      <Property name="shot_type" type="string">
+        分镜方式，当 `multi_shot` 为 `true` 时必填
+        <Options>
+          <Option value="customize">自定义分镜</Option>
+          <Option value="intelligence">智能分镜</Option>
+        </Options>
+      </Property>
+      <Property name="multi_prompt" type="array">
+        各分镜信息数组，包含提示词、时长等
+        
+        - 最多支持 6 个分镜，最少 1 个分镜
+        - 每个分镜提示词最大长度 512 字符
+        - 每个分镜时长不小于 1 秒，不大于总时长
+        - 所有分镜时长之和必须等于 `duration` 参数
+        
+        每个分镜对象包含：
+        - `index`（integer）：分镜序号
+        - `prompt`（string）：分镜提示词
+        - `duration`（integer）：分镜时长（秒）
+      </Property>
+    </Properties>
 
-    body, _ := io.ReadAll(resp.Body)
-    fmt.Println(string(body))
+    ### V3 Pro 版本额外参数
+
+    <Properties>
+      <Property name="image_list" type="array">
+        首尾帧图片列表，仅 `kling-v3-pro` 支持
+        
+        每个对象包含：
+        - `image_url`（string）：图片 URL
+        - `type`（string）：图片类型，可选值：`first_frame`（首帧）、`end_frame`（尾帧）
+        
+        注意：不支持与多镜头模式同时使用
+      </Property>
+      <Property name="element_list" type="array">
+        参考主体列表，基于主体库中主体的 ID 配置
+        
+        - 最多支持 3 个参考主体
+        - 主体分为视频角色主体和多图主体，适用范围不同
+        
+        每个对象包含：
+        - `element_id`（long）：主体库中的主体 ID
+      </Property>
+      <Property name="video_list" type="array">
+        视频续写列表，用于视频延续生成
+        
+        每个对象包含：
+        - `video_url`（string）：参考视频 URL
+        - `type`（string）：续写类型
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="V3 多镜头示例">
+
+```json {{ title: 'V3 标准版多镜头' }}
+{
+  "model": "kling-v3-std",
+  "duration": 5,
+  "size": "9:16",
+  "metadata": {
+    "multi_shot": true,
+    "shot_type": "customize",
+    "multi_prompt": [
+      {
+        "index": 1,
+        "prompt": "长翅膀的猫",
+        "duration": 2
+      },
+      {
+        "index": 2,
+        "prompt": "长翅膀的猫原地转圈",
+        "duration": 3
+      }
+    ]
+  }
 }
 ```
 
-```javascript {{ title: 'Node.js' }}
-const axios = require('axios');
+```json {{ title: 'V3 Pro 版首尾帧' }}
+{
+  "model": "kling-v3-pro",
+  "prompt": "给猫戴上眼镜",
+  "duration": 5,
+  "size": "9:16",
+  "metadata": {
+    "multi_shot": false,
+    "image_list": [
+      {
+        "image_url": "https://example.com/first.jpg",
+        "type": "first_frame"
+      },
+      {
+        "image_url": "https://example.com/end.jpg",
+        "type": "end_frame"
+      }
+    ]
+  }
+}
+```
 
-const url = 'https://api.cloubic.com/v1/video/generations';
-
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer YOUR_API_KEY'
-};
-
-const data = {
-    model: 'kling-v2-6',
-    prompt: '一只可爱的小狗在公园里奔跑'
-};
-
-axios.post(url, data, { headers })
-    .then(response => {
-        console.log('任务ID:', response.data.id);
-        console.log('状态:', response.data.status);
-    })
-    .catch(error => {
-        console.error('请求失败:', error.message);
-    });
+```json {{ title: 'V3 Pro 版主体库' }}
+{
+  "model": "kling-v3-pro",
+  "prompt": "猫在草地上奔跑",
+  "duration": 5,
+  "size": "16:9",
+  "metadata": {
+    "multi_shot": false,
+    "element_list": [
+      { "element_id": 123456 },
+      { "element_id": 789012 }
+    ]
+  }
+}
 ```
 
     </CodeGroup>
@@ -177,16 +319,24 @@ axios.post(url, data, { headers })
 
     <Properties>
       <Property name="model" type="string" required>
-        `kling-v2-5-turbo-std`、`kling-v2-5-turbo-pro`、`kling-v2-6`
+        V2 版本：`kling-v2-5-turbo-std`、`kling-v2-5-turbo-pro`、`kling-v2-6`
+        
+        V3 版本：`kling-v3-std`、`kling-v3-pro`
       </Property>
       <Property name="prompt" type="string" required>
         文本提示词，生成视频的文本描述
       </Property>
       <Property name="images" type="array" required>
         图片输入（URL/Base64），支持输入一张或多张图片
+        
+        V3 版本：也可通过 `metadata.image_list` 指定首尾帧（仅 Pro 版本）
       </Property>
       <Property name="duration" type="integer">
-        视频时长参数（秒），可选值：5、10，默认 `5`
+        视频时长参数（秒）
+        
+        V2：可选值 5、10，默认 `5`
+        
+        V3：可选值 3-15
       </Property>
       <Property name="size" type="string">
         分辨率参数，输出分辨率，格式为宽度x高度，默认 `16:9`
@@ -197,14 +347,14 @@ axios.post(url, data, { headers })
         </Options>
       </Property>
       <Property name="metadata" type="object">
-        扩展参数（JSON 字符串格式）
+        扩展参数（JSON 对象格式）
       </Property>
     </Properties>
   </Col>
   <Col sticky>
     <CodeGroup tag="POST" label="/v1/video/generations">
 
-```bash {{ title: 'cURL' }}
+```bash {{ title: 'cURL (V2)' }}
 curl -X POST https://api.cloubic.com/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
@@ -213,6 +363,19 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
     "prompt": "让这张图片动起来，添加自然的运动效果",
     "images": ["https://example.com/image.jpg"],
     "duration": 5
+  }'
+```
+
+```bash {{ title: 'cURL (V3)' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kling-v3-std",
+    "prompt": "给猫戴上眼镜",
+    "images": ["https://example.com/cat.jpg"],
+    "duration": 5,
+    "size": "9:16"
   }'
 ```
 
@@ -351,7 +514,7 @@ curl https://api.cloubic.com/v1/video/generations/{video_id} \
 
 ## 代码示例
 
-### Python 示例
+### Python 示例（V2 基础用法）
 
 ```python
 import requests
@@ -374,7 +537,85 @@ print(f"任务ID: {result['id']}")
 print(f"状态: {result['status']}")
 ```
 
-### Go 示例
+### Python 示例（V3 多镜头）
+
+```python
+import requests
+
+url = 'https://api.cloubic.com/v1/video/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+# V3 多镜头视频生成
+data = {
+    "model": "kling-v3-std",
+    "duration": 10,
+    "size": "16:9",
+    "metadata": {
+        "multi_shot": True,
+        "shot_type": "customize",
+        "multi_prompt": [
+            {
+                "index": 1,
+                "prompt": "一只猫在阳光下伸懒腰",
+                "duration": 3
+            },
+            {
+                "index": 2,
+                "prompt": "猫咪跳到窗台上",
+                "duration": 4
+            },
+            {
+                "index": 3,
+                "prompt": "猫咪望向窗外的风景",
+                "duration": 3
+            }
+        ]
+    }
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+print(f"状态: {result['status']}")
+```
+
+### Python 示例（V3 Pro 主体库）
+
+```python
+import requests
+
+url = 'https://api.cloubic.com/v1/video/generations'
+
+headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+}
+
+# V3 Pro 使用主体库
+data = {
+    "model": "kling-v3-pro",
+    "prompt": "角色在森林中探险",
+    "duration": 8,
+    "size": "16:9",
+    "metadata": {
+        "multi_shot": False,
+        "element_list": [
+            {"element_id": 123456},  # 主体库中的角色 ID
+            {"element_id": 789012}   # 主体库中的场景 ID
+        ]
+    }
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(f"任务ID: {result['id']}")
+```
+
+### Go 示例（V3 多镜头）
 
 ```go
 package main
@@ -387,15 +628,38 @@ import (
     "net/http"
 )
 
+type MultiPrompt struct {
+    Index    int    `json:"index"`
+    Prompt   string `json:"prompt"`
+    Duration int    `json:"duration"`
+}
+
+type Metadata struct {
+    MultiShot   bool          `json:"multi_shot"`
+    ShotType    string        `json:"shot_type"`
+    MultiPrompt []MultiPrompt `json:"multi_prompt"`
+}
+
 type VideoRequest struct {
-    Model  string `json:"model"`
-    Prompt string `json:"prompt"`
+    Model    string   `json:"model"`
+    Duration int      `json:"duration"`
+    Size     string   `json:"size"`
+    Metadata Metadata `json:"metadata"`
 }
 
 func main() {
     reqBody := VideoRequest{
-        Model:  "kling-v2-6",
-        Prompt: "一只可爱的小狗在公园里奔跑",
+        Model:    "kling-v3-std",
+        Duration: 5,
+        Size:     "16:9",
+        Metadata: Metadata{
+            MultiShot: true,
+            ShotType:  "customize",
+            MultiPrompt: []MultiPrompt{
+                {Index: 1, Prompt: "长翅膀的猫", Duration: 2},
+                {Index: 2, Prompt: "长翅膀的猫原地转圈", Duration: 3},
+            },
+        },
     }
 
     jsonData, _ := json.Marshal(reqBody)
@@ -414,7 +678,7 @@ func main() {
 }
 ```
 
-### Node.js 示例
+### Node.js 示例（V3 多镜头）
 
 ```javascript
 const axios = require('axios');
@@ -426,9 +690,27 @@ const headers = {
     'Authorization': 'Bearer YOUR_API_KEY'
 };
 
+// V3 多镜头视频生成
 const data = {
-    model: 'kling-v2-6',
-    prompt: '一只可爱的小狗在公园里奔跑'
+    model: 'kling-v3-std',
+    duration: 5,
+    size: '16:9',
+    metadata: {
+        multi_shot: true,
+        shot_type: 'customize',
+        multi_prompt: [
+            {
+                index: 1,
+                prompt: '长翅膀的猫',
+                duration: 2
+            },
+            {
+                index: 2,
+                prompt: '长翅膀的猫原地转圈',
+                duration: 3
+            }
+        ]
+    }
 };
 
 axios.post(url, data, { headers })
@@ -440,3 +722,43 @@ axios.post(url, data, { headers })
         console.error('请求失败:', error.message);
     });
 ```
+
+---
+
+## V2 与 V3 版本对比
+
+| 功能特性 | V2 版本 | V3 标准版 | V3 专业版 |
+|---------|---------|-----------|-----------|
+| 文生视频 | ✓ | ✓ | ✓ |
+| 图生视频 | ✓ | ✓ | ✓ |
+| 视频时长 | 5-10秒 | 3-15秒 | 3-15秒 |
+| 多镜头生成 | ✗ | ✓ (最多6个镜头) | ✓ (最多6个镜头) |
+| 首尾帧控制 | ✗ | ✗ | ✓ |
+| 主体库支持 | ✗ | ✗ | ✓ (最多3个主体) |
+| 视频续写 | ✗ | ✗ | ✓ |
+| 智能分镜 | ✗ | ✓ | ✓ |
+
+---
+
+## 注意事项
+
+1. **多镜头限制**：
+   - 最多支持 6 个分镜，最少 1 个分镜
+   - 所有分镜时长之和必须等于总时长
+   - 每个分镜提示词最大 512 字符
+   - 多镜头模式不支持首尾帧控制
+
+2. **V3 Pro 专属功能**：
+   - 首尾帧控制：通过 `image_list` 指定首帧和尾帧图片
+   - 主体库：最多支持 3 个参考主体
+   - 视频续写：基于已有视频进行延续生成
+
+3. **参数互斥关系**：
+   - `prompt` 与 `metadata.multi_prompt` 互斥
+   - 多镜头模式（`multi_shot: true`）时，`prompt` 参数无效
+   - 单镜头模式（`multi_shot: false`）时，`shot_type` 和 `multi_prompt` 参数无效
+
+4. **图片要求**：
+   - 支持 URL 和 Base64 格式
+   - 图片 URL 必须可公开访问
+   - 建议图片分辨率与输出视频比例一致
