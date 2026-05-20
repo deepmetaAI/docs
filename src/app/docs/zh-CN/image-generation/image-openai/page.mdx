@@ -15,6 +15,9 @@ Cloubic 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的�
   <Property name="gpt-image-1" type="model">
     GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。
   </Property>
+  <Property name="gpt-image-2" type="model">
+    GPT Image 2 是 OpenAI 的图像生成模型，支持更高质量的图像生成与编辑能力。
+  </Property>
   <Property name="dall-e-3" type="model">
     DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。
   </Property>
@@ -43,7 +46,7 @@ Cloubic 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的�
 
     <Properties>
       <Property name="model" type="string" required>
-        创建图片时选择的模型 ID，如 `gpt-image-1`
+        创建图片时选择的模型 ID，如 `gpt-image-1`、`gpt-image-2` 或 `dall-e-3`
       </Property>
       <Property name="prompt" type="string" required>
         期望生成图片的文本描述
@@ -52,7 +55,10 @@ Cloubic 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的�
         要生成的图片数量，必须在 `1-10` 之间，默认 `1`
       </Property>
       <Property name="quality" type="string">
-        生成图片的质量，可选 `standard` 或 `hd`
+        图像质量与细节偏好，不同模型支持的取值不同：
+
+        - `gpt-image-1`、`gpt-image-2`：可选 `low`、`medium`、`high`，默认通常为 `medium`
+        - `dall-e-3`：可选 `standard` 或 `hd`
       </Property>
       <Property name="size" type="string">
         生成图片的尺寸，默认 `1024x1024`
@@ -139,7 +145,7 @@ console.log(response.data[0].url);
 
     <Properties>
       <Property name="model" type="string" required>
-        创建图片时选择的模型 ID
+        创建图片时选择的模型 ID，如 `gpt-image-1` 或 `gpt-image-2`
       </Property>
       <Property name="prompt" type="string" required>
         期望生成图片的文本描述
@@ -148,7 +154,7 @@ console.log(response.data[0].url);
         文件或文件数组，要编辑的图片
       </Property>
       <Property name="quality" type="string">
-        生成图片的质量，默认 `standard`
+        图像质量与细节偏好，适用于 `gpt-image-1`、`gpt-image-2`。可选 `low`、`medium`、`high`，默认通常为 `medium`。
       </Property>
       <Property name="size" type="string">
         生成图片的尺寸，默认 `1024x1024`
