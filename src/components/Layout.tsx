@@ -19,6 +19,7 @@ const hideTocPages = [
   '/docs/zh-CN/video-generation/video-kling',
   '/docs/zh-CN/video-generation/video-sora',
   '/docs/zh-CN/video-generation/video-jimeng',
+  '/docs/zh-CN/video-generation/video-doubao-seedance-2',
   '/docs/zh-CN/video-generation/video-wan',
   '/docs/zh-CN/video-generation/video-minimax',
   '/docs/zh-CN/embedding-rerank/embedding-rerank',
