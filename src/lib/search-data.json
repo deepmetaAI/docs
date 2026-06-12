@@ -27,71 +27,173 @@
     "section": "配置步骤"
   },
   {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank",
+    "title": "Embedding & Rerank",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID，如 text-embedding-v4 </Property> <Property name=\"input\" type=\"string | array\" required> 要生成向量的文本，支持单条字符串或字符串数组 </Property> <Property name=\"dimensions\" type=\"integer\"> 输出向量维度，支持 642048，默认 1024 </Property> <Property name=\"encodingformat\" type=\"string\"> 向量编码格式，可选 float 或 base64，默认 float </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/embeddings\"> </CodeGroup> </Col> --- 向量响应格式 <Col> <Properties> <Property name=\"object\" type=\"string\"> 固定为 list </Property> <Property name=\"model\" type=\"string\"> 使用的模型名称 </Property> <Property name=\"data\" type=\"array\"> 向量对象列表 </Property> <Property name=\"data[].object\" type=\"string\"> 固定为 embedding </Property> <Property name=\"data[].index\" type=\"integer\"> 输入文本的索引 </Property> <Property name=\"data[].embedding\" type=\"array\"> 向量数组 </Property> <Property name=\"usage\" type=\"object\"> 使用统计信息 </Property> <Property name=\"usage.prompttokens\" type=\"integer\"> 输入使用的令牌数 </Property> <Property name=\"usage.totaltokens\" type=\"integer\"> 使用的总令牌数 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"响应示例\"> </CodeGroup> </Col> --- 文本重排序 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </P"
+  },
+  {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank#",
+    "title": "支持模型",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank#",
+    "title": "创建向量",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token",
+    "section": "创建向量"
+  },
+  {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank#",
+    "title": "向量响应格式",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token",
+    "section": "向量响应格式"
+  },
+  {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank#",
+    "title": "文本重排序",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token",
+    "section": "文本重排序"
+  },
+  {
+    "url": "/docs/zh-CN/embedding-rerank/embedding-rerank#",
+    "title": "重排序响应格式",
+    "pageTitle": "Embedding & Rerank",
+    "content": "Embedding & Rerank OmniMaaS 目前已支持文本向量（Embedding）和文本重排序（Rerank）模型的统一接入与调用，适用于文本检索、RAG、语义搜索等场景。{{ className: 'lead' }} --- 支持模型 <Property name=\"text-embedding-v4\" type=\"model\"> 基于 Qwen3 训练的多语言文本统一向量模型，相较 V3 版本在文本检索、聚类、分类性能大幅提升；支持 642048 维用户自定义向量维度。 </Property> <Property name=\"qwen3-rerank\" type=\"model\"> 基于 Qwen LLM 底座训练的文本排序模型，对输入的 Query 和候选 Docs 进行相关性排序，支持 100+ 语种和长文本输入，适用于文本检索、RAG 等场景。 </Property> --- 创建向量 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token",
+    "section": "重排序响应格式"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-doubao",
+    "title": "豆包 Seedream 图像生成",
+    "pageTitle": "豆包 Seedream 图像生成",
+    "content": "豆包 Seedream 图像生成 OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"doubao-seedream-4-5-251128\" type=\"model\"> 豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。 </Property> <Property name=\"doubao-seedream-4-0-250828\" type=\"model\"> 豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。 </Property> 其他模型支持可联系客服。 --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID，如 doubao-seedream-4-5-251128、doubao-seedream-4-0-250828 </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述，支持中英文。建议不超过 300 个汉字或 600 个英文单词。 </Property> <Property name=\"duration\" type=\"integer\"> 生成时长参数，默认 5 </Property> <Property name=\"resolution\" type=\"string\"> 生成图片的分辨率，如 720p、1080p 等 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 响应格式 <Col> <Properties> <Property name=\"model\" type=\"string\"> 本次请求使用的模型 ID </Property> <Property name=\"created\" type=\"integer\"> 响应创建的 Unix 时间戳（秒） </Property> <Property name=\"data\" type=\"array\"> 生成的图片对象列表 </Property> <Property name=\"data[].url\" type=\"string\"> 生成图片的 URL，链接在生成后 24 小时内有效 </Property> <Property name=\"data[].size\" type=\"string\"> 图像的宽高像素值，格式为 宽x高，如 2048x2048 </Property> <Property name=\"usage\" type=\"object\"> 使用统计信息 </Property> <Property name=\"usage.generatedimages\" type=\"integer\"> 模型成功生成的图片张数 </Property> <Property name=\"usage.outputtokens\" type=\"integer\"> 输出使用的令牌数 </Property> <Property name=\"usage.totaltokens\" type=\"integer\"> 使用的总令牌数 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"响应示例\"> </CodeGroup> </Col>"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-doubao#",
+    "title": "支持模型",
+    "pageTitle": "豆包 Seedream 图像生成",
+    "content": "豆包 Seedream 图像生成 OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"doubao-seedream-4-5-251128\" type=\"model\"> 豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。 </Property> <Property name=\"doubao-seedream-4-0-250828\" type=\"model\"> 豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。 </Property> 其他模型支持可联系客服。 --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </P",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-doubao#",
+    "title": "创建图片",
+    "pageTitle": "豆包 Seedream 图像生成",
+    "content": "豆包 Seedream 图像生成 OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"doubao-seedream-4-5-251128\" type=\"model\"> 豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。 </Property> <Property name=\"doubao-seedream-4-0-250828\" type=\"model\"> 豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。 </Property> 其他模型支持可联系客服。 --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </P",
+    "section": "创建图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-doubao#",
+    "title": "响应格式",
+    "pageTitle": "豆包 Seedream 图像生成",
+    "content": "豆包 Seedream 图像生成 OmniMaaS 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"doubao-seedream-4-5-251128\" type=\"model\"> 豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。 </Property> <Property name=\"doubao-seedream-4-0-250828\" type=\"model\"> 豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。 </Property> 其他模型支持可联系客服。 --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </P",
+    "section": "响应格式"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-gemini",
+    "title": "Gemini 图像生成",
+    "pageTitle": "Gemini 图像生成",
+    "content": "Gemini 图像生成 OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }} --- 支持模型 <Property name=\"gemini-3-pro-image-preview\" type=\"model\"> Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。 </Property> <Property name=\"gemini-2.5-flash-image\" type=\"model\"> Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。 </Property> <Property name=\"gemini-2.5-flash-image-preview\" type=\"model\"> Nano Banana Preview，Nano Banana 的预览版本，支持图像生成、编辑和多轮对话。 </Property> 其他模型支持可联系客服。 --- 创建图片 Gemini 图像生成通过对话补全接口调用，在 messages 中描述期望生成的图像内容即可。 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID，如 gemini-3-pro-image-preview、gemini-2.5-flash-image </Property> <Property name=\"messages\" type=\"array\" required> 对话消息列表，在 content 中描述期望生成的图像 </Property> <Property name=\"stream\" type=\"boolean\"> 是否使用流式输出，默认 false </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/chat/completions\"> </CodeGroup> </Col> --- 编辑图片 通过在 messages 中传入图片 URL 和编辑指令，即可实现图像编辑。 <Col> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID，如 gemini-3-pro-image-preview </Property> <Property name=\"messages\" type=\"array\" required> 对话消息列表，content 为数组时可同时传入图片和文本指令 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/chat/completions\"> </CodeGroup> </Col> --- 响应格式 <Col> Gemini 图像生成的响应遵循标准 Chat Completions 格式，生成的图片以 Base64 或 URL 形式包含在 choices[0].message.content 中。 <Properties> <Property name=\"id\" type=\"string\"> 请求 ID </Property> <Property name=\"object\" type=\"string\"> 对象类型，固定为 chat.completion </Property> <Property name=\"model\" type=\"string\"> 使用的模型名称 </Property> <Property name=\"created\" type=\"integer\"> 响应创建的 Unix 时间戳（秒） </Property> "
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-gemini#",
+    "title": "支持模型",
+    "pageTitle": "Gemini 图像生成",
+    "content": "Gemini 图像生成 OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }} --- 支持模型 <Property name=\"gemini-3-pro-image-preview\" type=\"model\"> Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。 </Property> <Property name=\"gemini-2.5-flash-image\" type=\"model\"> Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。 </Property> <Property name=\"gemini-2.5-flash-image-preview\" type=\"model\"> Nano Ban",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-gemini#",
+    "title": "创建图片",
+    "pageTitle": "Gemini 图像生成",
+    "content": "Gemini 图像生成 OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }} --- 支持模型 <Property name=\"gemini-3-pro-image-preview\" type=\"model\"> Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。 </Property> <Property name=\"gemini-2.5-flash-image\" type=\"model\"> Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。 </Property> <Property name=\"gemini-2.5-flash-image-preview\" type=\"model\"> Nano Ban",
+    "section": "创建图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-gemini#",
+    "title": "编辑图片",
+    "pageTitle": "Gemini 图像生成",
+    "content": "Gemini 图像生成 OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }} --- 支持模型 <Property name=\"gemini-3-pro-image-preview\" type=\"model\"> Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。 </Property> <Property name=\"gemini-2.5-flash-image\" type=\"model\"> Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。 </Property> <Property name=\"gemini-2.5-flash-image-preview\" type=\"model\"> Nano Ban",
+    "section": "编辑图片"
+  },
+  {
+    "url": "/docs/zh-CN/image-generation/image-gemini#",
+    "title": "响应格式",
+    "pageTitle": "Gemini 图像生成",
+    "content": "Gemini 图像生成 OmniMaaS 目前已支持 Gemini 系列图像生成模型的统一接入与调用。Gemini 图像生成模型基于多模态对话接口，通过 Chat Completions 协议实现图像生成与编辑，支持多轮对话上下文。{{ className: 'lead' }} --- 支持模型 <Property name=\"gemini-3-pro-image-preview\" type=\"model\"> Nano Banana Pro，基于 Gemini 3 Pro 构建的最先进图像生成和编辑模型，显著提升了多模态推理、现实世界关联和高保真视觉合成能力。 </Property> <Property name=\"gemini-2.5-flash-image\" type=\"model\"> Nano Banana，基于 Gemini 2.5 Flash 的图像生成模型，具备上下文理解能力，能够生成、编辑图像并进行多轮对话。 </Property> <Property name=\"gemini-2.5-flash-image-preview\" type=\"model\"> Nano Ban",
+    "section": "响应格式"
+  },
+  {
     "url": "/docs/zh-CN/image-generation/image-openai",
     "title": "OpenAI 图像生成",
     "pageTitle": "OpenAI 图像生成",
-    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID，如 gpt-image-1 </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，必须在 1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，可选 standard 或 hd </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"image\" type=\"string | array\" required> 文件或文件数组，要编辑的图片 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/edits\"> </CodeGroup> </Col> --- 响应格式 <Col> <Properties> <Property name=\"created\" type=\"integer\"> 响应创建的 Unix 时间戳（秒） </Property> <Property name=\"data\" type=\"array\"> 生成的图片对象列表 </Property> <Property name=\"data[].url\" type="
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> <Property name=\"dall-e-3\" type=\"model\"> DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID，如 gpt-image-1 </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，必须在 1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，可选 standard 或 hd </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"image\" type=\"string | array\" required> 文件或文件数组，要编辑的图片 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/edits\"> </CodeGroup> </Col> --- 响应格式 <Col> <Properties> <Property name=\"created\" type=\"integer\"> 响应创建的 Unix 时间戳（秒） </Proper"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-openai#",
     "title": "支持模型",
     "pageTitle": "OpenAI 图像生成",
-    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> <Property name=\"dall-e-3\" type=\"model\"> DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <P",
     "section": "支持模型"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-openai#",
     "title": "创建图片",
     "pageTitle": "OpenAI 图像生成",
-    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> <Property name=\"dall-e-3\" type=\"model\"> DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <P",
     "section": "创建图片"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-openai#",
     "title": "编辑图片",
     "pageTitle": "OpenAI 图像生成",
-    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> <Property name=\"dall-e-3\" type=\"model\"> DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <P",
     "section": "编辑图片"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-openai#",
     "title": "响应格式",
     "pageTitle": "OpenAI 图像生成",
-    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properti",
+    "content": "OpenAI 图像生成 OmniMaaS 目前已支持 OpenAI 标准协议的图像生成、编辑等操作的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起图像生成请求，屏蔽底层厂商差异，实现参数格式的统一管理与灵活扩展，完成通过文本对话生成图像的场景接入。{{ className: 'lead' }} --- 支持模型 <Property name=\"gpt-image-1\" type=\"model\"> GPT Image 1 是一个原生多模态语言模型，它接受文本和图像输入，并生成图像输出。 </Property> <Property name=\"dall-e-3\" type=\"model\"> DALL·E 3 是 OpenAI 的图像生成模型，支持根据文本描述生成高质量图像。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <P",
     "section": "响应格式"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-qwen",
     "title": "Qwen & Wan 图像生成",
     "pageTitle": "Qwen & Wan 图像生成",
-    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能力进一步提升，支持高一致性保持的多图参考生成，文字生成表现优异。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"images\" type=\"string | array\" required> 要编辑的图片 URL 或 Base64，支持单张或多张图片 </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 12801280 <Options> </Options> </Property> <Property name=\"watermark\" type=\"boolean\"> 是否添加水印标识，默认 false </Property> <Pr"
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2i\" type=\"model\"> 通义万相 2.6-文生图，画面质感、美学表现、指令遵循升级，在艺术风格精准控制、真实感人像、长文本生图及广泛历史文化 IP 覆盖上均表现出卓越能力，可生成高质量且富有表现力的视觉内容。 </Property> <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能力进一步提升，支持高一致性保持的多图参考生成，文字生成表现优异。 </Property> --- 创建图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"n\" type=\"integer\"> 要生成的图片数量，1-10 之间，默认 1 </Property> <Property name=\"quality\" type=\"string\"> 生成图片的质量，默认 standard </Property> <Property name=\"size\" type=\"string\"> 生成图片的尺寸，默认 1024x1024 </Property> <Property name=\"responseformat\" type=\"string\"> 返回格式，url 或 b64json </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/images/generations\"> </CodeGroup> </Col> --- 编辑图片 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 创建图片时选择的模型 ID </Property> <Property name=\"prompt\" type=\"string\" required> 期望生成图片的文本描述 </Property> <Property name=\"images\" type=\"string | array\" required> 要编辑的图片 URL 或 Base64，支持单张或多张图片 </Property> <Property name=\"siz"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-qwen#",
     "title": "支持模型",
     "pageTitle": "Qwen & Wan 图像生成",
-    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2i\" type=\"model\"> 通义万相 2.6-文生图，画面质感、美学表现、指令遵循升级，在艺术风格精准控制、真实感人像、长文本生图及广泛历史文化 IP 覆盖上均表现出卓越能力，可生成高质量且富有表现力的视觉内容。 </Property> <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小",
     "section": "支持模型"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-qwen#",
     "title": "创建图片",
     "pageTitle": "Qwen & Wan 图像生成",
-    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2i\" type=\"model\"> 通义万相 2.6-文生图，画面质感、美学表现、指令遵循升级，在艺术风格精准控制、真实感人像、长文本生图及广泛历史文化 IP 覆盖上均表现出卓越能力，可生成高质量且富有表现力的视觉内容。 </Property> <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小",
     "section": "创建图片"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-qwen#",
     "title": "编辑图片",
     "pageTitle": "Qwen & Wan 图像生成",
-    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2i\" type=\"model\"> 通义万相 2.6-文生图，画面质感、美学表现、指令遵循升级，在艺术风格精准控制、真实感人像、长文本生图及广泛历史文化 IP 覆盖上均表现出卓越能力，可生成高质量且富有表现力的视觉内容。 </Property> <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小",
     "section": "编辑图片"
   },
   {
     "url": "/docs/zh-CN/image-generation/image-qwen#",
     "title": "响应格式",
     "pageTitle": "Qwen & Wan 图像生成",
-    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小语种文字生成，支持复杂结构化长文本和图表、架构图等内容生成。 </Property> <Property name=\"wan2.5-i2i-preview\" type=\"model\"> 通义万相 2.5-图像编辑-Preview，全新升级模型架构。支持指令控制实现丰富的图像编辑能力，指令遵循能",
+    "content": "Qwen & Wan 图像生成 OmniMaaS 目前已支持通义千问和万相系列图像生成模型的统一接入与调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2i\" type=\"model\"> 通义万相 2.6-文生图，画面质感、美学表现、指令遵循升级，在艺术风格精准控制、真实感人像、长文本生图及广泛历史文化 IP 覆盖上均表现出卓越能力，可生成高质量且富有表现力的视觉内容。 </Property> <Property name=\"qwen-image-edit-plus\" type=\"model\"> 通义千问系列图像编辑 Plus 模型，在首版 Edit 模型基础上进一步优化了推理性能与系统稳定性，大幅缩短图像生成与编辑的响应时间；支持单次请求返回多张图片，显著提升用户体验。 </Property> <Property name=\"wan2.5-t2i-preview\" type=\"model\"> 通义万相 2.5-文生图-Preview，全新升级模型架构。画面美学、设计感、真实质感显著提升，精准指令遵循，擅长中英文和小",
     "section": "响应格式"
   },
   {
@@ -300,6 +402,82 @@
     "section": "代码示例"
   },
   {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2",
+    "title": "豆包 Seedance 2.0 视频生成",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID：doubao-seedance-2-0-260128、doubao-seedance-2-0-fast-260128 </Property> <Property name=\"content\" type=\"array\" required> 多模态输入数组。支持文本、图片 URL、视频 URL、音频 URL 组合，详见下方 content 结构。 </Property> <Property name=\"ratio\" type=\"string\"> 视频宽高比，默认 adaptive <Options> </Options> </Property> <Property name=\"resolution\" type=\"string\"> 输出分辨率，默认 720p。doubao-seedance-2-0-fast-260128 不支持 1080p <Options> </Options> </Property> <Property name=\"duration\" type=\"integer\"> 视频时长，单位秒。可传 [4, 15] 或 -1，-1 表示由模型智能选择，默认 5 </Property> <Property name=\"generateaudio\" type=\"boolean\"> 是否生成同步音频，默认 true </Property> <Property name=\"callbackurl\" type=\"string\"> 任务状态变更回调地址。任务状态变化时会 POST 推送。 </Property> <Property name=\"returnlastframe\" type=\"boolean\"> 是否返回视频尾帧图像，默认 false。尾帧可作为下个任务的首帧，实现连续视频。 </Property> <Property name=\"executionexpiresafter\" type=\"integer\"> 任务超时时间，单位秒，范围 [3600, 259200]，默认 172800 </Property> <Property name=\"seed\" type=\"integer\"> 随机种子，范围 [-1, 4294967295]，默认 -1。同 prompt 和 seed 的结果接近，但不保证完全一致。 </Property> <Property name=\"watermark\" type=\"boolean\"> 是否添加 AI 生成水印，默认 false </Property> <Property name=\"safetyidentifier\" type=\"string\"> 终端用户唯一标识符，长度不超过 64，推荐传脱敏后的用户 ID 或邮箱哈希。 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/vi"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "支持模型",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "创建视频任务",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "创建视频任务"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#content-",
+    "title": "content 输入结构",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "content 输入结构"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "创建响应",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "创建响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "查询视频任务",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "查询视频任务"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "状态枚举",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "状态枚举"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "尺寸与像素",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "尺寸与像素"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "完整轮询示例",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "完整轮询示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "素材库配合",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "素材库配合"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-doubao-seedance-2#",
+    "title": "注意事项",
+    "pageTitle": "豆包 Seedance 2.0 视频生成",
+    "content": "豆包 Seedance 2.0 视频生成 Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询查询接口获取任务状态和视频结果。 --- 支持模型 <Property name=\"doubao-seedance-2-0-260128\" type=\"model\"> 对应 nova-video-2.0，完整能力版本，支持 480p、720p、1080p。 </Property> <Property name=\"doubao-seedance-2-0-fast-260128\" type=\"model\"> 对应 nova-video-2.0-fast，快速版本，延迟更低，支持 480p、720p，不支持 1080p。 </Property> --- 创建视频任务 <Col> 请求头 <Properties> <Property ",
+    "section": "注意事项"
+  },
+  {
     "url": "/docs/zh-CN/video-generation/video-jimeng",
     "title": "Jimeng 视频生成",
     "pageTitle": "Jimeng 视频生成",
@@ -380,6 +558,54 @@
     "pageTitle": "Kling 视频生成",
     "content": "Kling（可灵）视频生成 OmniMaaS 目前已支持对 Kling（可灵）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用 Kling 视频生成接口生成视频。{{ className: 'lead' }} --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> kling-v2-5-turbo-std、kling-v2-5-turbo-pro、kling-v2-6 </Property",
     "section": "代码示例"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax",
+    "title": "MiniMax 海螺视频生成",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax Hailuo-2.3-Fast 图像到视频模型（Standard，768p），高级快速图像到视频生成。 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> MiniMax-Hailuo-02、MiniMax-Hailuo-2.3 </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长参数（秒），默认 6 </Property> <Property name=\"size\" type=\"string\"> 画面比例，默认 16:9 <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式） <Properties> <Property name=\"promptoptimizer\" type=\"boolean\"> 是否自动优化 prompt，默认为 true。设为 false 可进行更精确的控制 </Property> <Property name=\"fastpretreatment\" type=\"boolean\"> 是否缩短 promptoptimizer 的优化耗时，默认为 false。仅对 MiniMax-Hailuo-2.3 和 MiniMax-Hailuo-02 模型生效 </Property> <Property name=\"callbackurl\" type=\"string\"> 接收任务状态更新通知的回调 URL </Property> <Property name=\"aigcwatermark\" type=\"boolean\"> 是否在生成的视频中添加水印，默认为 false </Property> </Properties> </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Pro"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "支持模型",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "支持模型"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "文生视频",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "文生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "图生视频",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "响应",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "响应"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "首尾帧生成视频",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "首尾帧生成视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-minimax#",
+    "title": "查询视频",
+    "pageTitle": "MiniMax 海螺视频生成",
+    "content": "MiniMax 海螺视频生成 OmniMaaS 目前已支持对 MiniMax 海螺（Hailuo）视频大模型的统一接入与调用。通过本章节提供的接口说明，您可以在同一套 API 下发起视频生成请求，调用海螺视频生成接口生成视频。{{ className: 'lead' }} 调用视频生成模型生成视频时，系统会返回一个任务 ID；用户需要轮询状态接口来获取具体视频链接。 --- 支持模型 <Property name=\"MiniMax-Hailuo-02\" type=\"model\"> Hailuo-02 支持最高 1080P、最长 10s 的超清视频端到端生成，可直接根据文本或图片提示输出 30fps 的流畅片段。 </Property> <Property name=\"MiniMax-Hailuo-2.3\" type=\"model\"> MiniMax-Hailuo-2.3 视频生成模型，旨在实现逼真的运动、改进的视觉一致性和高保真风格化。 </Property> <Property name=\"MiniMax-Hailuo-2.3-Fast\" type=\"model\"> MiniMax ",
+    "section": "查询视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sora",
@@ -481,55 +707,62 @@
     "url": "/docs/zh-CN/video-generation/video-wan",
     "title": "Wan 视频生成",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-t2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-t2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-t2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/videos\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-i2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-i2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-i2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。图生视频时需要在 metadata 中传入 imgurl 参数。 </Col> <Col sticky> <"
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-t2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-t2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-t2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的参数，比如阿里云万相的图片 URL、水印、prompt 智能改写等。 </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/videos\"> </CodeGroup> </Col> --- 图生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 用于生成视频的模型 ID，可选值：wan2.6-i2v </Property> <Property name=\"prompt\" type=\"string\" required> 文本提示词，生成视频的文本描述 </Property> <Property name=\"seconds\" type=\"string\"> 视频时长参数，wan2.6-i2v 可选值为 5、10、15，默认 5 </Property> <Property name=\"size\" type=\"string\"> 指定生成的视频分辨率，格式为宽高。wan2.6-i2v 默认值为 19201080（1080P） <Options> </Options> </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数（JSON 字符串格式），如 promptextend、shottype 等 </Property> </Properties> metadata 参数说明 metadata 参数的作用是传递模型特有的"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "支持模型",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "支持模型"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "文生视频",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "文生视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "图生视频",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "图生视频"
+  },
+  {
+    "url": "/docs/zh-CN/video-generation/video-wan#",
+    "title": "图生动作",
+    "pageTitle": "Wan 视频生成",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
+    "section": "图生动作"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "响应",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "响应"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "查询视频",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "查询视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "获取视频内容",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "获取视频内容"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-wan#",
     "title": "代码示例",
     "pageTitle": "Wan 视频生成",
-    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、参考生视频等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Propert",
+    "content": "Wan 视频生成 OmniMaaS 目前已支持对 Wan 视频大模型的统一接入与调用。通过本章节提供的接口说明，可完成对万相文生视频、图生视频、图生动作等模型调用。{{ className: 'lead' }} --- 支持模型 <Property name=\"wan2.6-t2v\" type=\"model\"> 文生视频 </Property> <Property name=\"wan2.6-i2v\" type=\"model\"> 图生视频 </Property> <Property name=\"wan2.2-animate-move\" type=\"model\"> 图生动作（将参考视频中的动作/表情迁移到图片角色） </Property> 其他模型支持可联系客服。 --- 文生视频 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" ty",
     "section": "代码示例"
   }
 ]

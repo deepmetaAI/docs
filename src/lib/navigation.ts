@@ -56,6 +56,7 @@ export const spaces: Space[] = [
           { title: 'Kling 视频生成', href: '/docs/zh-CN/video-generation/video-kling' },
           { title: 'MiniMax 海螺视频生成', href: '/docs/zh-CN/video-generation/video-minimax' },
           { title: 'Jimeng 视频生成', href: '/docs/zh-CN/video-generation/video-jimeng' },
+          { title: '豆包 Seedance 2.0 视频生成', href: '/docs/zh-CN/video-generation/video-doubao-seedance-2' },
           { title: 'Wan 视频生成', href: '/docs/zh-CN/video-generation/video-wan' },
         ],
       },

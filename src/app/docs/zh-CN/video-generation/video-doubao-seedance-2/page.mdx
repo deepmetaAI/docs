@@ -1,0 +1,613 @@
+export const metadata = {
+  title: '豆包 Seedance 2.0 视频生成',
+  description:
+    'Cloubic 豆包 Seedance 2.0 视频生成接口，支持文生视频、图生视频、视频参考和音频参考。',
+}
+
+# 豆包 Seedance 2.0 视频生成
+
+Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接入与调用。通过本章节提供的接口说明，您可以使用同一个视频生成接口发起文生视频、图生视频、视频参考、音频参考和多模态混合输入任务。{{ className: 'lead' }}
+
+<Note>
+  调用视频生成模型生成视频时，系统会返回一个任务
+  ID；用户需要轮询查询接口获取任务状态和视频结果。
+</Note>
+
+---
+
+## 支持模型
+
+<Properties>
+  <Property name="doubao-seedance-2-0-260128" type="model">
+    对应 `nova-video-2.0`，完整能力版本，支持 480p、720p、1080p。
+  </Property>
+  <Property name="doubao-seedance-2-0-fast-260128" type="model">
+    对应 `nova-video-2.0-fast`，快速版本，延迟更低，支持 480p、720p，不支持
+    1080p。
+  </Property>
+</Properties>
+
+---
+
+## 创建视频任务
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID：`doubao-seedance-2-0-260128`、`doubao-seedance-2-0-fast-260128`
+      </Property>
+      <Property name="content" type="array" required>
+        多模态输入数组。支持文本、图片 URL、视频 URL、音频 URL 组合，详见下方 content 结构。
+      </Property>
+      <Property name="ratio" type="string">
+        视频宽高比，默认 `adaptive`
+        <Options>
+          <Option value="16:9" />
+          <Option value="4:3" />
+          <Option value="1:1" />
+          <Option value="3:4" />
+          <Option value="9:16" />
+          <Option value="21:9" />
+          <Option value="adaptive" />
+        </Options>
+      </Property>
+      <Property name="resolution" type="string">
+        输出分辨率，默认 `720p`。`doubao-seedance-2-0-fast-260128` 不支持 `1080p`
+        <Options>
+          <Option value="480p" />
+          <Option value="720p" />
+          <Option value="1080p" />
+        </Options>
+      </Property>
+      <Property name="duration" type="integer">
+        视频时长，单位秒。可传 `[4, 15]` 或 `-1`，`-1` 表示由模型智能选择，默认 `5`
+      </Property>
+      <Property name="generate_audio" type="boolean">
+        是否生成同步音频，默认 `true`
+      </Property>
+      <Property name="callback_url" type="string">
+        任务状态变更回调地址。任务状态变化时会 POST 推送。
+      </Property>
+      <Property name="return_last_frame" type="boolean">
+        是否返回视频尾帧图像，默认 `false`。尾帧可作为下个任务的首帧，实现连续视频。
+      </Property>
+      <Property name="execution_expires_after" type="integer">
+        任务超时时间，单位秒，范围 `[3600, 259200]`，默认 `172800`
+      </Property>
+      <Property name="seed" type="integer">
+        随机种子，范围 `[-1, 4294967295]`，默认 `-1`。同 prompt 和 seed 的结果接近，但不保证完全一致。
+      </Property>
+      <Property name="watermark" type="boolean">
+        是否添加 AI 生成水印，默认 `false`
+      </Property>
+      <Property name="safety_identifier" type="string">
+        终端用户唯一标识符，长度不超过 64，推荐传脱敏后的用户 ID 或邮箱哈希。
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "doubao-seedance-2-0-fast-260128",
+    "content": [
+      {
+        "type": "text",
+        "text": "第一人称视角果茶宣传广告,镜头拉近看奶盖与果茶分层"
+      },
+      {
+        "type": "image_url",
+        "image_url": {
+          "url": "https://example.com/ref.jpg"
+        },
+        "role": "reference_image"
+      },
+      {
+        "type": "video_url",
+        "video_url": {
+          "url": "https://example.com/ref.mp4"
+        },
+        "role": "reference_video"
+      },
+      {
+        "type": "audio_url",
+        "audio_url": {
+          "url": "https://example.com/bgm.mp3"
+        },
+        "role": "reference_audio"
+      }
+    ],
+    "ratio": "16:9",
+    "resolution": "720p",
+    "duration": 4,
+    "generate_audio": true
+  }'
+```
+
+```python {{ title: 'Python' }}
+import requests
+
+url = 'https://api.cloubic.com/v1/video/generations'
+
+headers = {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json',
+}
+
+data = {
+    "model": "doubao-seedance-2-0-fast-260128",
+    "content": [
+        {"type": "text", "text": "海浪拍打沙滩,电影感镜头"},
+    ],
+    "ratio": "16:9",
+    "resolution": "720p",
+    "duration": 5,
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
+```
+
+```javascript {{ title: 'Node.js' }}
+const axios = require('axios')
+
+const response = await axios.post(
+  'https://api.cloubic.com/v1/video/generations',
+  {
+    model: 'doubao-seedance-2-0-fast-260128',
+    content: [{ type: 'text', text: '海浪拍打沙滩,电影感镜头' }],
+    ratio: '16:9',
+    resolution: '720p',
+    duration: 5,
+  },
+  {
+    headers: {
+      Authorization: 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json',
+    },
+  },
+)
+
+console.log(response.data)
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## content 输入结构
+
+`content` 是对象数组，每个元素必须包含 `type` 字段。支持的组合包括：
+
+- 文本
+- 文本（可选）+ 图片
+- 文本（可选）+ 视频
+- 文本（可选）+ 图片 + 音频
+- 文本（可选）+ 图片 + 视频
+- 文本（可选）+ 视频 + 音频
+- 文本（可选）+ 图片 + 视频 + 音频
+
+<Note>
+  音频不能单独存在，必须配合至少一个 text、image_url 或 video_url 输入。
+</Note>
+
+<Properties>
+  <Property name="type: text" type="object">
+    文本提示词。格式：`{ "type": "text", "text": "一只小狗在阳光下的草地上奔跑" }`
+  </Property>
+  <Property name="type: image_url" type="object">
+    图片输入。`image_url.url` 支持公网图片 URL，或 `data:image/...;base64,...` 内联 base64。`role` 可传 `first_frame`、`reference_image` 等。
+  </Property>
+  <Property name="type: video_url" type="object">
+    视频输入。`video_url.url` 支持公网视频 URL。`role` 可传 `reference_video`。携带任一 `video_url` 即视为视频参考模式。
+  </Property>
+  <Property name="type: audio_url" type="object">
+    音频输入。`audio_url.url` 支持公网音频 URL。`role` 可传 `reference_audio`。
+  </Property>
+</Properties>
+
+```json
+[
+  { "type": "text", "text": "参考视频生成奶茶细节动作" },
+  {
+    "type": "image_url",
+    "image_url": { "url": "https://example.com/ref.jpg" },
+    "role": "reference_image"
+  },
+  {
+    "type": "video_url",
+    "video_url": { "url": "https://example.com/ref.mp4" },
+    "role": "reference_video"
+  },
+  {
+    "type": "audio_url",
+    "audio_url": { "url": "https://example.com/bgm.mp3" },
+    "role": "reference_audio"
+  }
+]
+```
+
+---
+
+## 创建响应
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="id" type="string">
+        任务 ID，后续查询使用。
+      </Property>
+      <Property name="task_id" type="string">
+        任务 ID，兼容字段，可取 `id` 或 `task_id`。
+      </Property>
+      <Property name="object" type="string">
+        对象类型，固定为 `video`。
+      </Property>
+      <Property name="model" type="string">
+        请求传入的模型 ID。
+      </Property>
+      <Property name="status" type="string">
+        初始状态，通常为 `queued`。
+      </Property>
+      <Property name="created_at" type="integer">
+        创建时间戳，单位秒。
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比。
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="响应示例">
+
+```json {{ title: '响应' }}
+{
+  "id": "cgt-20260513210526-6t5cq",
+  "task_id": "cgt-20260513210526-6t5cq",
+  "object": "video",
+  "model": "doubao-seedance-2-0-fast-260128",
+  "status": "queued",
+  "created_at": 1778677545,
+  "progress": 0
+}
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## 查询视频任务
+
+根据任务 ID 查询视频生成任务的状态和结果。
+
+<Row>
+  <Col>
+    <Endpoint method="GET" path="https://api.cloubic.com/v1/video/generations/{task_id}" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+    </Properties>
+
+    ### 路径参数
+
+    <Properties>
+      <Property name="task_id" type="string" required>
+        创建任务返回的 `id` 或 `task_id`
+      </Property>
+    </Properties>
+
+    ### 响应参数
+
+    <Properties>
+      <Property name="id" type="string">
+        任务 ID。
+      </Property>
+      <Property name="model" type="string">
+        模型 ID。
+      </Property>
+      <Property name="status" type="string">
+        当前任务状态，详见状态枚举。
+      </Property>
+      <Property name="progress" type="integer">
+        生成进度百分比。
+      </Property>
+      <Property name="url" type="string">
+        视频下载链接，任务成功后返回。链接为临时签名 URL，请尽快下载到自己的存储。
+      </Property>
+      <Property name="content.video_url" type="string">
+        视频下载链接，兼容字段。
+      </Property>
+      <Property name="content.last_frame_url" type="string">
+        视频尾帧图片链接，仅当创建任务传入 `return_last_frame: true` 时返回。
+      </Property>
+      <Property name="usage.completion_tokens" type="integer">
+        实际计费 token 数。
+      </Property>
+      <Property name="error.code" type="string">
+        失败时的错误码。
+      </Property>
+      <Property name="error.message" type="string">
+        失败时的错误信息。
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="GET" label="/v1/video/generations/{task_id}">
+
+```bash {{ title: 'cURL' }}
+curl https://api.cloubic.com/v1/video/generations/cgt-20260513210526-6t5cq \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+    </CodeGroup>
+
+    <CodeGroup title="响应示例">
+
+```json {{ title: '成功' }}
+{
+  "id": "cgt-20260513210526-6t5cq",
+  "object": "video",
+  "model": "doubao-seedance-2-0-fast-260128",
+  "status": "succeeded",
+  "progress": 100,
+  "url": "https://example.com/video.mp4",
+  "content": {
+    "video_url": "https://example.com/video.mp4"
+  },
+  "usage": {
+    "completion_tokens": 108900,
+    "total_tokens": 108900
+  },
+  "created_at": 1778677545,
+  "updated_at": 1778677696,
+  "generate_audio": true,
+  "resolution": "720p",
+  "ratio": "16:9",
+  "duration": 5,
+  "seed": "5021"
+}
+```
+
+```json {{ title: '失败' }}
+{
+  "id": "cgt-20260513210526-6t5cq",
+  "object": "video",
+  "model": "doubao-seedance-2-0-fast-260128",
+  "status": "failed",
+  "error": {
+    "code": "INVALID_PROMPT",
+    "message": "Prompt contains restricted content"
+  },
+  "created_at": 1778677545,
+  "updated_at": 1778677600
+}
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## 状态枚举
+
+<Properties>
+  <Property name="queued" type="status">
+    已排队等待处理，客户端继续轮询。
+  </Property>
+  <Property name="running / in_progress" type="status">
+    正在生成，客户端继续轮询。
+  </Property>
+  <Property name="succeeded / completed" type="status">
+    任务成功，可取 `url` 或 `content.video_url` 下载视频。
+  </Property>
+  <Property name="failed" type="status">
+    任务失败，可读取 `error.code` 和 `error.message` 定位原因。
+  </Property>
+  <Property name="expired" type="status">
+    任务超过 `execution_expires_after` 未完成，需要重新提交。
+  </Property>
+</Properties>
+
+---
+
+## 尺寸与像素
+
+| 分辨率 | 16:9      | 9:16      | 4:3       | 3:4       | 1:1       | 21:9     |
+| ------ | --------- | --------- | --------- | --------- | --------- | -------- |
+| 480p   | 864x496   | 496x864   | 752x560   | 560x752   | 640x640   | 992x432  |
+| 720p   | 1280x720  | 720x1280  | 1112x834  | 834x1112  | 960x960   | 1470x630 |
+| 1080p  | 1920x1080 | 1080x1920 | 1664x1248 | 1248x1664 | 1440x1440 | 2206x946 |
+
+<Note>
+  `doubao-seedance-2-0-fast-260128` 仅支持 480p 和 720p，传入 `resolution:
+  "1080p"` 会被参数校验拒绝。
+</Note>
+
+---
+
+## 完整轮询示例
+
+```bash
+RESP=$(curl -sS -X POST "https://api.cloubic.com/v1/video/generations" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "doubao-seedance-2-0-fast-260128",
+    "content": [
+      { "type": "text", "text": "一个夕阳下的海边" }
+    ],
+    "ratio": "16:9",
+    "resolution": "720p",
+    "duration": 5
+  }')
+
+TASK_ID=$(echo "$RESP" | jq -r '.id // .task_id')
+echo "task_id=$TASK_ID"
+
+while true; do
+  RESP=$(curl -sS "https://api.cloubic.com/v1/video/generations/$TASK_ID" \
+    -H "Authorization: Bearer YOUR_API_KEY")
+  STATUS=$(echo "$RESP" | jq -r '.status')
+  echo "$(date +%T) status=$STATUS"
+  case "$STATUS" in
+    succeeded|completed)
+      echo "$RESP" | jq -r '.url // .content.video_url'
+      break ;;
+    failed|expired)
+      echo "$RESP" | jq '.error'
+      break ;;
+  esac
+  sleep 10
+done
+```
+
+---
+
+## 素材库配合
+
+如果参考图片、视频或音频文件较大，建议先通过素材库登记素材，再在视频生成任务中引用素材 URL 或素材 ID。
+
+### 创建素材
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets" />
+
+    <Properties>
+      <Property name="URL" type="string" required>
+        图片、视频或音频的可访问 URL。
+      </Property>
+      <Property name="AssetType" type="string" required>
+        素材类型，枚举：`Image`、`Video`、`Audio`，大小写敏感。
+      </Property>
+      <Property name="Name" type="string">
+        素材名称，后续检索可用。
+      </Property>
+      <Property name="ProjectName" type="string">
+        项目名称。如需区分素材库，可按账号配置传入。
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/api/v3/assets">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.cloubic.com/api/v3/assets \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "URL": "https://example.com/ref.mp4",
+    "AssetType": "Video",
+    "Name": "测试素材"
+  }'
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+### 查询素材
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets/get" />
+
+    <Properties>
+      <Property name="Id" type="string" required>
+        创建素材接口返回的素材 ID。
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/api/v3/assets/get">
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://api.cloubic.com/api/v3/assets/get \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "Id": "asset-20260521150403-hx4hf"
+  }'
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+### 在视频生成中引用素材
+
+```bash
+ASSET_RESP=$(curl -sS -X POST "https://api.cloubic.com/api/v3/assets" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"URL": "https://example.com/ref.mp4", "AssetType": "Video"}')
+
+ASSET_ID=$(echo "$ASSET_RESP" | jq -r '.Id')
+
+curl -X POST "https://api.cloubic.com/v1/video/generations" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"model\": \"doubao-seedance-2-0-fast-260128\",
+    \"content\": [
+      {\"type\": \"text\", \"text\": \"参考视频生成奶茶细节动作\"},
+      {
+        \"type\": \"video_url\",
+        \"video_url\": {\"url\": \"asset://$ASSET_ID\"},
+        \"role\": \"reference_video\"
+      }
+    ],
+    \"ratio\": \"9:16\",
+    \"resolution\": \"720p\",
+    \"duration\": 5
+  }"
+```
+
+---
+
+## 注意事项
+
+- 视频结果 URL 为临时签名地址，请尽快下载到自己的对象存储或 CDN，不要作为长期对外分发链接。
+- 内容审核类失败（如 `INVALID_PROMPT`、`BLOCKED_BY_MODERATION`）通常不建议原样重试，请修改 prompt 或输入素材后重新提交。
+- 建议每 10 到 30 秒轮询一次任务状态，生产环境可结合 `callback_url` 降低轮询压力。
+- `audio_url` 不能单独作为唯一输入，必须配合文本、图片或视频。
+- `ratio: "adaptive"` 会由模型根据输入素材自动选择比例，实际比例会在查询响应中回填。
+- `image_url.url`、`video_url.url`、`audio_url.url` 需要公网可访问；大文件建议先登记到素材库后再引用。
