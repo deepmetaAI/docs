@@ -330,35 +330,56 @@ console.log(response.data)
     ### 响应参数
 
     <Properties>
-      <Property name="id" type="string">
+      <Property name="code" type="string">
+        请求结果状态，成功时为 `success`。
+      </Property>
+      <Property name="message" type="string">
+        请求结果说明，成功时通常为空字符串。
+      </Property>
+      <Property name="data.task_id" type="string">
         任务 ID。
       </Property>
-      <Property name="model" type="string">
-        模型 ID。
+      <Property name="data.状态" type="string">
+        当前任务状态，例如 `已成功`。详见状态枚举。
       </Property>
-      <Property name="status" type="string">
-        当前任务状态，详见状态枚举。
-      </Property>
-      <Property name="progress" type="integer">
-        生成进度百分比。
-      </Property>
-      <Property name="url" type="string">
+      <Property name="data.url" type="string">
         视频下载链接，任务成功后返回。链接为临时签名 URL，请尽快下载到自己的存储。
       </Property>
-      <Property name="content.video_url" type="string">
-        视频下载链接，兼容字段。
+      <Property name="data.error" type="string">
+        失败时的错误信息，成功时为空字符串。
       </Property>
-      <Property name="content.last_frame_url" type="string">
-        视频尾帧图片链接，仅当创建任务传入 `return_last_frame: true` 时返回。
+      <Property name="data.created_at" type="integer">
+        创建时间戳，单位秒。
       </Property>
-      <Property name="usage.completion_tokens" type="integer">
-        实际计费 token 数。
+      <Property name="data.updated_at" type="integer">
+        最近更新时间戳，单位秒。
       </Property>
-      <Property name="error.code" type="string">
-        失败时的错误码。
+      <Property name="data.duration" type="integer">
+        实际生成视频时长，单位秒。
       </Property>
-      <Property name="error.message" type="string">
-        失败时的错误信息。
+      <Property name="data.ratio" type="string">
+        实际生成视频宽高比。
+      </Property>
+      <Property name="data.分辨率" type="string">
+        实际生成视频分辨率。
+      </Property>
+      <Property name="data.格式" type="string">
+        视频文件格式，例如 `mp4`。
+      </Property>
+      <Property name="data.generate_audio" type="boolean">
+        是否生成同步音频。
+      </Property>
+      <Property name="data.seed" type="string">
+        本次任务使用的随机种子。
+      </Property>
+      <Property name="data.元数据" type="object | null">
+        任务附加元数据，没有时为 `null`。
+      </Property>
+      <Property name="data.usage.完成令牌数" type="integer">
+        实际完成 token 数。
+      </Property>
+      <Property name="data.usage.total_tokens" type="integer">
+        总 token 数。
       </Property>
     </Properties>
 
@@ -377,41 +398,53 @@ curl https://api.cloubic.com/v1/video/generations/cgt-20260513210526-6t5cq \
 
 ```json {{ title: '成功' }}
 {
-  "id": "cgt-20260513210526-6t5cq",
-  "object": "video",
-  "model": "doubao-seedance-2-0-fast-260128",
-  "status": "succeeded",
-  "progress": 100,
-  "url": "https://example.com/video.mp4",
-  "content": {
-    "video_url": "https://example.com/video.mp4"
-  },
-  "usage": {
-    "completion_tokens": 108900,
-    "total_tokens": 108900
-  },
-  "created_at": 1778677545,
-  "updated_at": 1778677696,
-  "generate_audio": true,
-  "resolution": "720p",
-  "ratio": "16:9",
-  "duration": 5,
-  "seed": "5021"
+  "code": "success",
+  "message": "",
+  "data": {
+    "created_at": 1781402766,
+    "duration": 4,
+    "error": "",
+    "格式": "mp4",
+    "generate_audio": true,
+    "元数据": null,
+    "ratio": "16:9",
+    "分辨率": "720p",
+    "seed": "50718",
+    "状态": "已成功",
+    "task_id": "cgt-20260614100606-w86tm",
+    "updated_at": 1781402886,
+    "url": "https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/...mp4?X-Tos-Expires=86400",
+    "usage": {
+      "完成令牌数": 87300,
+      "total_tokens": 87300
+    }
+  }
 }
 ```
 
 ```json {{ title: '失败' }}
 {
-  "id": "cgt-20260513210526-6t5cq",
-  "object": "video",
-  "model": "doubao-seedance-2-0-fast-260128",
-  "status": "failed",
-  "error": {
-    "code": "INVALID_PROMPT",
-    "message": "Prompt contains restricted content"
-  },
-  "created_at": 1778677545,
-  "updated_at": 1778677600
+  "code": "success",
+  "message": "",
+  "data": {
+    "created_at": 1781402766,
+    "duration": 4,
+    "error": "Prompt contains restricted content",
+    "格式": "",
+    "generate_audio": true,
+    "元数据": null,
+    "ratio": "16:9",
+    "分辨率": "720p",
+    "seed": "50718",
+    "状态": "失败",
+    "task_id": "cgt-20260614100606-w86tm",
+    "updated_at": 1781402886,
+    "url": "",
+    "usage": {
+      "完成令牌数": 0,
+      "total_tokens": 0
+    }
+  }
 }
 ```
 
@@ -431,11 +464,11 @@ curl https://api.cloubic.com/v1/video/generations/cgt-20260513210526-6t5cq \
   <Property name="running / in_progress" type="status">
     正在生成，客户端继续轮询。
   </Property>
-  <Property name="succeeded / completed" type="status">
-    任务成功，可取 `url` 或 `content.video_url` 下载视频。
+  <Property name="已成功 / succeeded / completed" type="status">
+    任务成功，可取 `data.url` 下载视频。
   </Property>
-  <Property name="failed" type="status">
-    任务失败，可读取 `error.code` 和 `error.message` 定位原因。
+  <Property name="失败 / failed" type="status">
+    任务失败，可读取 `data.error` 定位原因。
   </Property>
   <Property name="expired" type="status">
     任务超过 `execution_expires_after` 未完成，需要重新提交。
@@ -475,20 +508,20 @@ RESP=$(curl -sS -X POST "https://api.cloubic.com/v1/video/generations" \
     "duration": 5
   }')
 
-TASK_ID=$(echo "$RESP" | jq -r '.id // .task_id')
+TASK_ID=$(echo "$RESP" | jq -r '.id // .task_id // .data.task_id')
 echo "task_id=$TASK_ID"
 
 while true; do
   RESP=$(curl -sS "https://api.cloubic.com/v1/video/generations/$TASK_ID" \
     -H "Authorization: Bearer YOUR_API_KEY")
-  STATUS=$(echo "$RESP" | jq -r '.status')
+  STATUS=$(echo "$RESP" | jq -r '.data.状态 // .status')
   echo "$(date +%T) status=$STATUS"
   case "$STATUS" in
-    succeeded|completed)
-      echo "$RESP" | jq -r '.url // .content.video_url'
+    已成功|succeeded|completed)
+      echo "$RESP" | jq -r '.data.url // .url // .content.video_url'
       break ;;
-    failed|expired)
-      echo "$RESP" | jq '.error'
+    失败|failed|expired)
+      echo "$RESP" | jq -r '.data.error // .error'
       break ;;
   esac
   sleep 10
