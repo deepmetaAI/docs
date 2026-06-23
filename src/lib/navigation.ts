@@ -75,6 +75,12 @@ export const spaces: Space[] = [
           { title: 'Claude Code 配置', href: '/docs/zh-CN/client-tools/claude-code' },
         ],
       },
+      {
+        title: '帮助',
+        links: [
+          { title: '错误码', href: '/docs/zh-CN/error-codes' },
+        ],
+      },
     ],
   },
 ]

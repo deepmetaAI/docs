@@ -143,6 +143,61 @@
     "section": "重排序响应格式"
   },
   {
+    "url": "/docs/zh-CN/error-codes",
+    "title": "错误码",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.type\" type=\"string\"> 错误分类，例如请求错误、认证错误、限流错误或服务错误。 </Property> <Property name=\"error.code\" type=\"string\"> 机器可读的错误码。该字段可能为空，也可能由具体模型或上游服务返回。 </Property> <Property name=\"error.param\" type=\"string | null\"> 与错误相关的请求参数名。无法定位到单个参数时为 null。 </Property> <Property name=\"requestid\" type=\"string\"> 请求追踪 ID。若响应头中存在 x-request-id，建议一并记录。 </Property> </Properties> </Col> <Col sticky> <CodeGroup title=\"错误响应示例\"> </CodeGroup> </Col> --- HTTP 状态码 | 状态码 | 含义 | 常见原因 | 处理建议 | | --- | --- | --- | --- | | 400 | 请求格式或参数错误 | JSON 无效、缺少必填参数、参数类型不正确、上下文长度超限 | 修正请求体；检查模型支持的参数、消息格式和 token 长度 | | 401 | 认证失败 | API Key 缺失、格式错误、已删除、未生效 | 检查 Authorization: Bearer YOURAPIKEY；重新生成密钥 | | 403 | 权限不足 | 账户或密钥无权访问该模型、端点或组织资源 | 检查模型权限、账户状态、密钥权限范围 | | 404 | 资源不存在 | 路径错误、模型 ID 不存在、任务 ID 不存在 | 检查接口路径、模型名称和资源 ID 是否正确 | | 429 | 频率或额度限制 | 请求过于频繁、并发过高、余额不足、模型限流 | 降低并发；使用指数退避；检查余额和套餐限制 | | 500 | 平台内部错误 | 平台服务异常或未知错误 | 记录 requestid 后重试；持续失败时联系支持 | | 502 | 上游服务错误 | 模型供应商异常、网关连接失败 | 短暂退避后重试；必要时切换模型 | | 503 | 服务暂不可用 | 模型维护、上游拥塞、平台限流保护 | 延迟重试；降低并发；关注控制台状态提示 | | 504 | 网关超时 | 上游模型处理超时或网络链路超时 | 缩短输入、降低生成长度、使用流式输出或稍后重试 | 4xx 通常表示请求、认证、权限或额度问题，直接重试一般不会成功。429 和 5xx 可能是临时问题，可按退避策略重试。 --- 常见错误类型 以下错误码是接入时最常见的类型，用于说明处理方式。实际返回值可能因接口、模型或上游服务不同而变化。 | 错误类型 | 常见状态码 | 说明 | 排查方式 | | --- | --- | --- | --- | | 认证失败 | 401 | API Key 缺失、无效或格式错误 | 检查 Authorization 请求头，确认密钥未复制错误 | | 权限不足 | 403 | 当前账户或密钥无法访问目标模型或资源 | 检查账户状态、模型权限和密钥权限 | | 参数错误 | 400 | 请求体格式、参数类型或取值不符合要求 | 查看 message 和 param，按接口文档修正请求 | | 模型不存在 | 404 | 模型 ID 写错或当前不可用 | 在模型广场确认模型名称和可用端点 | | 上下文超限"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "错误响应格式",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "错误响应格式"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#http-",
+    "title": "HTTP 状态码",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "HTTP 状态码"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "常见错误类型",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "常见错误类型"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "流式接口错误",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "流式接口错误"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "重试策略",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "重试策略"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "排查清单",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "排查清单"
+  },
+  {
+    "url": "/docs/zh-CN/error-codes#",
+    "title": "联系支持时提供的信息",
+    "pageTitle": "错误码",
+    "content": "错误码 Cloubic API 在请求失败时会返回 HTTP 状态码和错误信息。接入时建议优先根据 HTTP 状态码判断错误大类，再结合响应中的 message、type、code 和 requestid 排查具体原因。{{ className: 'lead' }} 本页列出的是通用错误处理方式和常见错误类型。不同模型或上游服务返回的 code 可能存在差异，请以接口实际响应为准。 --- 错误响应格式 <Col> 大多数非流式接口会返回 OpenAI 兼容的错误结构。客户端可以先读取 HTTP 状态码，再读取 error 对象中的字段用于日志、告警和用户提示。 <Properties> <Property name=\"error\" type=\"object\" required> 错误对象，包含本次失败的主要信息。 </Property> <Property name=\"error.message\" type=\"string\" required> 面向开发者的错误说明。该字段可能包含参数名、模型名或上游返回摘要。 </Property> <Property name=\"error.ty",
+    "section": "联系支持时提供的信息"
+  },
+  {
     "url": "/docs/zh-CN/image-generation/image-doubao",
     "title": "豆包 Seedream 图像生成",
     "pageTitle": "豆包 Seedream 图像生成",
