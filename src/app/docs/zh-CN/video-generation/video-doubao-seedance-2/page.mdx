@@ -532,7 +532,45 @@ done
 
 ## 素材库配合
 
-如果参考图片、视频或音频文件较大，建议先通过素材库登记素材，再在视频生成任务中引用素材 URL 或素材 ID。
+如果参考图片、视频或音频文件较大，建议先通过素材库登记素材。素材可归入素材组，便于后续管理和查询。
+
+### 创建素材组
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets/groups" />
+
+    <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，例如 `doubao-seedance-2-0-260128`。
+      </Property>
+      <Property name="Name" type="string" required>
+        素材组名称。
+      </Property>
+      <Property name="Description" type="string">
+        素材组描述。
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/api/v3/assets/groups">
+
+```bash {{ title: 'cURL' }}
+curl --location 'https://api.cloubic.com/api/v3/assets/groups' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data '{
+    "model": "doubao-seedance-2-0-260128",
+    "Name": "postman-group",
+    "Description": "created from postman"
+  }'
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
 
 ### 创建素材
 
@@ -541,6 +579,12 @@ done
     <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets" />
 
     <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，例如 `doubao-seedance-2-0-260128`。
+      </Property>
+      <Property name="GroupId" type="string">
+        素材组 ID。创建素材组接口返回后，可在这里传入。
+      </Property>
       <Property name="URL" type="string" required>
         图片、视频或音频的可访问 URL。
       </Property>
@@ -550,9 +594,6 @@ done
       <Property name="Name" type="string">
         素材名称，后续检索可用。
       </Property>
-      <Property name="ProjectName" type="string">
-        项目名称。如需区分素材库，可按账号配置传入。
-      </Property>
     </Properties>
 
   </Col>
@@ -560,13 +601,15 @@ done
     <CodeGroup tag="POST" label="/api/v3/assets">
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://api.cloubic.com/api/v3/assets \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "URL": "https://example.com/ref.mp4",
-    "AssetType": "Video",
-    "Name": "测试素材"
+curl --location 'https://api.cloubic.com/api/v3/assets' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data '{
+    "model": "doubao-seedance-2-0-260128",
+    "GroupId": "group-20260628131415-bqphh",
+    "URL": "https://www.gstatic.com/webp/gallery/1.jpg",
+    "AssetType": "Image",
+    "Name": "postman-demo-image"
   }'
 ```
 
@@ -582,6 +625,9 @@ curl -X POST https://api.cloubic.com/api/v3/assets \
     <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets/get" />
 
     <Properties>
+      <Property name="model" type="string" required>
+        模型 ID，例如 `doubao-seedance-2-0-260128`。
+      </Property>
       <Property name="Id" type="string" required>
         创建素材接口返回的素材 ID。
       </Property>
@@ -592,11 +638,12 @@ curl -X POST https://api.cloubic.com/api/v3/assets \
     <CodeGroup tag="POST" label="/api/v3/assets/get">
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://api.cloubic.com/api/v3/assets/get \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "Id": "asset-20260521150403-hx4hf"
+curl --location 'https://api.cloubic.com/api/v3/assets/get' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data '{
+    "model": "doubao-seedance-2-0-260128",
+    "Id": "asset-20260628131807-9fqkx"
   }'
 ```
 
@@ -604,35 +651,6 @@ curl -X POST https://api.cloubic.com/api/v3/assets/get \
 
   </Col>
 </Row>
-
-### 在视频生成中引用素材
-
-```bash
-ASSET_RESP=$(curl -sS -X POST "https://api.cloubic.com/api/v3/assets" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"URL": "https://example.com/ref.mp4", "AssetType": "Video"}')
-
-ASSET_ID=$(echo "$ASSET_RESP" | jq -r '.Id')
-
-curl -X POST "https://api.cloubic.com/v1/video/generations" \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"model\": \"doubao-seedance-2-0-fast-260128\",
-    \"content\": [
-      {\"type\": \"text\", \"text\": \"参考视频生成奶茶细节动作\"},
-      {
-        \"type\": \"video_url\",
-        \"video_url\": {\"url\": \"asset://$ASSET_ID\"},
-        \"role\": \"reference_video\"
-      }
-    ],
-    \"ratio\": \"9:16\",
-    \"resolution\": \"720p\",
-    \"duration\": 5
-  }"
-```
 
 ---
 
