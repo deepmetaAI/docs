@@ -1,22 +1,28 @@
 export const metadata = {
   title: '豆包 Seedream 图像生成',
-  description: 'Cloubic 豆包 Seedream 系列图像生成接口。',
+  description: 'Cloubic 豆包 Seedream 4.0、4.5、5.0 图像生成接口。',
 }
 
 # 豆包 Seedream 图像生成
 
-Cloubic 目前已支持豆包 Seedream 系列图像生成模型的统一接入与调用。{{ className: 'lead' }}
+Cloubic 已支持豆包 Seedream 4.0、4.5、5.0 系列图像生成模型。通过统一的 OpenAI 兼容图片接口，可以发起文生图、图生图、单图参考和多图参考任务。{{ className: 'lead' }}
 
 ---
 
 ## 支持模型
 
 <Properties>
+  <Property name="doubao-seedream-5-0-260128" type="model">
+    豆包 Seedream 5.0 图像生成模型，当前接入走 `/v1/images/generations` 上游路径。
+  </Property>
   <Property name="doubao-seedream-4-5-251128" type="model">
-    豆包 Seedream 4.5 图像多模态模型，整合了文生图、图生图、组图输出等能力，融合常识和推理能力。Seedream 系列最新版本。
+    豆包 Seedream 4.5 图像多模态模型，支持文生图、图生图和多图参考。
   </Property>
   <Property name="doubao-seedream-4-0-250828" type="model">
-    豆包 Seedream 4.0 文生图/图生图模型，支持文生图、单图生图、多图融合等能力，画面美学与真实质感表现优异。
+    豆包 Seedream 4.0 图像生成模型，支持文生图、单图生图和多图融合。
+  </Property>
+  <Property name="seedream-4-0-250828" type="model">
+    Seedream 4.0 兼容模型名。
   </Property>
 </Properties>
 
@@ -45,58 +51,114 @@ Cloubic 目前已支持豆包 Seedream 系列图像生成模型的统一接入�
 
     <Properties>
       <Property name="model" type="string" required>
-        模型 ID，如 `doubao-seedream-4-5-251128`、`doubao-seedream-4-0-250828`
+        模型 ID，如 `doubao-seedream-5-0-260128`、`doubao-seedream-4-5-251128`、`doubao-seedream-4-0-250828`
       </Property>
       <Property name="prompt" type="string" required>
-        期望生成图片的文本描述，支持中英文。建议不超过 300 个汉字或 600 个英文单词。
+        期望生成或编辑图片的文本描述。
       </Property>
-      <Property name="duration" type="integer">
-        生成时长参数，默认 `5`
+      <Property name="image" type="string | array">
+        输入参考图，支持 URL 或 Base64。可传单张图片，也可传图片数组。
       </Property>
-      <Property name="resolution" type="string">
-        生成图片的分辨率，如 `720p`、`1080p` 等
+      <Property name="images" type="array">
+        输入参考图数组。等价于数组形式的 `image`，用于多图参考输入。
+      </Property>
+      <Property name="size" type="string">
+        输出图片尺寸，可传 `2K`、`4K` 或 `宽x高`，例如 `2048x2048`。
+      </Property>
+      <Property name="response_format" type="string">
+        返回格式，支持 `url`、`b64_json`。
+      </Property>
+      <Property name="watermark" type="boolean">
+        是否添加 AI 生成水印。可显式传 `true` 或 `false`。
+      </Property>
+      <Property name="output_format" type="string">
+        输出图片格式，例如 `jpeg`、`png`。不同 Seedream 版本的支持范围以上游模型为准。
+      </Property>
+      <Property name="n" type="integer">
+        生成图片数量。未传时默认 `1`。
       </Property>
     </Properties>
   </Col>
   <Col sticky>
     <CodeGroup tag="POST" label="/v1/images/generations">
 
-```bash {{ title: 'cURL' }}
+```bash {{ title: '文生图' }}
+curl https://api.cloubic.com/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "doubao-seedream-5-0-260128",
+    "prompt": "一只可爱的小猫在草地上玩耍，柔和自然光，真实摄影风格",
+    "size": "2048x2048",
+    "response_format": "url",
+    "watermark": false
+  }'
+```
+
+```bash {{ title: '图生图' }}
+curl https://api.cloubic.com/v1/images/generations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "model": "doubao-seedream-4-5-251128",
+    "prompt": "保持主体一致，改成赛博朋克夜景风格",
+    "image": "https://example.com/input.jpg",
+    "size": "2K",
+    "response_format": "url"
+  }'
+```
+
+```bash {{ title: '多图参考' }}
 curl https://api.cloubic.com/v1/images/generations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
     "model": "doubao-seedream-4-0-250828",
-    "prompt": "一只可爱的小猫在草地上玩耍",
-    "duration": 5,
-    "resolution": "720p"
+    "prompt": "参考第一张图的人物和第二张图的服装，生成一张商业海报",
+    "images": [
+      "https://example.com/person.jpg",
+      "https://example.com/clothes.jpg"
+    ],
+    "size": "2048x2048"
   }'
-```
-
-```python {{ title: 'Python' }}
-import requests
-
-url = 'https://api.cloubic.com/v1/images/generations'
-
-headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer YOUR_API_KEY'
-}
-
-data = {
-    "model": "doubao-seedream-4-0-250828",
-    "prompt": "一只可爱的小猫在草地上玩耍",
-    "duration": 5,
-    "resolution": "720p"
-}
-
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
 ```
 
     </CodeGroup>
   </Col>
 </Row>
+
+---
+
+## 兼容字段说明
+
+当前图片链路会将下列字段显式转发到上游 Seedream 接口。
+
+<Properties>
+  <Property name="model" type="string">
+    模型 ID。请求会经过 Cloubic 模型映射后写入上游请求。
+  </Property>
+  <Property name="prompt" type="string">
+    图片生成或编辑提示词。
+  </Property>
+  <Property name="image" type="string | array">
+    参考图输入。若只传单个 `image`，系统会兼容补入为图片数组。
+  </Property>
+  <Property name="images" type="array">
+    多参考图输入。
+  </Property>
+  <Property name="size" type="string">
+    输出尺寸字段，直接透传给上游。
+  </Property>
+  <Property name="response_format" type="string">
+    返回格式字段，直接透传给上游。
+  </Property>
+  <Property name="watermark" type="boolean">
+    水印开关字段，直接透传给上游。
+  </Property>
+  <Property name="output_format" type="string">
+    输出图片格式字段，直接透传给上游。
+  </Property>
+</Properties>
 
 ---
 
@@ -115,22 +177,16 @@ print(response.json())
         生成的图片对象列表
       </Property>
       <Property name="data[].url" type="string">
-        生成图片的 URL，链接在生成后 24 小时内有效
+        生成图片的 URL。选择 `response_format: "url"` 时返回。
+      </Property>
+      <Property name="data[].b64_json" type="string">
+        Base64 图片内容。选择 `response_format: "b64_json"` 时返回。
       </Property>
       <Property name="data[].size" type="string">
-        图像的宽高像素值，格式为 `宽x高`，如 `2048x2048`
+        图像宽高像素值，格式为 `宽x高`。
       </Property>
       <Property name="usage" type="object">
-        使用统计信息
-      </Property>
-      <Property name="usage.generated_images" type="integer">
-        模型成功生成的图片张数
-      </Property>
-      <Property name="usage.output_tokens" type="integer">
-        输出使用的令牌数
-      </Property>
-      <Property name="usage.total_tokens" type="integer">
-        使用的总令牌数
+        使用统计信息。
       </Property>
     </Properties>
   </Col>
@@ -139,22 +195,31 @@ print(response.json())
 
 ```json {{ title: '响应' }}
 {
-    "model": "doubao-seedream-4-0-250828",
-    "created": 1770791542,
-    "data": [
-        {
-            "url": "https://ark-content-generation-v2-cn-beijing.tos-cn-beijing.volces.com/doubao-seedream-4-0/...",
-            "size": "2048x2048"
-        }
-    ],
-    "usage": {
-        "generated_images": 1,
-        "output_tokens": 16384,
-        "total_tokens": 16384
+  "model": "doubao-seedream-5-0-260128",
+  "created": 1770791542,
+  "data": [
+    {
+      "url": "https://example.com/generated-image.png",
+      "size": "2048x2048"
     }
+  ],
+  "usage": {
+    "generated_images": 1,
+    "output_tokens": 16384,
+    "total_tokens": 16384
+  }
 }
 ```
 
     </CodeGroup>
   </Col>
 </Row>
+
+---
+
+## 注意事项
+
+- `image` 和 `images` 均可用于参考图输入；多图参考推荐使用 `images`。
+- 图片 URL 需要公网可访问；较大的参考素材建议先上传到素材库后再引用。
+- `output_format` 的可用取值与具体 Seedream 版本有关，以上游模型实际支持为准。
+- 如需完全透传官方原始字段，请联系开启原始请求体透传能力。

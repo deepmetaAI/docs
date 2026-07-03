@@ -9,6 +9,81 @@ Cloubic 目前已支持对 Kling（可灵）视频大模型的统一接入与调
 
 ---
 
+## 当前代码接入补充
+
+当前项目已稳定接入 Q2 系列和 N1 视频系列。除下方原有 V2/V3 示例外，也可以使用下列模型名和扩展字段。
+
+### Q2 系列模型
+
+<Properties>
+  <Property name="kling-v2-5-turbo-std" type="model">
+    映射到上游 `Q2.5T-std`。
+  </Property>
+  <Property name="kling-v2-5-turbo-pro" type="model">
+    映射到上游 `Q2.5T-pro`。
+  </Property>
+  <Property name="kling-v2-6" type="model">
+    映射到上游 `Q2.6-pro`。
+  </Property>
+  <Property name="Q2.5T-std" type="model">
+    可直接使用的上游版本名。
+  </Property>
+  <Property name="Q2.5T-pro" type="model">
+    可直接使用的上游版本名。
+  </Property>
+  <Property name="Q2.6-pro" type="model">
+    可直接使用的上游版本名。
+  </Property>
+</Properties>
+
+### N1 视频系列模型
+
+<Properties>
+  <Property name="N1-Edit-ti2v" type="model">
+    N1 文生/图生视频模型。
+  </Property>
+  <Property name="n1-edit-ti2v" type="model">
+    N1 文生/图生视频模型兼容模型名。
+  </Property>
+  <Property name="N1-Edit-Video" type="model">
+    N1 视频参考/编辑模型。
+  </Property>
+  <Property name="n1-edit-video" type="model">
+    N1 视频参考/编辑模型兼容模型名。
+  </Property>
+</Properties>
+
+### 稳定扩展字段
+
+<Properties>
+  <Property name="image" type="string">
+    单张参考图片 URL 或 Base64。当前校验层会兼容补入为 `images: [image]`。
+  </Property>
+  <Property name="images" type="array">
+    参考图片数组。Q2 首尾帧可传两张图片；`kling-v2-5-turbo-std` 不支持首尾帧。
+  </Property>
+  <Property name="metadata.notify_url" type="string">
+    任务完成回调地址。
+  </Property>
+  <Property name="metadata.request_id" type="string">
+    请求唯一 ID。
+  </Property>
+  <Property name="metadata.sound" type="string">
+    Q2.6-pro 单图视频可用，可选 `on`、`off`。
+  </Property>
+  <Property name="metadata.mode" type="string">
+    生成模式，默认 `pro`。N1 支持 `std`、`pro`。
+  </Property>
+  <Property name="metadata.elements" type="array">
+    N1 主体库元素列表，元素 ID 建议使用字符串。
+  </Property>
+  <Property name="metadata.videos" type="array">
+    N1 视频参考/编辑输入。对象字段包括 `video_url`、`refer_type`、`keep_original_sound`。
+  </Property>
+</Properties>
+
+---
+
 ## 文生视频
 
 <Row>
@@ -448,6 +523,83 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
 
 ---
 
+## N1 视频示例
+
+N1 视频系列通过同一个 `/v1/video/generations` 接口提交任务。文生/图生视频使用 `N1-Edit-ti2v`，视频参考或视频编辑使用 `N1-Edit-Video`。
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/v1/video/generations">
+
+```bash {{ title: 'N1 文生/图生视频' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "N1-Edit-ti2v",
+    "prompt": "一个产品在白色背景中缓慢旋转，商业广告风格",
+    "images": [
+      "https://example.com/product.jpg"
+    ],
+    "duration": 5,
+    "size": "1:1",
+    "metadata": {
+      "mode": "pro"
+    }
+  }'
+```
+
+```bash {{ title: 'N1 主体库视频' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "N1-Edit-ti2v",
+    "prompt": "主体在城市街道中自然行走",
+    "duration": 5,
+    "size": "16:9",
+    "metadata": {
+      "elements": [
+        {
+          "element_id": "element_123"
+        }
+      ],
+      "mode": "pro"
+    }
+  }'
+```
+
+```bash {{ title: 'N1 视频参考/编辑' }}
+curl -X POST https://api.cloubic.com/v1/video/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "N1-Edit-Video",
+    "prompt": "保持原视频主体一致，改成夜晚霓虹灯场景",
+    "duration": 5,
+    "size": "16:9",
+    "metadata": {
+      "videos": [
+        {
+          "video_url": "https://example.com/source.mp4",
+          "refer_type": "base",
+          "keep_original_sound": "no"
+        }
+      ],
+      "mode": "pro"
+    }
+  }'
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
 ## 响应
 
 <Row>
@@ -566,6 +718,72 @@ curl https://api.cloubic.com/v1/video/generations/{video_id} \
   "status": "succeeded",
   "progress": 100,
   "url": "https://example.com/video.mp4"
+}
+```
+
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## 查询响应补充
+
+当前 `/v1/video/generations/{task_id}` 查询接口返回 `code/data` 包装结构。若需要 OpenAI video 风格对象，可使用 `/v1/videos/{task_id}`。
+
+<Row>
+  <Col>
+    <Properties>
+      <Property name="code" type="string">
+        请求结果状态，成功时为 `success`。
+      </Property>
+      <Property name="data.task_id" type="string">
+        视频任务 ID。
+      </Property>
+      <Property name="data.status" type="string">
+        任务状态，如 `queued`、`succeeded`、`failed`。
+      </Property>
+      <Property name="data.url" type="string">
+        视频下载链接，任务成功后返回。
+      </Property>
+      <Property name="data.format" type="string">
+        视频格式，通常为 `mp4`。
+      </Property>
+      <Property name="data.error" type="string">
+        失败原因，任务失败时返回。
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="查询响应示例">
+
+```json {{ title: '/v1/video/generations/{task_id}' }}
+{
+  "code": "success",
+  "data": {
+    "task_id": "task_id",
+    "status": "succeeded",
+    "url": "https://example.com/result.mp4",
+    "format": "mp4",
+    "error": "",
+    "metadata": null
+  }
+}
+```
+
+```json {{ title: '/v1/videos/{task_id}' }}
+{
+  "id": "task_id",
+  "task_id": "task_id",
+  "object": "video",
+  "model": "kling-v2-6",
+  "status": "completed",
+  "progress": 100,
+  "created_at": 1710000000,
+  "completed_at": 1710000020,
+  "metadata": {
+    "url": "https://example.com/result.mp4"
+  }
 }
 ```
 
