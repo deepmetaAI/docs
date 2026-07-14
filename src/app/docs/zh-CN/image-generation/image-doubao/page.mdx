@@ -34,7 +34,7 @@ Cloubic 已支持豆包 Seedream 4.0、4.5、5.0 系列图像生成模型。通�
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/v1/images/generations" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/v1/images/generations" />
 
     ### 请求头
 
@@ -83,7 +83,7 @@ Cloubic 已支持豆包 Seedream 4.0、4.5、5.0 系列图像生成模型。通�
     <CodeGroup tag="POST" label="/v1/images/generations">
 
 ```bash {{ title: '文生图' }}
-curl https://api.cloubic.com/v1/images/generations \
+curl https://api.omnimaas.cn/v1/images/generations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -96,7 +96,7 @@ curl https://api.cloubic.com/v1/images/generations \
 ```
 
 ```bash {{ title: '图生图' }}
-curl https://api.cloubic.com/v1/images/generations \
+curl https://api.omnimaas.cn/v1/images/generations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -109,7 +109,7 @@ curl https://api.cloubic.com/v1/images/generations \
 ```
 
 ```bash {{ title: '多图参考' }}
-curl https://api.cloubic.com/v1/images/generations \
+curl https://api.omnimaas.cn/v1/images/generations \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{

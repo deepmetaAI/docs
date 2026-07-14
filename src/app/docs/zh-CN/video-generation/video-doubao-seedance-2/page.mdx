@@ -33,7 +33,7 @@ Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接�
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/v1/video/generations" />
 
     ### 请求头
 
@@ -106,7 +106,7 @@ Cloubic 目前已支持豆包 Seedance 2.0 系列视频生成模型的统一接�
     <CodeGroup tag="POST" label="/v1/video/generations">
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://api.cloubic.com/v1/video/generations \
+curl -X POST https://api.omnimaas.cn/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -148,7 +148,7 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
 ```python {{ title: 'Python' }}
 import requests
 
-url = 'https://api.cloubic.com/v1/video/generations'
+url = 'https://api.omnimaas.cn/v1/video/generations'
 
 headers = {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -173,7 +173,7 @@ print(response.json())
 const axios = require('axios')
 
 const response = await axios.post(
-  'https://api.cloubic.com/v1/video/generations',
+  'https://api.omnimaas.cn/v1/video/generations',
   {
     model: 'doubao-seedance-2-0-fast-260128',
     content: [{ type: 'text', text: '海浪拍打沙滩,电影感镜头' }],
@@ -309,7 +309,7 @@ console.log(response.data)
 
 <Row>
   <Col>
-    <Endpoint method="GET" path="https://api.cloubic.com/v1/video/generations/{task_id}" />
+    <Endpoint method="GET" path="https://api.omnimaas.cn/v1/video/generations/{task_id}" />
 
     ### 请求头
 
@@ -388,7 +388,7 @@ console.log(response.data)
     <CodeGroup tag="GET" label="/v1/video/generations/{task_id}">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.cloubic.com/v1/video/generations/cgt-20260513210526-6t5cq \
+curl https://api.omnimaas.cn/v1/video/generations/cgt-20260513210526-6t5cq \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -495,7 +495,7 @@ curl https://api.cloubic.com/v1/video/generations/cgt-20260513210526-6t5cq \
 ## 完整轮询示例
 
 ```bash
-RESP=$(curl -sS -X POST "https://api.cloubic.com/v1/video/generations" \
+RESP=$(curl -sS -X POST "https://api.omnimaas.cn/v1/video/generations" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -512,7 +512,7 @@ TASK_ID=$(echo "$RESP" | jq -r '.id // .task_id // .data.task_id')
 echo "task_id=$TASK_ID"
 
 while true; do
-  RESP=$(curl -sS "https://api.cloubic.com/v1/video/generations/$TASK_ID" \
+  RESP=$(curl -sS "https://api.omnimaas.cn/v1/video/generations/$TASK_ID" \
     -H "Authorization: Bearer YOUR_API_KEY")
   STATUS=$(echo "$RESP" | jq -r '.data.status // .status')
   echo "$(date +%T) status=$STATUS"
@@ -538,7 +538,7 @@ done
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets/groups" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/api/v3/assets/groups" />
 
     <Properties>
       <Property name="model" type="string" required>
@@ -557,7 +557,7 @@ done
     <CodeGroup tag="POST" label="/api/v3/assets/groups">
 
 ```bash {{ title: 'cURL' }}
-curl --location 'https://api.cloubic.com/api/v3/assets/groups' \
+curl --location 'https://api.omnimaas.cn/api/v3/assets/groups' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --data '{
@@ -576,7 +576,7 @@ curl --location 'https://api.cloubic.com/api/v3/assets/groups' \
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/api/v3/assets" />
 
     <Properties>
       <Property name="model" type="string" required>
@@ -601,7 +601,7 @@ curl --location 'https://api.cloubic.com/api/v3/assets/groups' \
     <CodeGroup tag="POST" label="/api/v3/assets">
 
 ```bash {{ title: 'cURL' }}
-curl --location 'https://api.cloubic.com/api/v3/assets' \
+curl --location 'https://api.omnimaas.cn/api/v3/assets' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --data '{
@@ -622,7 +622,7 @@ curl --location 'https://api.cloubic.com/api/v3/assets' \
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/api/v3/assets/get" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/api/v3/assets/get" />
 
     <Properties>
       <Property name="model" type="string" required>
@@ -638,7 +638,7 @@ curl --location 'https://api.cloubic.com/api/v3/assets' \
     <CodeGroup tag="POST" label="/api/v3/assets/get">
 
 ```bash {{ title: 'cURL' }}
-curl --location 'https://api.cloubic.com/api/v3/assets/get' \
+curl --location 'https://api.omnimaas.cn/api/v3/assets/get' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --data '{

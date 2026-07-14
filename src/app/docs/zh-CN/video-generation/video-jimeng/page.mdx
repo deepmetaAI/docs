@@ -13,7 +13,7 @@ Cloubic 目前已支持对 Jimeng（即梦）视频大模型的统一接入与�
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/v1/video/generations" />
 
     ### 请求头
 
@@ -71,7 +71,7 @@ Cloubic 目前已支持对 Jimeng（即梦）视频大模型的统一接入与�
     <CodeGroup tag="POST" label="/v1/video/generations">
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://api.cloubic.com/v1/video/generations \
+curl -X POST https://api.omnimaas.cn/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -85,7 +85,7 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
 ```python {{ title: 'Python' }}
 import requests
 
-url = 'https://api.cloubic.com/v1/video/generations'
+url = 'https://api.omnimaas.cn/v1/video/generations'
 
 headers = {
     'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ func main() {
 
     jsonData, _ := json.Marshal(reqBody)
     req, _ := http.NewRequest("POST",
-        "https://api.cloubic.com/v1/video/generations",
+        "https://api.omnimaas.cn/v1/video/generations",
         bytes.NewBuffer(jsonData))
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
@@ -144,7 +144,7 @@ func main() {
 ```javascript {{ title: 'Node.js' }}
 const axios = require('axios');
 
-const url = 'https://api.cloubic.com/v1/video/generations';
+const url = 'https://api.omnimaas.cn/v1/video/generations';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ axios.post(url, data, { headers })
 
 <Row>
   <Col>
-    <Endpoint method="POST" path="https://api.cloubic.com/v1/video/generations" />
+    <Endpoint method="POST" path="https://api.omnimaas.cn/v1/video/generations" />
 
     ### 请求头
 
@@ -233,7 +233,7 @@ axios.post(url, data, { headers })
     <CodeGroup tag="POST" label="/v1/video/generations">
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://api.cloubic.com/v1/video/generations \
+curl -X POST https://api.omnimaas.cn/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -307,7 +307,7 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
 
 <Row>
   <Col>
-    <Endpoint method="GET" path="https://api.cloubic.com/v1/video/generations/{task_id}" />
+    <Endpoint method="GET" path="https://api.omnimaas.cn/v1/video/generations/{task_id}" />
 
     ### 请求头
 
@@ -355,7 +355,7 @@ curl -X POST https://api.cloubic.com/v1/video/generations \
     <CodeGroup tag="GET" label="/v1/video/generations/{task_id}">
 
 ```bash {{ title: 'cURL' }}
-curl https://api.cloubic.com/v1/video/generations/{task_id} \
+curl https://api.omnimaas.cn/v1/video/generations/{task_id} \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -388,7 +388,7 @@ curl https://api.cloubic.com/v1/video/generations/{task_id} \
 ```python
 import requests
 
-url = 'https://api.cloubic.com/v1/video/generations'
+url = 'https://api.omnimaas.cn/v1/video/generations'
 
 headers = {
     'Content-Type': 'application/json',
@@ -432,7 +432,7 @@ func main() {
 
     jsonData, _ := json.Marshal(reqBody)
     req, _ := http.NewRequest("POST",
-        "https://api.cloubic.com/v1/video/generations",
+        "https://api.omnimaas.cn/v1/video/generations",
         bytes.NewBuffer(jsonData))
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
@@ -451,7 +451,7 @@ func main() {
 ```javascript
 const axios = require('axios');
 
-const url = 'https://api.cloubic.com/v1/video/generations';
+const url = 'https://api.omnimaas.cn/v1/video/generations';
 
 const headers = {
     'Content-Type': 'application/json',
