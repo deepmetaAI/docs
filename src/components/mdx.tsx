@@ -21,6 +21,25 @@ export function wrapper({ children }: { children: React.ReactNode }) {
   )
 }
 
+export function h1(props: React.ComponentPropsWithoutRef<'h1'>) {
+  return (
+    <>
+      <h1 {...props} />
+      <div className="not-prose mt-5 mb-8 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950 shadow-sm dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-100">
+        <p className="font-semibold">国内访问海外模型提示</p>
+        <p className="mt-1">
+          如在国内网络环境访问海外模型时遇到连接不稳定、请求超时或无法访问，可将 Base URL 切换为国内加速地址：
+          OpenAI 兼容接口使用 <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-400/10">https://api-cn.omnimaas.cn/v1</code>
+          ，Anthropic 兼容接口使用 <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-400/10">https://api-cn.omnimaas.cn</code>
+          。除 Base URL 外，<code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-400/10">api_key</code>
+          、<code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-400/10">model</code>
+          和请求参数保持不变。
+        </p>
+      </div>
+    </>
+  )
+}
+
 export const h2 = function H2(
   props: Omit<React.ComponentPropsWithoutRef<typeof Heading>, 'level'>,
 ) {
