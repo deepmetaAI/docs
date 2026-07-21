@@ -534,6 +534,122 @@ done
 
 如果参考图片、视频或音频文件较大，建议先通过素材库登记素材。素材可归入素材组，便于后续管理和查询。
 
+<Note>
+  真人素材认证接口需要后台存在支持真人素材认证的 DoubaoVideo 渠道，并且当前用户或分组能够选中对应模型。建议请求体携带 `model`，用于系统内渠道选择。
+</Note>
+
+### 真人认证
+
+#### 发起真人认证
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.cn/api/v3/assets/avatar/session" />
+
+    ### 请求头
+
+    <Properties>
+      <Property name="Authorization" type="string" required>
+        Bearer Token，格式：`Bearer YOUR_API_KEY`
+      </Property>
+      <Property name="Content-Type" type="string" required>
+        请求体格式，固定为 `application/json`
+      </Property>
+    </Properties>
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string">
+        用于系统内渠道选择，建议传 `seedance-2.0` 或实际开放模型。
+      </Property>
+      <Property name="is_qrcode" type="boolean">
+        是否二维码模式，默认可传 `false`。
+      </Property>
+    </Properties>
+
+    成功后会返回 `h5_link`，请引导用户打开该页面完成真人认证。
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/api/v3/assets/avatar/session">
+
+```bash {{ title: 'cURL' }}
+curl --location 'https://api.omnimaas.cn/api/v3/assets/avatar/session' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data '{
+    "model": "seedance-2.0",
+    "is_qrcode": false
+  }'
+```
+
+```json {{ title: '成功响应' }}
+{
+  "byted_token": "20260618104757A15E890123397EA84E85",
+  "h5_link": "https://...",
+  "is_qrcode": false
+}
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+#### 查询认证结果
+
+<Row>
+  <Col>
+    <Endpoint method="POST" path="https://api.omnimaas.cn/api/v3/assets/avatar/result" />
+
+    ### 请求参数
+
+    <Properties>
+      <Property name="model" type="string">
+        用于系统内渠道选择，建议传 `seedance-2.0` 或实际开放模型。
+      </Property>
+      <Property name="byted_token" type="string" required>
+        发起真人认证接口返回的会话标识。
+      </Property>
+    </Properties>
+
+    当 `status` 为 `completed` 时，响应中的 `group_id` 可用于后续素材相关流程。
+
+  </Col>
+  <Col sticky>
+    <CodeGroup tag="POST" label="/api/v3/assets/avatar/result">
+
+```bash {{ title: 'cURL' }}
+curl --location 'https://api.omnimaas.cn/api/v3/assets/avatar/result' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_API_KEY' \
+  --data '{
+    "model": "seedance-2.0",
+    "byted_token": "20260618104757A15E890123397EA84E85"
+  }'
+```
+
+```json {{ title: '认证未完成' }}
+{
+  "byted_token": "20260618104757A15E890123397EA84E85",
+  "status": "pending"
+}
+```
+
+```json {{ title: '认证完成' }}
+{
+  "byted_token": "20260618104757A15E890123397EA84E85",
+  "status": "completed",
+  "group_id": "group-20260618105021-6njfg"
+}
+```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
+
 ### 创建素材组
 
 <Row>
