@@ -16,18 +16,12 @@ Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，
 ## 支持模型
 
 <Properties>
-  <Property name="minimax/h3/text-to-video" type="model">
-    根据文本提示词生成视频。
-  </Property>
-  <Property name="minimax/h3/image-to-video" type="model">
-    根据首帧图片生成视频，可选尾帧图片。
-  </Property>
-  <Property name="minimax/h3/reference-to-video" type="model">
-    使用参考图片、参考视频或参考音频生成视频。
+  <Property name="MiniMax-H3" type="model">
+    自动根据输入素材选择文生视频、图生视频或参考素材生视频。
   </Property>
 </Properties>
 
-也可以使用模型列表中注册的 `MiniMax-H3` 自动模式。自动模式会根据输入素材选择具体任务类型。
+自动模式会根据输入素材选择具体任务类型。
 
 ---
 
@@ -52,7 +46,7 @@ Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，
 
     <Properties>
       <Property name="model" type="string" required>
-        模型 ID：`MiniMax-H3`、`minimax/h3/text-to-video`、`minimax/h3/image-to-video` 或 `minimax/h3/reference-to-video`
+        模型 ID：`MiniMax-H3`
       </Property>
       <Property name="prompt" type="string" required>
         视频描述文本。也可以在 `content` 中传入 `text`，但最终必须得到非空提示词。

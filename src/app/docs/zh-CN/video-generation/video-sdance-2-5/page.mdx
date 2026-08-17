@@ -17,16 +17,7 @@ Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口�
 
 <Properties>
   <Property name="doubao-seedance-2-5-260628" type="model">
-    自动模式，根据输入素材选择具体的视频生成能力。
-  </Property>
-  <Property name="bytedance/seedance/2.5/text-to-video" type="model">
-    文生视频，只使用文本提示词。
-  </Property>
-  <Property name="bytedance/seedance/2.5/image-to-video" type="model">
-    图生视频，使用首帧图片，可选尾帧图片。
-  </Property>
-  <Property name="bytedance/seedance/2.5/reference-to-video" type="model">
-    参考素材生视频，支持参考图片、参考视频和参考音频。
+    根据输入素材自动选择文生视频、图生视频或参考素材生视频。
   </Property>
 </Properties>
 
@@ -55,7 +46,7 @@ Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口�
 
     <Properties>
       <Property name="model" type="string" required>
-        模型 ID：`doubao-seedance-2-5-260628` 或三个能力模型名。
+        模型 ID：`doubao-seedance-2-5-260628`
       </Property>
       <Property name="prompt" type="string">
         视频描述文本。文生视频必须提供，也可以在 `content` 中使用 `text` 提供。
