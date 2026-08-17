@@ -22,6 +22,8 @@ const hideTocPages = [
   '/docs/zh-CN/video-generation/video-doubao-seedance-2',
   '/docs/zh-CN/video-generation/video-wan',
   '/docs/zh-CN/video-generation/video-minimax',
+  '/docs/zh-CN/video-generation/video-minimax-h3',
+  '/docs/zh-CN/video-generation/video-sdance-2-5',
   '/docs/zh-CN/embedding-rerank/embedding-rerank',
   '/docs/zh-CN/sdk-integration/sdk-openai',
   '/docs/zh-CN/sdk-integration/sdk-anthropic',
