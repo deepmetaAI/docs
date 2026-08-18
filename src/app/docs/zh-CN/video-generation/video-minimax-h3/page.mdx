@@ -82,7 +82,7 @@ curl https://api.cloubic.com/v1/video/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "minimax/h3/text-to-video",
+    "model": "MiniMax-H3",
     "prompt": "一片竹林中的小溪，阳光穿过树叶洒在水面上",
     "duration": 8,
     "resolution": "2K",
@@ -99,7 +99,7 @@ headers = {
     'Content-Type': 'application/json',
 }
 data = {
-    'model': 'minimax/h3/text-to-video',
+    'model': 'MiniMax-H3',
     'prompt': '一片竹林中的小溪，阳光穿过树叶洒在水面上',
     'duration': 8,
     'resolution': '2K',
@@ -117,11 +117,11 @@ print(response.json())
 
 ## 图生视频
 
-使用 `minimax/h3/image-to-video` 时，必须提供一张 `first_frame` 图片，可选一张 `last_frame` 图片。推荐使用 `content` 明确指定图片角色：
+使用 `MiniMax-H3` 并传入首帧图片时，会执行图生视频任务；可选一张 `last_frame` 图片。推荐使用 `content` 明确指定图片角色：
 
 ```json
 {
-  "model": "minimax/h3/image-to-video",
+  "model": "MiniMax-H3",
   "prompt": "镜头从远景缓慢推进到人物面部，人物轻轻转头",
   "duration": 6,
   "resolution": "768P",
@@ -146,11 +146,11 @@ print(response.json())
 
 ## 参考素材生视频
 
-使用 `minimax/h3/reference-to-video` 时，至少提供一个参考图片、参考视频或参考音频。参考图片最多 9 张，参考视频和参考音频各最多 3 个；音频不能单独使用。
+使用 `MiniMax-H3` 并传入参考素材时，会执行参考素材生视频任务。至少提供一个参考图片、参考视频或参考音频；参考图片最多 9 张，参考视频和参考音频各最多 3 个，音频不能单独使用。
 
 ```json
 {
-  "model": "minimax/h3/reference-to-video",
+  "model": "MiniMax-H3",
   "prompt": "保持角色外观和服装一致，让角色在城市街道中向前行走",
   "duration": 10,
   "resolution": "2K",
@@ -264,7 +264,7 @@ curl 'https://api.cloubic.com/v1/videos/{task_id}/content' \
 | --- | --- |
 | 缺少提示词 | `prompt is required` |
 | 缺少模型 | `model field is required` |
-| 图生视频缺少首帧 | `minimax/h3/image-to-video requires first_frame image` |
-| 参考素材为空 | `minimax/h3/reference-to-video requires reference_image, reference_video or reference_audio` |
+| 图生视频缺少首帧 | `image-to-video requires first_frame image` |
+| 参考素材为空 | `reference-to-video requires reference_image, reference_video or reference_audio` |
 | 时长不合法 | `duration must be an integer from 4 to 15` |
 | 分辨率不支持 | `resolution must be 2K or 768P` |

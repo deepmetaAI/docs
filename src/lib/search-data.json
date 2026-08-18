@@ -797,131 +797,131 @@
     "url": "/docs/zh-CN/video-generation/video-minimax-h3",
     "title": "MiniMax H3 视频生成",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID：MiniMax-H3、minimax/h3/text-to-video、minimax/h3/image-to-video 或 minimax/h3/reference-to-video </Property> <Property name=\"prompt\" type=\"string\" required> 视频描述文本。也可以在 content 中传入 text，但最终必须得到非空提示词。 </Property> <Property name=\"content\" type=\"array\"> 多模态内容数组，支持 text、imageurl、videourl 和 audiourl。 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长，单位为秒，范围 4 到 15，默认 5。 </Property> <Property name=\"resolution\" type=\"string\"> 输出分辨率，支持 2K 和 768P，默认 2K。 </Property> <Property name=\"ratio\" type=\"string\"> 视频宽高比。文生视频支持 21:9、16:9、4:3、1:1、3:4、9:16；参考素材模式还支持 adaptive。 </Property> <Property name=\"image\" type=\"string\"> 首帧图片 URL 或 data URI，兼容图生视频请求。 </Property> <Property name=\"endimage\" type=\"string\"> 尾帧图片 URL 或 data URI，必须与首帧图片一起使用。 </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数。可传 resolution、duration、ratio、aspectratio，以及参考视频时长校验字段。 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 使用 minimax/h3/image-to-video 时，必须提供一张 firstframe 图片，可选一张 lastframe 图片。推荐使用 content 明确指定图片角色： 也可以使用兼容字段 image 和 endimage。图生视频不支持参考图片、参考视频和参考音频，也不使用宽高比参数。 --- 参考素材生视频 使用 minimax/h3/reference-to-video 时，至少提供一个参考图片、参考视频或参考音频。参考图片最多 9 张，参考视频和参考音频各最"
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID：MiniMax-H3 </Property> <Property name=\"prompt\" type=\"string\" required> 视频描述文本。也可以在 content 中传入 text，但最终必须得到非空提示词。 </Property> <Property name=\"content\" type=\"array\"> 多模态内容数组，支持 text、imageurl、videourl 和 audiourl。 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长，单位为秒，范围 4 到 15，默认 5。 </Property> <Property name=\"resolution\" type=\"string\"> 输出分辨率，支持 2K 和 768P，默认 2K。 </Property> <Property name=\"ratio\" type=\"string\"> 视频宽高比。文生视频支持 21:9、16:9、4:3、1:1、3:4、9:16；参考素材模式还支持 adaptive。 </Property> <Property name=\"image\" type=\"string\"> 首帧图片 URL 或 data URI，兼容图生视频请求。 </Property> <Property name=\"endimage\" type=\"string\"> 尾帧图片 URL 或 data URI，必须与首帧图片一起使用。 </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数。可传 resolution、duration、ratio、aspectratio，以及参考视频时长校验字段。 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 使用 MiniMax-H3 并传入首帧图片时，会执行图生视频任务；可选一张 lastframe 图片。推荐使用 content 明确指定图片角色： 也可以使用兼容字段 image 和 endimage。图生视频不支持参考图片、参考视频和参考音频，也不使用宽高比参数。 --- 参考素材生视频 使用 MiniMax-H3 并传入参考素材时，会执行参考素材生视频任务。至少提供一个参考图片、参考视频或参考音频；参考图片最多 9 张，参考视频和参考音频各最多 3 个，音频不能单独使用。 content 角色 | 类型 | role | 说明 | | --- | --- | --- | | imageurl | firstframe | 图生视频首帧，最多 1 张 | | imageurl | lastframe | 图生视频尾帧，必须同时存在首帧 | | imageurl | referenceimage | 参考图片，最多 9 张 | | videourl | referencevideo | 参考视频，最多 3 个 | | audiourl | referenceaudio | 参考音频，最多 3 个 | --- 查询视频任务 <Col> 路径参数 <Proper"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "支持模型",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "支持模型"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "创建视频任务",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "创建视频任务"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "图生视频",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "图生视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "参考素材生视频",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "参考素材生视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "查询视频任务",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "查询视频任务"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "下载视频",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "下载视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "常见限制",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "常见限制"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-minimax-h3#",
     "title": "常见错误",
     "pageTitle": "MiniMax H3 视频生成",
-    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"minimax/h3/text-to-video\" type=\"model\"> 根据文本提示词生成视频。 </Property> <Property name=\"minimax/h3/image-to-video\" type=\"model\"> 根据首帧图片生成视频，可选尾帧图片。 </Property> <Property name=\"minimax/h3/reference-to-video\" type=\"model\"> 使用参考图片、参考视频或参考音频生成视频。 </Property> 也可以使用模型列表中注册的 MiniMax-H3 自动模式。自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Proper",
+    "content": "MiniMax H3 视频生成 Cloubic 已支持 MiniMax H3 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"MiniMax-H3\" type=\"model\"> 自动根据输入素材选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式会根据输入素材选择具体任务类型。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Propertie",
     "section": "常见错误"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5",
     "title": "Seedance 2.5 视频生成",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-to-video\" type=\"model\"> 参考素材生视频，支持参考图片、参考视频和参考音频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID：doubao-seedance-2-5-260628 或三个能力模型名。 </Property> <Property name=\"prompt\" type=\"string\"> 视频描述文本。文生视频必须提供，也可以在 content 中使用 text 提供。 </Property> <Property name=\"content\" type=\"array\"> 多模态内容数组，支持 text、imageurl、videourl 和 audiourl。 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长，单位为秒，范围 4 到 30，默认 5。 </Property> <Property name=\"resolution\" type=\"string\"> 输出分辨率，支持 480p 和 720p，默认 720p。 </Property> <Property name=\"ratio\" type=\"string\"> 视频宽高比。支持 16:9、9:16、1:1、4:3、3:4、21:9。 </Property> <Property name=\"generateaudio\" type=\"boolean\"> 是否生成音频，默认 true。 </Property> <Property name=\"image\" type=\"string\"> 首帧图片 URL，兼容图生视频请求。 </Property> <Property name=\"images\" type=\"array\"> 图片 URL 数组。无 content 时可用于传入图片素材。 </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数，可传 resolution、duration、ratio、generateaudio 等兼容字段。 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 使用 bytedance/seedance/2.5/image-to-video 时，至少提供一张图片，最多提供两张。推荐使用 content 明确指定 firstframe 和 lastframe： 使用两张图片时建议始终显式设置角色。图生"
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string\" required> 请求体格式，固定为 application/json </Property> </Properties> 请求参数 <Properties> <Property name=\"model\" type=\"string\" required> 模型 ID：doubao-seedance-2-5-260628 </Property> <Property name=\"prompt\" type=\"string\"> 视频描述文本。文生视频必须提供，也可以在 content 中使用 text 提供。 </Property> <Property name=\"content\" type=\"array\"> 多模态内容数组，支持 text、imageurl、videourl 和 audiourl。 </Property> <Property name=\"duration\" type=\"integer\"> 视频时长，单位为秒，范围 4 到 30，默认 5。 </Property> <Property name=\"resolution\" type=\"string\"> 输出分辨率，支持 480p 和 720p，默认 720p。 </Property> <Property name=\"ratio\" type=\"string\"> 视频宽高比。支持 16:9、9:16、1:1、4:3、3:4、21:9。 </Property> <Property name=\"generateaudio\" type=\"boolean\"> 是否生成音频，默认 true。 </Property> <Property name=\"image\" type=\"string\"> 首帧图片 URL，兼容图生视频请求。 </Property> <Property name=\"images\" type=\"array\"> 图片 URL 数组。无 content 时可用于传入图片素材。 </Property> <Property name=\"metadata\" type=\"object\"> 扩展参数，可传 resolution、duration、ratio、generateaudio 等兼容字段。 </Property> </Properties> </Col> <Col sticky> <CodeGroup tag=\"POST\" label=\"/v1/video/generations\"> </CodeGroup> </Col> --- 图生视频 使用 doubao-seedance-2-5-260628 并传入图片时，会执行图生视频任务。至少提供一张图片，最多提供两张；推荐使用 content 明确指定 firstframe 和 lastframe： 使用两张图片时建议始终显式设置角色。图生视频不会向上游转发 ratio 参数，也不能混入参考视频或参考音频。 --- 参考素材生视频 使用 doubao-seedance-2-5-260628 并传入参考素材时，会执行参考素材生视频任务。可传入参考图片、参考视频或参考音频；音频不能单独使用，至少还需要一张图片或一个视频。 content 角色 | 类型 | role | 说明 | | --- | --- | --- | | imageurl | firstframe | 图生视频首帧 | | imageurl | lastframe | 图生视频尾帧 | | imageurl | referenceimage | 参考图片 | | videourl"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "支持模型",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "支持模型"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "创建视频任务",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "创建视频任务"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "图生视频",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "图生视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "参考素材生视频",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "参考素材生视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "参数说明",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "参数说明"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "查询视频任务",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "查询视频任务"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "下载视频",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "下载视频"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "常见限制",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "常见限制"
   },
   {
     "url": "/docs/zh-CN/video-generation/video-sdance-2-5#",
     "title": "常见错误",
     "pageTitle": "Seedance 2.5 视频生成",
-    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 自动模式，根据输入素材选择具体的视频生成能力。 </Property> <Property name=\"bytedance/seedance/2.5/text-to-video\" type=\"model\"> 文生视频，只使用文本提示词。 </Property> <Property name=\"bytedance/seedance/2.5/image-to-video\" type=\"model\"> 图生视频，使用首帧图片，可选尾帧图片。 </Property> <Property name=\"bytedance/seedance/2.5/reference-",
+    "content": "Seedance 2.5 视频生成 Cloubic 已支持 Seedance 2.5 视频模型。通过统一的视频生成接口，可以发起文生视频、图生视频和参考素材生视频任务。{{ className: 'lead' }} 视频生成是异步任务。提交请求后请保存返回的任务 ID，并轮询任务查询接口获取最终视频。 --- 支持模型 <Property name=\"doubao-seedance-2-5-260628\" type=\"model\"> 根据输入素材自动选择文生视频、图生视频或参考素材生视频。 </Property> 自动模式的选择规则：没有媒体素材时使用文生视频；只有首尾帧图片时使用图生视频；存在参考图片、视频或音频时使用参考素材生视频。 --- 创建视频任务 <Col> 请求头 <Properties> <Property name=\"Authorization\" type=\"string\" required> Bearer Token，格式：Bearer YOURAPIKEY </Property> <Property name=\"Content-Type\" type=\"string",
     "section": "常见错误"
   },
   {

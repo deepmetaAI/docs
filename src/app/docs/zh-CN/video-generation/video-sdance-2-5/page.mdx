@@ -122,11 +122,11 @@ print(response.json())
 
 ## 图生视频
 
-使用 `bytedance/seedance/2.5/image-to-video` 时，至少提供一张图片，最多提供两张。推荐使用 `content` 明确指定 `first_frame` 和 `last_frame`：
+使用 `doubao-seedance-2-5-260628` 并传入图片时，会执行图生视频任务。至少提供一张图片，最多提供两张；推荐使用 `content` 明确指定 `first_frame` 和 `last_frame`：
 
 ```json
 {
-  "model": "bytedance/seedance/2.5/image-to-video",
+  "model": "doubao-seedance-2-5-260628",
   "prompt": "镜头缓慢向前推进，人物转向窗边的光线",
   "duration": 6,
   "resolution": "480p",
@@ -152,11 +152,11 @@ print(response.json())
 
 ## 参考素材生视频
 
-使用 `bytedance/seedance/2.5/reference-to-video` 时，可传入参考图片、参考视频或参考音频。音频不能单独使用，至少还需要一张图片或一个视频。
+使用 `doubao-seedance-2-5-260628` 并传入参考素材时，会执行参考素材生视频任务。可传入参考图片、参考视频或参考音频；音频不能单独使用，至少还需要一张图片或一个视频。
 
 ```json
 {
-  "model": "bytedance/seedance/2.5/reference-to-video",
+  "model": "doubao-seedance-2-5-260628",
   "prompt": "保持角色外观一致，让角色在现代城市街道中向前行走",
   "duration": 10,
   "resolution": "720p",
